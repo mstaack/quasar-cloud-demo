@@ -9,11 +9,9 @@
 
 <script>
 export default {
-  // name: 'LayoutName',
+  name: 'Auth',
   data () {
-    return {
-      leftDrawer: true
-    }
+    return {}
   }
 }
 </script>

@@ -1,20 +1,27 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card inline style="width: 400px">
-      <q-card-title>
-        Please Login
+    <q-card inline>
+      <q-card-title class="bg-primary text-white">
+        Please register
       </q-card-title>
       <q-card-main>
-        <q-field helper="Username" class="q-mt-lg">
-          <q-input v-model="username" :before="[{icon: 'account box', handler () {}}]"/>
+        <q-field helper="Firstname" class="q-mt-lg">
+          <q-input v-model="firstname"/>
         </q-field>
-        <q-field helper="Password" class="q-mt-lg">
-          <q-input v-model="password" type="password" :before="[{icon: 'vpn key', handler () {}}]"/>
+        <q-field helper="Lastname" class="q-mt-md">
+          <q-input v-model="lastname"/>
+        </q-field>
+        <q-field helper="E-Mail" class="q-mt-md">
+          <q-input v-model="email" type="email"/>
+        </q-field>
+        <q-field helper="Password" class="q-mt-md">
+          <q-input v-model="password" type="password"/>
         </q-field>
       </q-card-main>
-      <q-card-separator class="q-mt-lg" />
-      <q-card-actions>
-        <q-btn class="float-right" color="primary" @click="register" label="Register" />
+      <q-card-separator class="q-mt-md"/>
+      <q-card-actions align="between">
+        <q-btn flat color="secondary" @click="$router.push({ name: 'login' })" label="Login"/>
+        <q-btn color="primary" @click="register" label="Register"/>
       </q-card-actions>
     </q-card>
   </q-page>
@@ -32,7 +39,7 @@ export default {
     }
   },
   methods: {
-    login () {
+    register () {
       // todo
     }
   }
@@ -40,4 +47,7 @@ export default {
 </script>
 
 <style>
+  .q-card {
+    width: 400px;
+  }
 </style>

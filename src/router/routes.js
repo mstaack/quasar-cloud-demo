@@ -27,12 +27,6 @@ export default [
         name: 'register',
         component: () => import('pages/auth/register'),
         meta: {title: 'Register'}
-      },
-      {
-        path: 'password-reset',
-        name: 'password-reset',
-        component: () => import('pages/auth/password-reset'),
-        meta: {title: 'Password Reset'}
       }
     ]
   },

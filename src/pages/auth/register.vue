@@ -5,17 +5,37 @@
         Please register
       </q-card-title>
       <q-card-main>
-        <q-field helper="Firstname" class="q-mt-lg">
-          <q-input v-model="firstname"/>
+        <q-field
+          helper="Firstname"
+          class="q-mt-lg"
+          :error="$v.form.firstName.$error"
+          error-label="We need a first name"
+        >
+          <q-input v-model="form.firstname"/>
         </q-field>
-        <q-field helper="Lastname" class="q-mt-md">
-          <q-input v-model="lastname"/>
+        <q-field
+          helper="Lastname"
+          class="q-mt-md"
+          :error="$v.form.lastName.$error"
+          error-label="We need a last name"
+        >
+          <q-input v-model="form.lastname"/>
         </q-field>
-        <q-field helper="E-Mail" class="q-mt-md">
-          <q-input v-model="email" type="email"/>
+        <q-field
+          helper="E-Mail"
+          class="q-mt-md"
+          :error="$v.form.email.$error"
+          error-label="We need a valid email"
+        >
+          <q-input v-model="form.email" type="email"/>
         </q-field>
-        <q-field helper="Password" class="q-mt-md">
-          <q-input v-model="password" type="password"/>
+        <q-field
+          helper="Password"
+          class="q-mt-md"
+          :error="$v.form.password.$error"
+          error-label="We need a password"
+        >
+          <q-input v-model="form.password" type="password"/>
         </q-field>
       </q-card-main>
       <q-card-separator class="q-mt-md"/>
@@ -28,19 +48,35 @@
 </template>
 
 <script>
+import { required, email, minLength } from 'vuelidate/lib/validators'
+
 export default {
   name: 'Register',
   data () {
     return {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: ''
+      form: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: ''
+      }
+    }
+  },
+  validations: {
+    form: {
+      firstName: { required },
+      lastName: { required },
+      email: { required, email },
+      password: { required, minLength: minLength(8) }
     }
   },
   methods: {
     register () {
-      // todo
+      this.$v.form.$touch()
+
+      if (!this.$v.form.$error) {
+        // todo send request
+      }
     }
   }
 }

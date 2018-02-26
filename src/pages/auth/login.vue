@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { required, email } from 'vuelidate/lib/validators'
+import { required, email, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Login',
@@ -46,19 +46,15 @@ export default {
   validations: {
     form: {
       email: { required, email },
-      password: { required }
+      password: { required, minLength: minLength(8) }
     }
   },
   methods: {
     login () {
       this.$v.form.$touch()
 
-      if (this.$v.form.$error) {
-        this.$q.notify({
-          position: 'top',
-          type: 'negative',
-          detail: 'Please review fields again.'
-        })
+      if (!this.$v.form.$error) {
+        // todo send request
       }
     }
   }

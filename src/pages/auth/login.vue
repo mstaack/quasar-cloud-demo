@@ -5,14 +5,14 @@
         Please Login
       </q-card-title>
       <q-card-main>
-        <q-field helper="Username">
-          <q-input v-model="password"/>
+        <q-field helper="Username" class="q-mt-lg">
+          <q-input v-model="username" :before="[{icon: 'account box', handler () {}}]"/>
         </q-field>
-        <q-field helper="Password">
-          <q-input v-model="username" type="password"/>
+        <q-field helper="Password" class="q-mt-lg">
+          <q-input v-model="password" type="password" :before="[{icon: 'vpn key', handler () {}}]"/>
         </q-field>
       </q-card-main>
-      <q-card-separator />
+      <q-card-separator class="q-mt-lg" />
       <q-card-actions>
         <q-btn flat color="secondary" label="Reset Password" />
         <q-btn color="primary" @click="login" label="Login" />

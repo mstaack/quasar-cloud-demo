@@ -21,4 +21,13 @@ const Router = new VueRouter({
   routes
 })
 
+/*
+ * Set the document title dynamically on each page.
+ * This requires you to add a meta: { title: 'Page Name" } on each route entry.
+ */
+Router.beforeEach((to, from, next) => {
+  document.title = `${to.meta.title} | Quasar App`
+  next()
+})
+
 export default Router

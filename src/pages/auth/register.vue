@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card inline>
+    <q-card inline style="width: 400px;">
       <q-card-title class="bg-primary text-white">
         Please register
       </q-card-title>
@@ -47,7 +47,4 @@ export default {
 </script>
 
 <style>
-  .q-card {
-    width: 400px;
-  }
 </style>

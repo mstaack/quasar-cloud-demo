@@ -3,7 +3,12 @@ export default [
     path: '/',
     component: () => import('layouts/default'),
     children: [
-      {path: '', component: () => import('pages/index')}
+      {
+        path: '',
+        name: 'home',
+        component: () => import('pages/index'),
+        meta: { title: 'Home' }
+      }
     ]
   },
   {

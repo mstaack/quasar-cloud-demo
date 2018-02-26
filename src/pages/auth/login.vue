@@ -5,11 +5,20 @@
         Please login
       </q-card-title>
       <q-card-main>
-        <q-field helper="E-Mail" class="q-mt-lg">
-          <q-input v-model="email" type="email" :before="[{icon: 'email', handler () {}}]"/>
+        <q-field
+          helper="E-Mail" class="q-mt-lg"
+          :error="$v.form.email.$error"
+          error-label="We need a valid email"
+        >
+          <q-input v-model="form.email" type="email" :before="[{icon: 'email'}]"/>
         </q-field>
-        <q-field helper="Password" class="q-mt-lg">
-          <q-input v-model="password" type="password" :before="[{icon: 'vpn key', handler () {}}]"/>
+        <q-field
+          helper="Password"
+          class="q-mt-lg"
+          :error="$v.form.password.$error"
+          error-label="We need a valid password"
+        >
+          <q-input v-model="form.password" type="password" :before="[{icon: 'vpn key'}]"/>
         </q-field>
       </q-card-main>
       <q-card-separator class="q-mt-lg"/>
@@ -22,17 +31,35 @@
 </template>
 
 <script>
+import { required, email } from 'vuelidate/lib/validators'
+
 export default {
   name: 'Login',
   data () {
     return {
-      email: '',
-      password: ''
+      form: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  validations: {
+    form: {
+      email: { required, email },
+      password: { required }
     }
   },
   methods: {
     login () {
-      // todo
+      this.$v.form.$touch()
+
+      if (this.$v.form.$error) {
+        this.$q.notify({
+          position: 'top',
+          type: 'negative',
+          detail: 'Please review fields again.'
+        })
+      }
     }
   }
 }

@@ -21,6 +21,15 @@ module.exports = function (ctx) {
       remove: []
     },
     build: {
+      env: ctx.prod
+        ? {
+          // prod env vars here, for example:
+          // API: JSON.stringify('https://prod.api.com')
+        }
+        : {
+          // dev env vars here, for example:
+          // API: JSON.stringify('https://dev.api.com')
+        },
       scopeHoisting: true,
       vueRouterMode: 'history',
       // gzip: true,

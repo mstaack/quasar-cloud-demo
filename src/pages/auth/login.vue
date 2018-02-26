@@ -10,7 +10,7 @@
           :error="$v.form.email.$error"
           error-label="We need a valid email"
         >
-          <q-input v-model="form.email" type="email" :before="[{icon: 'email'}]"/>
+          <q-input v-model="form.email" type="email" :before="[{icon: 'email'}]" @blur="$v.form.email.$touch()"/>
         </q-field>
         <q-field
           helper="Password"
@@ -18,13 +18,13 @@
           :error="$v.form.password.$error"
           error-label="We need a valid password"
         >
-          <q-input v-model="form.password" type="password" :before="[{icon: 'vpn key'}]"/>
+          <q-input v-model="form.password" type="password" :before="[{icon: 'vpn key'}]" @blur="$v.form.password.$touch()"/>
         </q-field>
       </q-card-main>
       <q-card-separator class="q-mt-lg"/>
       <q-card-actions align="between">
         <q-btn flat color="secondary" @click="$router.push({ name: 'register' })" label="Register"/>
-        <q-btn color="primary" @click="login" label="Login"/>
+        <q-btn :disable="$v.form.$invalid" color="primary" @click="login" label="Login"/>
       </q-card-actions>
     </q-card>
   </q-page>

@@ -8,11 +8,12 @@ export default [
   },
   {
     path: '/auth',
+    redirect: '/auth/login',
     component: () => import('layouts/auth'),
     children: [
-      {path: 'login', component: () => import('pages/login')},
-      {path: 'register', component: () => import('pages/register')},
-      {path: 'password-reset', component: () => import('pages/password-reset')}
+      {path: 'login', component: () => import('pages/auth/login')},
+      {path: 'register', component: () => import('pages/auth/register')},
+      {path: 'password-reset', component: () => import('pages/auth/password-reset')}
     ]
   },
 

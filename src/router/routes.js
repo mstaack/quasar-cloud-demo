@@ -7,7 +7,7 @@ export default [
         path: '',
         name: 'home',
         component: () => import('pages/index'),
-        meta: { title: 'Home' }
+        meta: {title: 'Home'}
       }
     ]
   },
@@ -16,9 +16,24 @@ export default [
     redirect: '/auth/login',
     component: () => import('layouts/auth'),
     children: [
-      {path: 'login', component: () => import('pages/auth/login')},
-      {path: 'register', component: () => import('pages/auth/register')},
-      {path: 'password-reset', component: () => import('pages/auth/password-reset')}
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('pages/auth/login'),
+        meta: {title: 'Login'}
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: () => import('pages/auth/register'),
+        meta: {title: 'Register'}
+      },
+      {
+        path: 'password-reset',
+        name: 'password-reset',
+        component: () => import('pages/auth/password-reset'),
+        meta: {title: 'Password Reset'}
+      }
     ]
   },
 

@@ -13,10 +13,9 @@
         </q-field>
       </q-card-main>
       <q-card-separator />
-      <q-card-separator />
       <q-card-actions>
-        <q-btn color="primary" label="Login" />
-        <q-btn flat color="primary" label="Reset Password" />
+        <q-btn flat color="secondary" label="Reset Password" />
+        <q-btn color="primary" @click="login" label="Login" />
       </q-card-actions>
     </q-card>
   </q-page>

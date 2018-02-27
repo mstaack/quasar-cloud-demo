@@ -14,8 +14,9 @@
             v-model="form.email"
             type="email"
             :before="[{icon: 'email'}]"
+            ref="email"
             @blur="$v.form.email.$touch()"
-            @keyup.enter="login"
+            @keyup.enter="$refs.password.focus()"
           />
         </q-field>
         <q-field
@@ -28,13 +29,14 @@
             v-model="form.password"
             type="password"
             :before="[{icon: 'vpn key'}]"
+            ref="email"
             @blur="$v.form.password.$touch()"
             @keyup.enter="login"
           />
         </q-field>
       </q-card-main>
       <q-card-separator class="q-mt-lg"/>
-      <q-card-actions align="between">
+      <q-card-actions align="around">
         <q-btn
           label="Register"
           flat color="secondary"
@@ -42,7 +44,7 @@
         />
         <q-btn
           label="Login"
-          :disable="$v.form.$invalid"
+          :disable="$v.form.$error"
           color="primary"
           @click="login"
         />
@@ -53,6 +55,7 @@
 
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
@@ -74,11 +77,21 @@ export default {
     login () {
       this.$v.form.$touch()
 
-      if (!this.$v.form.$error) {
+      if (!this.$v.form.$invalid) {
         // todo send request
         console.log('Logging in...')
+        this.stateLogin({ username: this.email, password: this.password })
       }
-    }
+      else {
+        this.$refs.email.focus()
+      }
+    },
+    ...mapActions('session', {
+      stateLogin: 'login'
+    })
+  },
+  mounted () {
+    this.$refs.email.focus()
   }
 }
 </script>

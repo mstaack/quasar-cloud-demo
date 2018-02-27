@@ -53,7 +53,7 @@
         </q-field>
       </q-card-main>
       <q-card-separator class="q-mt-md"/>
-      <q-card-actions align="between">
+      <q-card-actions align="around">
         <q-btn
           label="Login"
           flat
@@ -63,6 +63,7 @@
         <q-btn
           label="Register"
           color="primary"
+          :disable="$v.form.$invalid"
           @click="register"
         />
       </q-card-actions>
@@ -71,7 +72,7 @@
 </template>
 
 <script>
-import { required, email, minLength } from 'vuelidate/lib/validators'
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Register',
@@ -81,7 +82,8 @@ export default {
         firstName: '',
         lastName: '',
         email: '',
-        password: ''
+        password: '',
+        passwordDuplicate: ''
       }
     }
   },
@@ -90,7 +92,8 @@ export default {
       firstName: { required: true},
       lastName: { required: true },
       email: { required, email },
-      password: { required, minLength: minLength(8) }
+      password: { required, minLength: minLength(8) },
+      passwordDuplicate: { sameAs: sameAs('password') }
     }
   },
   methods: {

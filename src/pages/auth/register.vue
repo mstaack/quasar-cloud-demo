@@ -1,33 +1,43 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card inline style="width: 400px;">
+    <q-card inline class="register-card">
       <q-card-title class="bg-primary text-white">
         Please register
       </q-card-title>
       <q-card-main>
         <q-field
-          helper="Firstname"
+          helper="First Name"
           class="q-mt-lg"
           :error="$v.form.firstName.$error"
           error-label="We need a first name"
         >
-          <q-input v-model="form.firstname"/>
+          <q-input
+            v-model="form.firstname"
+            @keyup.enter="register"
+          />
         </q-field>
         <q-field
-          helper="Lastname"
+          helper="Last Name"
           class="q-mt-md"
           :error="$v.form.lastName.$error"
           error-label="We need a last name"
         >
-          <q-input v-model="form.lastname"/>
+          <q-input
+            v-model="form.lastname"
+            @keyup.enter="register"
+          />
         </q-field>
         <q-field
           helper="E-Mail"
           class="q-mt-md"
           :error="$v.form.email.$error"
-          error-label="We need a valid email"
+          error-label="We need a valid e-mail"
         >
-          <q-input v-model="form.email" type="email"/>
+          <q-input
+            v-model="form.email"
+            type="email"
+            @keyup.enter="register"
+          />
         </q-field>
         <q-field
           helper="Password"
@@ -35,13 +45,26 @@
           :error="$v.form.password.$error"
           error-label="We need a password"
         >
-          <q-input v-model="form.password" type="password"/>
+          <q-input
+            v-model="form.password"
+            type="password"
+            @keyup.enter="register"
+          />
         </q-field>
       </q-card-main>
       <q-card-separator class="q-mt-md"/>
       <q-card-actions align="between">
-        <q-btn flat color="secondary" @click="$router.push({ name: 'login' })" label="Login"/>
-        <q-btn color="primary" @click="register" label="Register"/>
+        <q-btn
+          label="Login"
+          flat
+          color="secondary"
+          @click="$router.push({ name: 'login' })"
+        />
+        <q-btn
+          label="Register"
+          color="primary"
+          @click="register"
+        />
       </q-card-actions>
     </q-card>
   </q-page>
@@ -64,8 +87,8 @@ export default {
   },
   validations: {
     form: {
-      firstName: { required },
-      lastName: { required },
+      firstName: { required: true},
+      lastName: { required: true },
       email: { required, email },
       password: { required, minLength: minLength(8) }
     }
@@ -76,11 +99,14 @@ export default {
 
       if (!this.$v.form.$error) {
         // todo send request
+        console.log('Registering...')
       }
     }
   }
 }
 </script>
 
-<style>
+<style lang="stylus" scoped>
+  .register-card
+    width 400px
 </style>

@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card inline style="width: 400px;">
+    <q-card inline class="login-card">
       <q-card-title class="bg-primary text-white">
         Please login
       </q-card-title>
@@ -8,9 +8,15 @@
         <q-field
           helper="E-Mail" class="q-mt-lg"
           :error="$v.form.email.$error"
-          error-label="We need a valid email"
+          error-label="We need a valid e-mail"
         >
-          <q-input v-model="form.email" type="email" :before="[{icon: 'email'}]" @blur="$v.form.email.$touch()"/>
+          <q-input
+            v-model="form.email"
+            type="email"
+            :before="[{icon: 'email'}]"
+            @blur="$v.form.email.$touch()"
+            @keyup.enter="login"
+          />
         </q-field>
         <q-field
           helper="Password"
@@ -18,13 +24,28 @@
           :error="$v.form.password.$error"
           error-label="We need a valid password"
         >
-          <q-input v-model="form.password" type="password" :before="[{icon: 'vpn key'}]" @blur="$v.form.password.$touch()"/>
+          <q-input
+            v-model="form.password"
+            type="password"
+            :before="[{icon: 'vpn key'}]"
+            @blur="$v.form.password.$touch()"
+            @keyup.enter="login"
+          />
         </q-field>
       </q-card-main>
       <q-card-separator class="q-mt-lg"/>
       <q-card-actions align="between">
-        <q-btn flat color="secondary" @click="$router.push({ name: 'register' })" label="Register"/>
-        <q-btn :disable="$v.form.$invalid" color="primary" @click="login" label="Login"/>
+        <q-btn
+          label="Register"
+          flat color="secondary"
+          @click="$router.push({ name: 'register' })"
+        />
+        <q-btn
+          label="Login"
+          :disable="$v.form.$invalid"
+          color="primary"
+          @click="login"
+        />
       </q-card-actions>
     </q-card>
   </q-page>
@@ -55,11 +76,14 @@ export default {
 
       if (!this.$v.form.$error) {
         // todo send request
+        console.log('Logging in...')
       }
     }
   }
 }
 </script>
 
-<style>
+<style lang="stylus" scoped>
+  .login-card
+    width 400px
 </style>

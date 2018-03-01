@@ -2,6 +2,7 @@ export default [
   {
     path: '/',
     component: () => import('layouts/main'),
+    meta: { requiresAuth: true },
     children: [
       {
         path: '',

@@ -1,3 +1,3 @@
 export const isAuthenticated = (state) => {
-  return true;
+  return state.user;
 }

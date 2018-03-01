@@ -3,7 +3,6 @@ export default [
     path: '/',
     component: () => import('layouts/main'),
     meta: {auth: true},
-    name: 'main',
     children: [
       {
         path: '',
@@ -15,7 +14,6 @@ export default [
   },
   {
     path: '/auth',
-    name: 'auth',
     redirect: '/auth/login',
     meta: {guest: true},
     component: () => import('layouts/auth'),

@@ -6,7 +6,7 @@ export default ({app, router, Vue}) => {
        * a page that requires authentication, redirect to the login page
        */
       next({
-        name: 'auth.login',
+        name: 'login',
       })
     } else if (to.matched.some(m => m.meta.guest) && app.store.getters['session/isAuthenticated']) {
       /*
@@ -14,7 +14,7 @@ export default ({app, router, Vue}) => {
        * an guest page, redirect to the dashboard page
        */
       next({
-        name: 'home.index',
+        name: 'index',
       })
     } else {
       next()

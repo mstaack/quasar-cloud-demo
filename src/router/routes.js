@@ -2,11 +2,12 @@ export default [
   {
     path: '/',
     component: () => import('layouts/main'),
-    meta: { requiresAuth: true },
+    meta: {auth: true},
+    name: 'main',
     children: [
       {
         path: '',
-        name: 'home',
+        name: 'index',
         component: () => import('pages/index'),
         meta: {title: 'Home'}
       }
@@ -14,7 +15,9 @@ export default [
   },
   {
     path: '/auth',
+    name: 'auth',
     redirect: '/auth/login',
+    meta: {guest: true},
     component: () => import('layouts/auth'),
     children: [
       {

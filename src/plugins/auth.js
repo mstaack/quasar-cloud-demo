@@ -1,24 +1,23 @@
-export default ({ app, router, Vue }) => {
-
+export default ({app, router, Vue}) => {
   router.beforeEach((to, from, next) => {
-    document.title = `${to.meta.title} | Quasar App`
-    next()
-  })
-
-  router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-      // this route requires auth, check if logged in
-      // if not, redirect to login page.
-      if (!app.store.getters['session/isAuthenticated']) {
-        next({
-          path: '/auth/login',
-          query: { redirect: to.fullPath }
-        })
-      } else {
-        next()
-      }
+    if (to.matched.some(m => m.meta.auth) && !app.store.getters['session/isAuthenticated']) {
+      /*
+       * If the user is not authenticated and visits
+       * a page that requires authentication, redirect to the login page
+       */
+      next({
+        name: 'auth.login',
+      })
+    } else if (to.matched.some(m => m.meta.guest) && app.store.getters['session/isAuthenticated']) {
+      /*
+       * If the user is authenticated and visits
+       * an guest page, redirect to the dashboard page
+       */
+      next({
+        name: 'home.index',
+      })
     } else {
-      next() // make sure to always call next()!
+      next()
     }
   })
 }

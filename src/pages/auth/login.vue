@@ -44,7 +44,7 @@
         />
         <q-btn
           label="Login"
-          :disable="$v.form.$error"
+          :disable="$v.form.$invalid"
           color="primary"
           @click="login"
         />
@@ -81,8 +81,7 @@ export default {
         // todo send request
         console.log('Logging in...')
         this.stateLogin({ username: this.email, password: this.password })
-      }
-      else {
+      } else {
         this.$refs.email.focus()
       }
     },

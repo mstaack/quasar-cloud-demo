@@ -9,6 +9,12 @@ export default [
         name: 'index',
         component: () => import('pages/index'),
         meta: {title: 'Home'}
+      },
+      {
+        path: 'posts',
+        name: 'posts',
+        component: () => import('pages/posts'),
+        meta: {title: 'Posts'}
       }
     ]
   },

@@ -90,7 +90,7 @@
             this.$q.notify({
               color: 'negative',
               position: 'top',
-              message: error.response.data.error,
+              message: error.response.data.message,
               icon: 'report_problem'
             })
             this.loading = false
@@ -103,7 +103,7 @@
   }
 </script>
 
-<style lang="stylus" scoped>
-    .login-card
-        width 320px
-</style>
+    <style lang="stylus" scoped>
+        .login-card
+            width 320px
+    </style>

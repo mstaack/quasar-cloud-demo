@@ -1,5 +1,5 @@
 import axios from 'axios'
 
-export default ({ Vue }) => {
+export default ({app, router, Vue}) => {
   Vue.prototype.$axios = axios
 }

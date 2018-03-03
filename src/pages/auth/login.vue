@@ -1,6 +1,6 @@
 <template>
     <q-page class="flex flex-center">
-        <q-card inline class="login-card q-mt-lg" color="grey-3">
+        <q-card inline class="login-card q-mt-lg relative-position" color="grey-3">
             <q-card-title class="bg-primary text-white">
                 Login
             </q-card-title>
@@ -49,6 +49,9 @@
                         @click="login"
                 />
             </q-card-actions>
+            <q-inner-loading :visible="loading">
+                <q-spinner-gears size="50px" color="primary"></q-spinner-gears>
+            </q-inner-loading>
         </q-card>
     </q-page>
 </template>
@@ -60,6 +63,7 @@
     name: 'Login',
     data () {
       return {
+        loading: false,
         form: {
           email: '',
           password: ''
@@ -74,11 +78,13 @@
     },
     methods: {
       login () {
+        this.loading = true
         this.$axios.post('/api/login', this.form)
           .then(response => {
             let token = response.data.token
             this.$store.commit('session/login', {token: token, email: this.form.email})
             this.$router.push({name: 'index'})
+            this.loading = false
           })
           .catch(error => {
             this.$q.notify({
@@ -87,6 +93,7 @@
               message: error.response.data.error,
               icon: 'report_problem'
             })
+            this.loading = false
           })
       }
     },

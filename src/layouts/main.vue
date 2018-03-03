@@ -2,17 +2,12 @@
     <q-layout view="lHh Lpr lFf">
         <q-layout-header>
             <q-toolbar color="primary">
-                <q-btn
-                        flat
-                        dense
-                        round
-                        @click="leftDrawerOpen = !leftDrawerOpen"
-                >
+                <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen">
                     <q-icon name="menu"/>
                 </q-btn>
 
                 <q-toolbar-title>
-                    Quasar App
+                    Quasar Advanced Starter
                     <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
                 </q-toolbar-title>
                 <q-btn flat round dense icon="more_vert">

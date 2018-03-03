@@ -70,6 +70,7 @@ module.exports = function (ctx) {
         'QLayoutDrawer',
         'QPageContainer',
         'QPage',
+        'QPopover',
         'QToolbar',
         'QToolbarTitle',
         'QBtn',
@@ -77,6 +78,7 @@ module.exports = function (ctx) {
         'QList',
         'QListHeader',
         'QItem',
+        'QItemTile',
         'QItemMain',
         'QItemSide',
         'QField',
@@ -89,7 +91,8 @@ module.exports = function (ctx) {
         'QCardActions'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       plugins: [
         'Notify'

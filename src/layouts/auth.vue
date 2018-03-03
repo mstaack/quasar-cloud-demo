@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'Auth',
+    name: 'AuthLayout',
     data () {
       return {}
     }

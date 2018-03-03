@@ -76,7 +76,8 @@
       login () {
         this.$axios.post('/api/login', this.form)
           .then(response => {
-            this.$store.commit('session/login', {token: response.data.token})
+            let token = response.data.token
+            this.$store.commit('session/login', {token: token, email: this.form.email})
             this.$router.push({name: 'index'})
           })
           .catch(error => {

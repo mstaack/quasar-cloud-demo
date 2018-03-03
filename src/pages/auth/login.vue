@@ -13,10 +13,8 @@
                     <q-input
                             v-model="form.email"
                             type="email"
-                            :before="[{icon: 'email'}]"
                             ref="email"
-                            @blur="$v.form.email.$touch()"
-                            @keyup.enter="$refs.password.focus()"
+                            :autofocus="true"
                     />
                 </q-field>
                 <q-field
@@ -28,9 +26,7 @@
                     <q-input
                             v-model="form.password"
                             type="password"
-                            :before="[{icon: 'vpn key'}]"
                             ref="email"
-                            @blur="$v.form.password.$touch()"
                             @keyup.enter="login"
                     />
                 </q-field>
@@ -79,9 +75,13 @@
     methods: {
       login () {
         this.loading = true
-        this.$axios.post('/api/login', this.form)
+        this.$axios.post('/api/authentication', {
+          email: this.form.email,
+          password: this.form.password,
+          strategy: 'local',
+        })
           .then(response => {
-            let token = response.data.token
+            let token = response.data.accessToken
             this.$store.commit('session/login', {token: token, email: this.form.email})
             this.$router.push({name: 'index'})
             this.loading = false

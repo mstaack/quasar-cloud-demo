@@ -54,7 +54,7 @@ module.exports = function (ctx) {
       open: true, // opens browser window automatically
       proxy: {
         '/api': {
-          target: 'https://reqres.in/api',
+          target: 'http://localhost:3030',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''

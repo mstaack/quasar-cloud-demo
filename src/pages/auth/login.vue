@@ -55,7 +55,6 @@
 
 <script>
   import {required, email, minLength} from 'vuelidate/lib/validators'
-  import {mapActions} from 'vuex'
 
   export default {
     name: 'Login',
@@ -75,20 +74,20 @@
     },
     methods: {
       login () {
-        this.stateLogin(this.form).then(() => {
-          this.$router.push({name: 'index'})
-        }).catch(() => {
-          this.$q.notify({
-            color: 'negative',
-            position: 'top',
-            message: 'Your credentials are wrong!',
-            icon: 'report_problem'
+        this.$axios.post('/api/login', this.form)
+          .then(response => {
+            this.$store.commit('session/login', {token: response.data.token})
+            this.$router.push({name: 'index'})
           })
-        })
-      },
-      ...mapActions('session', {
-        stateLogin: 'login'
-      })
+          .catch((error) => {
+            this.$q.notify({
+              color: 'negative',
+              position: 'top',
+              message: 'Your credentials are wrong!',
+              icon: 'report_problem'
+            })
+          })
+      }
     },
     mounted () {
       this.$refs.email.focus()

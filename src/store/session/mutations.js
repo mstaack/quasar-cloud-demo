@@ -1,9 +1,4 @@
-/*
-export const someMutation = (state) => {
-}
-*/
-
-export const login = (state, { token }) => {
+export const login = (state, {token}) => {
   state.token = token
 }
 

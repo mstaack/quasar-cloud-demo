@@ -1,8 +1,8 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card inline class="register-card q-mt-lg">
+    <q-card inline class="register-card q-mt-lg" color="grey-3">
       <q-card-title class="bg-primary text-white">
-        Please register
+        Register
       </q-card-title>
       <q-card-main>
         <q-field

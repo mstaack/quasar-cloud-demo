@@ -79,11 +79,11 @@
             this.$store.commit('session/login', {token: response.data.token})
             this.$router.push({name: 'index'})
           })
-          .catch((error) => {
+          .catch(error => {
             this.$q.notify({
               color: 'negative',
               position: 'top',
-              message: 'Your credentials are wrong!',
+              message: error.response.data.error,
               icon: 'report_problem'
             })
           })

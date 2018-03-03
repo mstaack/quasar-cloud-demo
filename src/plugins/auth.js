@@ -4,6 +4,7 @@ export default ({app, router, Vue}) => {
   let token = localStorage.getItem('token')
   if (token) {
     app.store.commit('session/login', {token: token})
+    Vue.prototype.$axios.defaults.headers.common['accessToken'] = token;
   }
 
   // Check for protected and guest routes and perform checks

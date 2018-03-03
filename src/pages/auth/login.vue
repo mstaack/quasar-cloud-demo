@@ -1,6 +1,6 @@
 <template>
     <q-page class="flex flex-center">
-        <q-card inline class="login-card">
+        <q-card inline class="login-card q-mt-lg">
             <q-card-title class="bg-primary text-white">
                 Please login
             </q-card-title>
@@ -36,7 +36,7 @@
                 </q-field>
             </q-card-main>
             <q-card-separator class="q-mt-lg"/>
-            <q-card-actions align="around">
+            <q-card-actions align="between">
                 <q-btn
                         label="Register"
                         flat color="secondary"
@@ -78,9 +78,7 @@
         this.$v.form.$touch()
 
         if (!this.$v.form.$invalid) {
-          // todo send request
-          console.log('Logging in...')
-          this.stateLogin({username: this.email, password: this.password})
+          this.stateLogin(this.form)
         } else {
           this.$refs.email.focus()
         }
@@ -97,5 +95,5 @@
 
 <style lang="stylus" scoped>
     .login-card
-        width 400px
+        width 320px
 </style>

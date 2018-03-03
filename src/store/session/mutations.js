@@ -3,8 +3,8 @@ export const someMutation = (state) => {
 }
 */
 
-export const login = (state, { user }) => {
-  state.user = user
+export const login = (state, { token }) => {
+  state.token = token
 }
 
 export const logout = (state) => {

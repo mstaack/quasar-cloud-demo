@@ -1,5 +1,4 @@
 export default {
-  user: {
-    name: 'max'
-  }
+  token: null,
+  user: null
 }

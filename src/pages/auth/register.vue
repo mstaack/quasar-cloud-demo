@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <q-card inline class="register-card">
+    <q-card inline class="register-card q-mt-lg">
       <q-card-title class="bg-primary text-white">
         Please register
       </q-card-title>
@@ -53,7 +53,7 @@
         </q-field>
       </q-card-main>
       <q-card-separator class="q-mt-md"/>
-      <q-card-actions align="around">
+      <q-card-actions align="between">
         <q-btn
           label="Login"
           flat
@@ -111,5 +111,5 @@ export default {
 
 <style lang="stylus" scoped>
   .register-card
-    width 400px
+    width 320px
 </style>

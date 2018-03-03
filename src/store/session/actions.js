@@ -1,18 +1,21 @@
-/*
-export const someAction = (state) => {
-}
-*/
-export function login ({ commit }, { username, password }) {
-  this._vm.$axios.post('/api/session/login', { username, password })
-    .then(response => {
-      commit('login', { user: response.data.user })
+export function login ({commit}, {email, password}) {
+  this._vm.$axios.post('/api/login', {email, password})
+    .then((response) => {
+      commit('login', {token: response.data.token})
+      console.log(this._vm.$router)
+      this._vm.router.push('/')
     })
     .catch(() => {
-      // this._vm.$router.push('/')
+      this._vm.$q.notify({
+        color: 'negative',
+        position: 'top',
+        message: 'Your credentials are wrong!',
+        icon: 'report_problem'
+      })
     })
 }
 
-export function logout ({ commit }) {
+export function logout ({commit}) {
   this._vm.$axios.get('/api/session/logout')
     .then(response => {
       commit('logout')

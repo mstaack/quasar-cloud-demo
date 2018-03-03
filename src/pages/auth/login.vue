@@ -75,13 +75,16 @@
     },
     methods: {
       login () {
-        this.$v.form.$touch()
-
-        if (!this.$v.form.$invalid) {
-          this.stateLogin(this.form)
-        } else {
-          this.$refs.email.focus()
-        }
+        this.stateLogin(this.form).then(() => {
+          this.$router.push({name: 'index'})
+        }).catch(() => {
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Your credentials are wrong!',
+            icon: 'report_problem'
+          })
+        })
       },
       ...mapActions('session', {
         stateLogin: 'login'

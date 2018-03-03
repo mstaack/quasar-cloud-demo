@@ -1,6 +1,6 @@
 <template>
     <q-page class="flex flex-center">
-        <q-card inline class="login-card q-mt-lg">
+        <q-card inline class="login-card q-mt-lg" color="white">
             <q-card-title class="bg-primary text-white">
                 Please login
             </q-card-title>

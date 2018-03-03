@@ -16,5 +16,7 @@
   }
 </script>
 
-<style>
+<style lang="stylus" scoped>
+    .q-layout-page-container
+        background: url('~assets/background.jpg') no-repeat right center
 </style>

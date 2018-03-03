@@ -21,10 +21,7 @@
                             <q-item v-close-overlay @click.native="doSomething">
                                 Profile
                             </q-item>
-                            <q-item v-close-overlay @click.native="doSomething">
-                                Settings
-                            </q-item>
-                            <q-item v-close-overlay @click.native="doSomething">
+                            <q-item v-close-overlay @click.native="logout">
                                 Logout
                             </q-item>
                         </q-list>

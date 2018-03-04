@@ -1,6 +1,6 @@
 export default ({app, router, Vue}) => {
 
-  // Check for authentication token
+  // Check for authentication token on startup
   if (!app.store.getters['session/isAuthenticated']) {
     app.store.dispatch('session/verify').then(() => {
       router.push({

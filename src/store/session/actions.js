@@ -29,9 +29,12 @@ export function login ({commit}, form) {
   return axios.post('api/auth/login', form)
     .then(response => {
       commit('login', {token: response.data.token, user: response.data.user})
+      LocalStorage.set('token', response.data.token)
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
     })
 }
 
 export function logout ({commit}) {
   commit('logout')
+  LocalStorage.clear()
 }

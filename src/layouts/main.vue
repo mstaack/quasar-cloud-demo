@@ -51,7 +51,7 @@
     },
     methods: {
       logout () {
-        this.$store.commit('session/logout')
+        this.$store.dispatch('session/logout')
         this.$router.push({name: 'login'})
       }
     }

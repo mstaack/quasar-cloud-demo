@@ -1,11 +1,7 @@
 export default ({app, router, Vue}) => {
 
   // Check for authentication token from last usage withing localstorage
-  let token = localStorage.getItem('token')
-  if (token) {
-    app.store.commit('session/login', {token: token})
-    Vue.prototype.$axios.defaults.headers.common['accessToken'] = token;
-  }
+  //app.store.commit('session/verify')
 
   // Check for protected and guest routes and perform checks
   router.beforeEach((to, from, next) => {

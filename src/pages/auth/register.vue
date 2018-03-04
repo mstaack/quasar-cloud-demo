@@ -81,7 +81,7 @@
 
         this.$store.dispatch('session/register', this.form).then(() => {
           this.loading = false
-          this.$router.push({name: 'index'})    
+          this.$router.push({name: 'index'})
           this.$q.notify({
             color: 'positive',
             position: 'top',
@@ -89,6 +89,7 @@
             icon: 'report_problem'
           })
         }).catch(error => {
+          console.log(error)
           this.loading = false
           this.$q.notify({
             color: 'negative',

@@ -1,7 +1,7 @@
 <template>
     <q-page class="flex flex-center">
 
-        <q-card class="article-card q-mt-lg" v-for="article in articles">
+        <q-card class="article-card q-mt-lg" v-for="article in articles" :key="article.id">
             <q-card-title class="bg-primary text-white">
                 {{article.title}}
             </q-card-title>

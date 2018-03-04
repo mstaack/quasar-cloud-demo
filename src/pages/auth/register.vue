@@ -76,12 +76,12 @@
     },
     methods: {
       register () {
-
         this.$v.form.$touch()
+        this.loading = true
 
         this.$store.dispatch('session/register', this.form).then(() => {
           this.loading = false
-          this.$router.push({name: 'index'})
+          this.$router.push({name: 'index'})    
           this.$q.notify({
             color: 'positive',
             position: 'top',
@@ -89,13 +89,13 @@
             icon: 'report_problem'
           })
         }).catch(error => {
+          this.loading = false
           this.$q.notify({
             color: 'negative',
             position: 'top',
             message: error.response.data.message || 'Something went wrong',
             icon: 'report_problem'
           })
-          this.loading = false
         })
       }
     }

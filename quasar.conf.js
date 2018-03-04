@@ -102,7 +102,8 @@ module.exports = function (ctx) {
         'CloseOverlay'
       ],
       plugins: [
-        'Notify'
+        'Notify',
+        'LocalStorage'
       ]
     },
     // animations: 'all' --- includes all animations

@@ -74,27 +74,27 @@
     },
     methods: {
       login () {
+        this.$v.form.$touch()
         this.loading = true
-        this.$axios.post('/api/authentication', {
-          email: this.form.email,
-          password: this.form.password,
-          strategy: 'local',
+
+        this.$store.dispatch('session/login', this.form).then(() => {
+          this.loading = false
+          this.$router.push({name: 'index'})
+          this.$q.notify({
+            color: 'positive',
+            position: 'top',
+            message: 'Login Successful',
+            icon: 'report_problem'
+          })
+        }).catch(error => {
+          this.loading = false
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Your credentials are wrong',
+            icon: 'report_problem'
+          })
         })
-          .then(response => {
-            let token = response.data.accessToken
-            this.$store.commit('session/login', {token: token, email: this.form.email})
-            this.$router.push({name: 'index'})
-            this.loading = false
-          })
-          .catch(error => {
-            this.$q.notify({
-              color: 'negative',
-              position: 'top',
-              message: error.response.data.message,
-              icon: 'report_problem'
-            })
-            this.loading = false
-          })
       }
     },
     mounted () {
@@ -103,7 +103,7 @@
   }
 </script>
 
-    <style lang="stylus" scoped>
-        .login-card
-            width 320px
-    </style>
+<style lang="stylus" scoped>
+    .login-card
+        width 320px
+</style>

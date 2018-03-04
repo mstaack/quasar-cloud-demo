@@ -1,7 +1,13 @@
 export default ({app, router, Vue}) => {
 
-  // Check for authentication token from last usage withing localstorage
-  //app.store.commit('session/verify')
+  // Check for authentication token
+  if (!app.store.getters['session/isAuthenticated']) {
+    app.store.dispatch('session/verify').then(() => {
+      router.push({
+        name: 'index',
+      })
+    })
+  }
 
   // Check for protected and guest routes and perform checks
   router.beforeEach((to, from, next) => {

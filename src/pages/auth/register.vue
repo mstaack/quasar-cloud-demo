@@ -89,7 +89,6 @@
             icon: 'report_problem'
           })
         }).catch(error => {
-          console.log(error)
           this.loading = false
           this.$q.notify({
             color: 'negative',

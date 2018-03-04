@@ -30,7 +30,7 @@
                 <q-list-header>Navigation</q-list-header>
                 <q-item>
                     <q-item-side icon="school"/>
-                    <q-item-main label="Posts" @click.native="$router.push({ name: 'posts' })"/>
+                    <q-item-main label="Articles" @click.native="$router.push({ name: 'articles' })"/>
                 </q-item>
             </q-list>
         </q-layout-drawer>

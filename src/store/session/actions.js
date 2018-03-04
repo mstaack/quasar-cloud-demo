@@ -6,20 +6,17 @@ export function register ({commit}, form) {
     .then(response => {
       commit('login', {token: response.data.token, user: response.data.user})
       LocalStorage.set('token', response.data.token)
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
+      setAxiosHeaders(response.data.token)
     })
 }
 
 export function verify ({commit}) {
   let token = LocalStorage.get.item('token')
   if (token) {
-    return axios.get('api/auth/user', {
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    }).then(response => {
+    setAxiosHeaders(token)
+    return axios.get('api/auth/user').then(response => {
       commit('login', {token: token, user: response.data})
-    }).catch((error) => {
+    }).catch(() => {
       LocalStorage.clear()
     })
   }
@@ -30,11 +27,15 @@ export function login ({commit}, form) {
     .then(response => {
       commit('login', {token: response.data.token, user: response.data.user})
       LocalStorage.set('token', response.data.token)
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
+      setAxiosHeaders(response.data.token)
     })
 }
 
 export function logout ({commit}) {
   commit('logout')
   LocalStorage.clear()
+}
+
+function setAxiosHeaders (token) {
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }

@@ -1,12 +1,15 @@
 <template>
     <q-page class="flex flex-center">
-        <q-table
-                title="Posts Overview"
-                :data="posts"
-                :columns="columns"
-                row-key="_id"
-                class="bg-white posts-table"
-        />
+
+        <q-card class="article-card q-mt-lg" v-for="article in articles">
+            <q-card-title class="bg-primary text-white">
+                {{article.title}}
+            </q-card-title>
+            <q-card-main>
+                {{article.text}}
+            </q-card-main>
+        </q-card>
+
     </q-page>
 </template>
 
@@ -15,29 +18,19 @@
 
 <script>
   export default {
-    name: 'Posts',
+    name: 'Articles',
     data () {
       return {
         loading: false,
-        posts: [],
-        columns: [
-          {
-            label: 'Title',
-            field: 'title'
-          },
-          {
-            label: 'Text',
-            field: 'text'
-          }
-        ]
+        articles: []
       }
     },
     methods: {
-      fetchPosts () {
+      fetchArticles () {
         this.loading = true
-        this.$axios.get('/api/posts')
+        this.$axios.get('/api/articles')
           .then(response => {
-            this.posts = response.data.data
+            this.articles = response.data
             this.loading = false
           })
           .catch(error => {
@@ -52,13 +45,13 @@
       }
     },
     mounted () {
-      this.fetchPosts()
+      this.fetchArticles()
     }
   }
 
 </script>
 
 <style lang="stylus" scoped>
-    .posts-table
-        width 1000px
+    .article-card
+        width 700px
 </style>

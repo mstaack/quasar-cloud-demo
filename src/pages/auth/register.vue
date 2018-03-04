@@ -6,26 +6,12 @@
             </q-card-title>
             <q-card-main>
                 <q-field
-                        helper="First Name"
+                        helper="Your Name"
                         class="q-mt-lg"
-                        :error="$v.form.firstName.$error"
-                        error-label="We need a first name"
+                        :error="$v.form.name.$error"
+                        error-label="We need a name"
                 >
-                    <q-input
-                            v-model="form.firstname"
-                            @keyup.enter="register"
-                    />
-                </q-field>
-                <q-field
-                        helper="Last Name"
-                        class="q-mt-md"
-                        :error="$v.form.lastName.$error"
-                        error-label="We need a last name"
-                >
-                    <q-input
-                            v-model="form.lastname"
-                            @keyup.enter="register"
-                    />
+                    <q-input v-model="form.name" :autofocus="true"/>
                 </q-field>
                 <q-field
                         helper="E-Mail"
@@ -33,11 +19,7 @@
                         :error="$v.form.email.$error"
                         error-label="We need a valid e-mail"
                 >
-                    <q-input
-                            v-model="form.email"
-                            type="email"
-                            @keyup.enter="register"
-                    />
+                    <q-input v-model="form.email" type="email"/>
                 </q-field>
                 <q-field
                         helper="Password"
@@ -72,15 +54,14 @@
 </template>
 
 <script>
-  import {required, email, minLength, sameAs} from 'vuelidate/lib/validators'
+  import {required, email, minLength} from 'vuelidate/lib/validators'
 
   export default {
     name: 'Register',
     data () {
       return {
         form: {
-          firstName: '',
-          lastName: '',
+          name: '',
           email: '',
           password: ''
         }
@@ -88,8 +69,7 @@
     },
     validations: {
       form: {
-        firstName: {required: true},
-        lastName: {required: true},
+        name: {required: true},
         email: {required, email},
         password: {required, minLength: minLength(8)}
       }
@@ -97,29 +77,26 @@
     methods: {
       register () {
 
-        this.$v.form.$touch();
+        this.$v.form.$touch()
 
-        this.loading = true
-        this.$axios.post('/api/users', this.form)
-          .then(response => {
-            this.loading = false
-            this.$router.push({name: 'login'})
-            this.$q.notify({
-              color: 'positive',
-              position: 'top',
-              message: 'You registered successfully!',
-              icon: 'report_problem'
-            })
+        this.$store.dispatch('session/register', this.form).then(() => {
+          this.loading = false
+          this.$router.push({name: 'index'})
+          this.$q.notify({
+            color: 'positive',
+            position: 'top',
+            message: 'You registered successful',
+            icon: 'report_problem'
           })
-          .catch(error => {
-            this.$q.notify({
-              color: 'negative',
-              position: 'top',
-              message: 'Registration failed',
-              icon: 'report_problem'
-            })
-            this.loading = false
+        }).catch(error => {
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: error.response.data.message,
+            icon: 'report_problem'
           })
+          this.loading = false
+        })
       }
     }
   }

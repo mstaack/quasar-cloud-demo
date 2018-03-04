@@ -1,13 +1,8 @@
-export const login = (state, {token, email}) => {
-  localStorage.setItem('token', token)
+export const login = (state, {token, user}) => {
   state.token = token
-  state.user = {
-    email: email
-  }
+  state.user = user
 }
 
 export const logout = (state) => {
-  localStorage.clear()
-  state.user = null
-  state.token = null
+  state.user = state.token = null
 }

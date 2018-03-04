@@ -27,11 +27,11 @@ module.exports = function (ctx) {
       env: ctx.prod
         ? {
           // prod env vars here, for example:
-          // API: JSON.stringify('https://prod.api.com')
+          API: JSON.stringify('https://starter.maxmatteostaack.com')
         }
         : {
           // dev env vars here, for example:
-          // API: JSON.stringify('https://dev.api.com')
+          // API: JSON.stringify('')
         },
       scopeHoisting: true,
       vueRouterMode: 'history',

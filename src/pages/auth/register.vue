@@ -85,14 +85,14 @@
           this.$q.notify({
             color: 'positive',
             position: 'top',
-            message: 'You registered successful',
+            message: 'Registration Successful',
             icon: 'report_problem'
           })
         }).catch(error => {
           this.$q.notify({
             color: 'negative',
             position: 'top',
-            message: error.response.data.message,
+            message: error.response.data.message || 'Something went wrong',
             icon: 'report_problem'
           })
           this.loading = false

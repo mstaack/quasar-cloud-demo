@@ -27,7 +27,7 @@ module.exports = function (ctx) {
       env: ctx.prod
         ? {
           // prod env vars here, for example:
-          API: JSON.stringify('https://starter.maxmatteostaack.com')
+          //API: JSON.stringify('')
         }
         : {
           // dev env vars here, for example:

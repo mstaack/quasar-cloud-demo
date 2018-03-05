@@ -42,6 +42,7 @@
                         label="Login"
                         :disable="$v.form.$invalid"
                         color="primary"
+                        icon="fa-arrow-right"
                         @click="login"
                 />
             </q-card-actions>

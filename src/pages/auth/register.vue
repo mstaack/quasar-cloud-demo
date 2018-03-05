@@ -46,6 +46,7 @@
                         label="Register"
                         color="primary"
                         :disable="$v.form.$invalid"
+                        icon="fa-arrow-right"
                         @click="register"
                 />
             </q-card-actions>

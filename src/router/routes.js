@@ -23,7 +23,7 @@ export default [
         meta: {title: 'Mail'}
       },
       {
-        path: 'Cloud',
+        path: 'cloud',
         name: 'cloud',
         component: () => import('pages/cloud'),
         meta: {title: 'Cloud'}

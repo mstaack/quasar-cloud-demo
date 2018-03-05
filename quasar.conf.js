@@ -54,7 +54,7 @@ module.exports = function (ctx) {
       open: true, // opens browser window automatically
       proxy: {
         '/api': {
-          target: 'https://quasar.maxmatteostaack.com',
+          target: 'http://localhost:8000',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''
@@ -65,46 +65,50 @@ module.exports = function (ctx) {
     // framework: 'all' --- includes everything; for dev only!
     framework: {
       components: [
-        'QLayout',
-        'QLayoutHeader',
-        'QLayoutDrawer',
-        'QPageContainer',
-        'QPage',
-        'QPopover',
-        'QToolbar',
-        'QTable',
-        'QTh',
-        'QTr',
-        'QTd',
-        'QTableColumns',
-        'QToolbarTitle',
         'QBtn',
-        'QIcon',
-        'QList',
-        'QListHeader',
-        'QItem',
-        'QItemTile',
-        'QItemMain',
-        'QItemSide',
-        'QField',
-        'QInput',
         'QCard',
-        'QCardTitle',
+        'QCardActions',
         'QCardMain',
         'QCardMedia',
         'QCardSeparator',
-        'QCardActions',
+        'QCardTitle',
+        'QField',
+        'QIcon',
         'QInnerLoading',
-        'QSpinnerGears'
+        'QInput',
+        'QItem',
+        'QItemMain',
+        'QItemSeparator',
+        'QItemSide',
+        'QItemTile',
+        'QLayout',
+        'QLayoutDrawer',
+        'QLayoutHeader',
+        'QList',
+        'QListHeader',
+        'QPage',
+        'QPageContainer',
+        'QPopover',
+        'QRouteTab',
+        'QSpinnerGears',
+        'QTab',
+        'QTable',
+        'QTableColumns',
+        'QTabs',
+        'QTd',
+        'QTh',
+        'QToolbar',
+        'QToolbarTitle',
+        'QTr',
       ],
       directives: [
         'Ripple',
         'CloseOverlay'
       ],
       plugins: [
-        'Notify',
         'Loading',
-        'LocalStorage'
+        'LocalStorage',
+        'Notify',
       ]
     },
     // animations: 'all' --- includes all animations

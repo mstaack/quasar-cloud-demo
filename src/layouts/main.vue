@@ -1,39 +1,33 @@
 <template>
-    <q-layout view="lHh Lpr lFf">
+    <q-layout view="hHh Lpr lFf">
         <q-layout-header>
             <q-toolbar color="primary">
-                <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen">
-                    <q-icon name="menu"/>
-                </q-btn>
-
                 <q-toolbar-title>
                     Quasar Advanced Starter
                     <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
                 </q-toolbar-title>
                 <q-btn flat round dense icon="more_vert">
                     <q-popover>
-                        <q-list separator link>
-                            <q-item v-close-overlay @click.native="doSomething">
-                                Profile
+                        <q-list link>
+                            <q-item dense v-close-overlay @click.native="$router.push({name:'profile'})">
+                                <q-item-side icon="account circle"/>
+                                <q-item-main label="Profile"/>
                             </q-item>
-                            <q-item v-close-overlay @click.native="logout">
-                                Logout
+                            <q-item-separator/>
+                            <q-item dense v-close-overlay @click.native="logout">
+                                <q-item-side icon="power settings new"/>
+                                <q-item-main label="Logout"/>
                             </q-item>
                         </q-list>
                     </q-popover>
                 </q-btn>
             </q-toolbar>
+            <q-tabs class="shadow-2">
+                <q-route-tab :to="{name:'blog'}" slot="title" icon="receipt" label="Blog"/>
+                <q-route-tab :to="{name:'mail'}" slot="title" icon="mail" label="Mail"/>
+                <q-route-tab :to="{name:'cloud'}" slot="title" icon="cloud" label="Cloud"/>
+            </q-tabs>
         </q-layout-header>
-
-        <q-layout-drawer v-model="leftDrawerOpen" content-class="bg-grey-2">
-            <q-list no-border link inset-delimiter>
-                <q-list-header>Navigation</q-list-header>
-                <q-item>
-                    <q-item-side icon="school"/>
-                    <q-item-main label="Articles" @click.native="$router.push({ name: 'articles' })"/>
-                </q-item>
-            </q-list>
-        </q-layout-drawer>
 
         <q-page-container>
             <router-view/>

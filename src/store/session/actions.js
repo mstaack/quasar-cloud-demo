@@ -10,14 +10,14 @@ export function register ({commit}, form) {
     })
 }
 
-export function verify ({commit}) {
+export function verify ({commit, dispatch}) {
   let token = LocalStorage.get.item('token')
   if (token) {
     setAxiosHeaders(token)
     return axios.get('api/auth/user').then(response => {
       commit('login', {token: token, user: response.data})
     }).catch(() => {
-      LocalStorage.clear()
+      dispatch('logout')
     })
   }
 }

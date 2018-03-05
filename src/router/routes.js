@@ -7,14 +7,32 @@ export default [
       {
         path: '',
         name: 'index',
-        component: () => import('pages/index'),
+        component: () => import('pages/home'),
         meta: {title: 'Home'}
       },
       {
-        path: 'articles',
-        name: 'articles',
-        component: () => import('pages/articles'),
-        meta: {title: 'Articles'}
+        path: 'blog',
+        name: 'blog',
+        component: () => import('pages/blog'),
+        meta: {title: 'Blog'}
+      },
+      {
+        path: 'mail',
+        name: 'mail',
+        component: () => import('pages/mail'),
+        meta: {title: 'Mail'}
+      },
+      {
+        path: 'Cloud',
+        name: 'cloud',
+        component: () => import('pages/cloud'),
+        meta: {title: 'Cloud'}
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: () => import('pages/profile'),
+        meta: {title: 'Profile'}
       }
     ]
   },

@@ -109,7 +109,8 @@ module.exports = function (ctx) {
         'Loading',
         'LocalStorage',
         'Notify',
-      ]
+      ],
+      iconSet: 'fontawesome'
     },
     // animations: 'all' --- includes all animations
     animations: [],

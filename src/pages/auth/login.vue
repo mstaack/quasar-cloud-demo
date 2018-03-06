@@ -85,7 +85,7 @@
             color: 'positive',
             position: 'top',
             message: 'Login Successful',
-            icon: 'report_problem'
+            icon: 'fa-exclamation-triangle'
           })
         }).catch(error => {
           this.loading = false
@@ -93,7 +93,7 @@
             color: 'negative',
             position: 'top',
             message: 'Your credentials are wrong',
-            icon: 'report_problem'
+            icon: 'fa-exclamation-triangle'
           })
         })
       }

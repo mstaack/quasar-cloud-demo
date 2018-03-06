@@ -80,12 +80,12 @@
 
         this.$store.dispatch('session/login', this.form).then(() => {
           this.loading = false
-          this.$router.push({name: 'index'})
+          this.$router.push({name: 'home'})
           this.$q.notify({
             color: 'positive',
             position: 'top',
             message: 'Login Successful',
-            icon: 'fa-exclamation-triangle'
+            icon: 'fa-check-circle'
           })
         }).catch(error => {
           this.loading = false

@@ -13,7 +13,7 @@ module.exports = function (ctx) {
     ],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
-      // 'material-icons'
+      'material-icons',
       // 'ionicons',
       // 'mdi',
       'fontawesome'
@@ -72,6 +72,9 @@ module.exports = function (ctx) {
         'QCardMedia',
         'QCardSeparator',
         'QCardTitle',
+        'QCheckbox',
+        'QFab',
+        'QFabAction',
         'QField',
         'QIcon',
         'QInnerLoading',
@@ -88,6 +91,7 @@ module.exports = function (ctx) {
         'QListHeader',
         'QPage',
         'QPageContainer',
+        'QPageSticky',
         'QPopover',
         'QRouteTab',
         'QSpinnerGears',
@@ -109,6 +113,7 @@ module.exports = function (ctx) {
         'Loading',
         'LocalStorage',
         'Notify',
+        'AppFullscreen'
       ],
       iconSet: 'fontawesome'
     },

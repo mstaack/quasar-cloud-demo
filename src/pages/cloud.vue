@@ -1,6 +1,6 @@
 <template>
-    <q-page class="flex flex-center">
-        Cloud Page
+    <q-page>
+        TODO
     </q-page>
 </template>
 

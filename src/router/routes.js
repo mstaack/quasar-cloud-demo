@@ -5,8 +5,8 @@ export default [
     meta: {auth: true},
     children: [
       {
-        path: '',
-        name: 'index',
+        path: '/',
+        name: 'home',
         component: () => import('pages/home'),
         meta: {title: 'Home'}
       },

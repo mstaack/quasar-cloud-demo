@@ -82,12 +82,12 @@
 
         this.$store.dispatch('session/register', this.form).then(() => {
           this.loading = false
-          this.$router.push({name: 'index'})
+          this.$router.push({name: 'home'})
           this.$q.notify({
             color: 'positive',
             position: 'top',
             message: 'Registration Successful',
-            icon: 'report_problem'
+            icon: 'fa-check-circle'
           })
         }).catch(error => {
           this.loading = false
@@ -95,7 +95,7 @@
             color: 'negative',
             position: 'top',
             message: error.response.data.message || 'Something went wrong',
-            icon: 'report_problem'
+            icon: 'fa-exclamation-triangle'
           })
         })
       }

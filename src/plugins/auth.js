@@ -4,7 +4,7 @@ export default ({app, router, Vue}) => {
   if (!app.store.getters['session/isAuthenticated']) {
     app.store.dispatch('session/verify').then(() => {
       router.push({
-        name: 'index',
+        name: 'home',
       })
     })
   }
@@ -17,7 +17,7 @@ export default ({app, router, Vue}) => {
       })
     } else if (to.matched.some(m => m.meta.guest) && app.store.getters['session/isAuthenticated']) {
       next({
-        name: 'index',
+        name: 'home',
       })
     } else {
       next()

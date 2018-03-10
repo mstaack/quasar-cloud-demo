@@ -87,8 +87,9 @@
       this.format = format
     },
     watch: {
-      path () {
-        this.refresh()
+      path: {
+        handler: 'refresh',
+        immediate: true
       }
     },
     computed: {
@@ -180,9 +181,6 @@
         })
 
       }
-    },
-    mounted () {
-      this.refresh()
     }
   }
 </script>

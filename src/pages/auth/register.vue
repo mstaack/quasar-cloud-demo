@@ -66,6 +66,7 @@
     },
     data () {
       return {
+        loading: false,
         form: {
           name: '',
           email: '',

@@ -1,12 +1,22 @@
 <template>
     <q-page class="q-ma-lg">
-        <q-breadcrumbs>
-            <q-breadcrumbs-el class="cursor-pointer" label="Home" icon="home" @click.native="path = '/'"/>
-            <!--TODO EXPLODE PATH TO BREADCRUMB-->
-        </q-breadcrumbs>
-        <p class="q-mt-sm">
-            Path: {{path}}
-        </p>
+
+        <!--Item Path & Actions-->
+        <div class="row justify-between q-mb-md">
+            <div>
+                <q-breadcrumbs>
+                    <q-breadcrumbs-el class="cursor-pointer" label="Home" icon="home" @click.native="path = '/'"/>
+                    <!--TODO EXPLODE PATH TO BREADCRUMB-->
+                </q-breadcrumbs>
+            </div>
+            <div>
+                <q-breadcrumbs>
+                    <q-breadcrumbs-el :label="path"/>
+                </q-breadcrumbs>
+            </div>
+        </div>
+
+        <!--Item List-->
         <q-list link dense>
 
             <!--Empty Message-->
@@ -51,11 +61,37 @@
             </q-list>
         </q-context-menu>
 
+        <!--Uploader-->
+        <q-modal v-model="upload" :content-css="{minWidth: '80vw', minHeight: '80vh'}">
+            <q-modal-layout>
+                <q-toolbar slot="header">
+                    <q-toolbar-title>
+                        Uploader
+                    </q-toolbar-title>
+                </q-toolbar>
+
+                <q-toolbar slot="footer">
+                    <q-toolbar-title>
+                        Footer
+                    </q-toolbar-title>
+                </q-toolbar>
+
+                <div class="layout-padding">
+                    <q-uploader
+                            url="api/cloud/upload"
+                            name="file"
+                            :headers="{Authorization:$store.state.session.token}"
+                    ></q-uploader>
+                </div>
+
+            </q-modal-layout>
+        </q-modal>
+
         <!--Fab Action Button-->
         <q-page-sticky position="bottom-right" :offset="[18, 18]">
             <q-fab icon="add" direction="up" color="primary">
                 <q-fab-action color="blue" class="white" icon="folder" @click.native="createFolder"/>
-                <q-fab-action color="blue" class="white" icon="cloud upload"/>
+                <q-fab-action color="blue" class="white" icon="cloud upload" @click.native="upload=true"/>
             </q-fab>
         </q-page-sticky>
 
@@ -79,6 +115,7 @@
     data () {
       return {
         path: '/',
+        upload: false,
         loading: false,
         items: []
       }
@@ -133,7 +170,7 @@
           },
           color: 'secondary'
         }).then(data => {
-          this.$axios.post('/api/cloud/create-directory', {path: data})
+          this.$axios.post('/api/cloud/create-directory', {path: this.path, name: data})
             .then(() => {
               this.$q.notify({
                 color: 'positive',

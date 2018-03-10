@@ -46,18 +46,20 @@
                         @click="login"
                 />
             </q-card-actions>
-            <q-inner-loading :visible="loading">
-                <q-spinner-gears size="50px" color="primary"></q-spinner-gears>
-            </q-inner-loading>
+            <inner-loading :loading="loading"/>
         </q-card>
     </q-page>
 </template>
 
 <script>
-  import {required, email, minLength} from 'vuelidate/lib/validators'
+  import InnerLoading from '../../components/InnerLoading'
+  import {email, minLength, required} from 'vuelidate/lib/validators'
 
   export default {
     name: 'Login',
+    components: {
+      InnerLoading
+    },
     data () {
       return {
         loading: false,

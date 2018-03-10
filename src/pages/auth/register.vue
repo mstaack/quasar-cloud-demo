@@ -50,15 +50,20 @@
                         @click="register"
                 />
             </q-card-actions>
+            <inner-loading :loading="loading"/>
         </q-card>
     </q-page>
 </template>
 
 <script>
-  import {required, email, minLength} from 'vuelidate/lib/validators'
+  import InnerLoading from '../../components/InnerLoading'
+  import {email, minLength, required} from 'vuelidate/lib/validators'
 
   export default {
     name: 'Register',
+    components: {
+      InnerLoading
+    },
     data () {
       return {
         form: {

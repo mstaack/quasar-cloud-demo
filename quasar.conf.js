@@ -71,8 +71,10 @@ module.exports = function (ctx) {
         'QCardMain',
         'QCardMedia',
         'QCardSeparator',
+        'QCollapsible',
         'QCardTitle',
         'QCheckbox',
+        'QContextMenu',
         'QFab',
         'QFabAction',
         'QField',
@@ -87,6 +89,8 @@ module.exports = function (ctx) {
         'QLayout',
         'QLayoutDrawer',
         'QLayoutHeader',
+        'QBreadcrumbs',
+        'QBreadcrumbsEl',
         'QList',
         'QListHeader',
         'QPage',
@@ -113,7 +117,8 @@ module.exports = function (ctx) {
         'Loading',
         'LocalStorage',
         'Notify',
-        'AppFullscreen'
+        'AppFullscreen',
+        'Dialog'
       ],
       iconSet: 'fontawesome'
     },

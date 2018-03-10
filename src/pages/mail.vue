@@ -1,5 +1,5 @@
 <template>
-    <q-layout class="animate-scale">
+    <q-layout>
         <q-layout-drawer v-model="leftDrawerOpen" content-class="bg-grey-2">
             <q-list no-border link>
                 <q-list-header>{{$store.state.session.user.email}}</q-list-header>

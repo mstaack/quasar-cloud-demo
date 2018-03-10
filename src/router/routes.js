@@ -11,10 +11,10 @@ export default [
         meta: {title: 'Home'}
       },
       {
-        path: 'blog',
-        name: 'blog',
-        component: () => import('pages/blog'),
-        meta: {title: 'Blog'}
+        path: 'news',
+        name: 'news',
+        component: () => import('pages/news'),
+        meta: {title: 'News'}
       },
       {
         path: 'mail',

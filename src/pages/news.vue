@@ -1,6 +1,6 @@
 <template>
     <q-page class="flex flex-center">
-        Blog Page
+        News Page
     </q-page>
 </template>
 

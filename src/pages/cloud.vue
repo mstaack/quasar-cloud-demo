@@ -5,13 +5,13 @@
         <div class="row justify-between q-mb-md">
             <div>
                 <q-breadcrumbs>
-                    <q-breadcrumbs-el class="cursor-pointer" label="Home" icon="home" @click.native="path = '/'"/>
-                    <q-breadcrumbs-el v-for="breadcrumb in breadcrumbs" :key="breadcrumb.path" :label="breadcrumb.label"/>
-                </q-breadcrumbs>
-            </div>
-            <div>
-                <q-breadcrumbs>
-                    <q-breadcrumbs-el :label="path"/>
+                    <q-breadcrumbs-el v-for="breadcrumb in breadcrumbs"
+                                      :key="breadcrumb.path"
+                                      :label="breadcrumb.label"
+                                      :icon="breadcrumb.icon"
+                                      @click.native="path=breadcrumb.path"
+                                      v-bind:class="{ 'cursor-pointer': breadcrumb.path !== path }"
+                    />
                 </q-breadcrumbs>
             </div>
         </div>
@@ -77,10 +77,6 @@
                 </q-toolbar>
 
                 <div class="layout-padding">
-                    <q-progress percentage="80" class="q-mb-sm" style="height: 24px"> Image.jpg</q-progress>
-                    <q-progress percentage="80" class="q-mb-sm" style="height: 24px"> Image.jpg</q-progress>
-                    <q-progress percentage="80" class="q-mb-sm" style="height: 24px"> Image.jpg</q-progress>
-                    <q-progress percentage="80" class="q-mb-sm" style="height: 24px"> Image.jpg</q-progress>
                     <q-uploader
                             url="api/cloud/upload"
                             name="file"
@@ -146,21 +142,20 @@
       },
       breadcrumbs () {
 
-        let path = this.path
-        let breadcrumbs = [
-          {
-            label: 'Folder',
-            path: '/Folder'
-          },
-          {
-            label: 'Folder2',
-            path: '/Folder/Folder 2'
-          },
-          {
-            label: 'Folder3',
-            path: '/Folder/Folder 2/Folder 3'
-          }
-        ]
+        const breadcrumbs = []
+
+        let parts = this.path.split('/').filter((x, i, a) => a.indexOf(x) === i)
+
+        for (let i = 0; i < parts.length; i++) {
+          const label = parts[i] || 'Home'
+          const path = parts.slice(0, i + 1).join('/') || '/'
+          const icon = i === 0 ? 'home' : null
+          breadcrumbs.push({
+            label,
+            path,
+            icon
+          })
+        }
 
         return breadcrumbs
       }

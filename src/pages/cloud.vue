@@ -3,7 +3,6 @@
 
         <!--Item Path & Actions-->
         <div class="row justify-between q-mb-md">
-            <div>
                 <q-breadcrumbs>
                     <q-breadcrumbs-el v-for="breadcrumb in breadcrumbs"
                                       :key="breadcrumb.path"
@@ -13,14 +12,10 @@
                                       v-bind:class="{ 'cursor-pointer': breadcrumb.path !== path }"
                     />
                 </q-breadcrumbs>
-            </div>
         </div>
 
         <!--Item List-->
         <q-list link dense>
-
-            <!--Empty Message-->
-            <q-list-header inset v-if="!folders.length && !folders.length">Nothing here...</q-list-header>
 
             <!--Folders-->
             <q-list-header inset v-if="folders.length">Folders</q-list-header>
@@ -33,7 +28,7 @@
                 <q-item-side right icon="info"/>
             </q-item>
 
-            <q-item-separator inset/>
+            <q-item-separator inset v-if="folders.length"/>
 
             <!--Files-->
             <q-list-header inset v-if="files.length">Files</q-list-header>
@@ -53,6 +48,10 @@
                 <q-item v-close-overlay>
                     <q-item-side icon="fa-arrow-alt-circle-down" color="grey-6"/>
                     <q-item-main label="Download"/>
+                </q-item>
+                <q-item v-close-overlay>
+                    <q-item-side icon="fa-pencil-alt" color="grey-6"/>
+                    <q-item-main label="Rename"/>
                 </q-item>
                 <q-item v-close-overlay>
                     <q-item-side icon="fa-trash-alt" color="grey-6"/>

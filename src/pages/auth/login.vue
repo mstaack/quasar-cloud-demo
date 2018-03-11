@@ -82,7 +82,7 @@
 
         this.$store.dispatch('session/login', this.form).then(() => {
           this.loading = false
-          this.$router.push({name: 'home'})
+          this.$router.push({name: 'news'})
           this.$q.notify({
             color: 'positive',
             position: 'top',

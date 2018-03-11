@@ -13,7 +13,7 @@ export default ({app, router, Vue}) => {
       })
     } else if (to.matched.some(m => m.meta.guest) && app.store.getters['session/isAuthenticated']) {
       next({
-        name: 'home',
+        name: 'news',
       })
     } else {
       next()

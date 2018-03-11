@@ -23,7 +23,6 @@
                 </q-btn>
             </q-toolbar>
             <q-tabs class="shadow-2">
-                <q-route-tab :to="{name:'home'}" slot="title" icon="fa-home" label="Home"/>
                 <q-route-tab :to="{name:'news'}" slot="title" icon="fa-newspaper" label="News"/>
                 <q-route-tab :to="{name:'mail'}" count="5" slot="title" icon="fa-envelope" label="Mail"/>
                 <q-route-tab :to="{name:'cloud'}" slot="title" icon="fa-cloud" label="Cloud"/>

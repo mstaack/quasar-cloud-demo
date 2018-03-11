@@ -1,22 +1,22 @@
 export default ({app, router, Vue}) => {
 
-  // Check for authentication token on startup
-  if (!app.store.getters['session/isAuthenticated']) {
-
-  }
-
   // Check for protected and guest routes and perform checks
   router.beforeEach((to, from, next) => {
-    if (to.matched.some(m => m.meta.auth) && !app.store.getters['session/isAuthenticated']) {
-      next({
-        name: 'login',
+
+    const protectedRoute = to.matched.some(route => route.meta.auth)
+
+    // If auth isn't required for the route, just continue.
+    if (!protectedRoute) return next()
+
+    // If auth is required and the user is logged in...
+    if (app.store.getters['session/isAuthenticated']) {
+
+      // Validate the token...
+      return app.store.dispatch('session/validate').then(user => {
+        user ? next() : next({name: 'login'})
       })
-    } else if (to.matched.some(m => m.meta.guest) && app.store.getters['session/isAuthenticated']) {
-      next({
-        name: 'news',
-      })
-    } else {
-      next()
     }
+
+    next({name: 'login'})
   })
 }

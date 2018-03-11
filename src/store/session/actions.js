@@ -1,42 +1,47 @@
-  import axios from 'axios'
+import axios from 'axios'
 import {LocalStorage} from 'quasar'
+import setAxiosHeaders from './helpers'
 
-export function register ({commit}, form) {
+export function init ({state}) {
+  setAxiosHeaders(state)
+}
+
+export function register ({commit, state}, form) {
   return axios.post('api/auth/register', form)
     .then(response => {
-      commit('login', {token: response.data.token, user: response.data.user})
-      LocalStorage.set('token', response.data.token)
-      setAxiosHeaders(response.data.token)
+      commit('LOGIN', response.data.user)
+      setAxiosHeaders(state)
     })
 }
 
-export function verify ({commit, dispatch}) {
-  let token = LocalStorage.get.item('token')
-  if (token) {
-    setAxiosHeaders(token)
-    axios.get('api/auth/user').then(response => {
-      commit('login', {token: token, user: response.data})
-      return true;
-    })
+export function login ({commit, dispatch, getters}, form) {
 
-    return false;
-  }
-}
+  if (getters.isAuthenticated) return dispatch('validate')
 
-export function login ({commit}, form) {
   return axios.post('api/auth/login', form)
     .then(response => {
-      commit('login', {token: response.data.token, user: response.data.user})
-      LocalStorage.set('token', response.data.token)
-      setAxiosHeaders(response.data.token)
+      const user = response.data.user
+      commit('LOGIN', user)
+      return user
+    })
+}
+
+export function validate ({commit, state}) {
+  if (!state.user) return Promise.resolve(null)
+
+  return axios.get('api/auth/user')
+    .then(response => {
+      const user = response.data.user
+      commit('LOGIN', user)
+      return user
+    }).catch(error => {
+      if (error.response.status === 401) {
+        commit('LOGIN', null)
+      }
+      return null
     })
 }
 
 export function logout ({commit}) {
-  commit('logout')
-  LocalStorage.clear()
-}
-
-function setAxiosHeaders (token) {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+  commit('LOGIN', null)
 }

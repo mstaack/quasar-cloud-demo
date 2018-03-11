@@ -1,8 +1,8 @@
-export const login = (state, {token, user}) => {
-  state.token = token
-  state.user = user
-}
+import {LocalStorage} from 'quasar'
+import setAxiosHeaders from './helpers'
 
-export const logout = (state) => {
-  state.user = state.token = null
+export const LOGIN = (state, user) => {
+  state.user = user
+  LocalStorage.set('user', user)
+  setAxiosHeaders(state)
 }

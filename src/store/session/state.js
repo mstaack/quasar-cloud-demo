@@ -1,4 +1,5 @@
+import {LocalStorage} from 'quasar'
+
 export default {
-  token: null,
-  user: null
+  user: LocalStorage.get.item('user')
 }

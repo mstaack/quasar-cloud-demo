@@ -97,6 +97,7 @@ module.exports = function (ctx) {
         'QPageContainer',
         'QPageSticky',
         'QPopover',
+        'QProgress',
         'QRouteTab',
         'QSpinnerGears',
         'QSearch',

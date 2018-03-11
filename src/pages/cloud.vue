@@ -6,7 +6,7 @@
             <div>
                 <q-breadcrumbs>
                     <q-breadcrumbs-el class="cursor-pointer" label="Home" icon="home" @click.native="path = '/'"/>
-                    <!--TODO EXPLODE PATH TO BREADCRUMB-->
+                    <q-breadcrumbs-el v-for="breadcrumb in breadcrumbs" :key="breadcrumb.path" :label="breadcrumb.label"/>
                 </q-breadcrumbs>
             </div>
             <div>
@@ -37,7 +37,7 @@
 
             <!--Files-->
             <q-list-header inset v-if="files.length">Files</q-list-header>
-            <q-item v-for="file in files" :key="file.path" @click.native="path = file.path">
+            <q-item v-for="file in files" :key="file.path">
                 <q-item-side icon="insert drive file" inverted color="grey-6"/>
                 <q-item-main>
                     <q-item-tile label>{{file.name}}</q-item-tile>
@@ -77,6 +77,10 @@
                 </q-toolbar>
 
                 <div class="layout-padding">
+                    <q-progress percentage="80" class="q-mb-sm" style="height: 24px"> Image.jpg</q-progress>
+                    <q-progress percentage="80" class="q-mb-sm" style="height: 24px"> Image.jpg</q-progress>
+                    <q-progress percentage="80" class="q-mb-sm" style="height: 24px"> Image.jpg</q-progress>
+                    <q-progress percentage="80" class="q-mb-sm" style="height: 24px"> Image.jpg</q-progress>
                     <q-uploader
                             url="api/cloud/upload"
                             name="file"
@@ -130,15 +134,35 @@
       }
     },
     computed: {
-      folders: function () {
+      folders () {
         return this.items.filter((item) => {
           return !item.is_file
         })
       },
-      files: function () {
+      files () {
         return this.items.filter((item) => {
           return item.is_file
         })
+      },
+      breadcrumbs () {
+
+        let path = this.path
+        let breadcrumbs = [
+          {
+            label: 'Folder',
+            path: '/Folder'
+          },
+          {
+            label: 'Folder2',
+            path: '/Folder/Folder 2'
+          },
+          {
+            label: 'Folder3',
+            path: '/Folder/Folder 2/Folder 3'
+          }
+        ]
+
+        return breadcrumbs
       }
     },
     methods: {

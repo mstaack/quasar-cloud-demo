@@ -1,4 +1,4 @@
-import axios from 'axios'
+  import axios from 'axios'
 import {LocalStorage} from 'quasar'
 
 export function register ({commit}, form) {

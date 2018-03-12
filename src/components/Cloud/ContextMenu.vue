@@ -25,6 +25,7 @@
     },
     methods: {
       downloadItem (item) {
+        window.location = '/api/cloud/download?path=' + item.path
       },
       renameItem (item) {
         this.$q.dialog({

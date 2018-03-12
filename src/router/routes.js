@@ -39,6 +39,7 @@ export default [
   {
     path: '/auth',
     redirect: '/auth/login',
+    meta: {guest: true},
     component: () => import('layouts/auth'),
     children: [
       {

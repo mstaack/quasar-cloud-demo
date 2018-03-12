@@ -3,15 +3,12 @@
 
         <!--Item Path & Actions-->
         <div class="row justify-between q-mb-md">
-                <q-breadcrumbs>
-                    <q-breadcrumbs-el v-for="breadcrumb in breadcrumbs"
-                                      :key="breadcrumb.path"
-                                      :label="breadcrumb.label"
-                                      :icon="breadcrumb.icon"
-                                      @click.native="path=breadcrumb.path"
-                                      v-bind:class="{ 'cursor-pointer': breadcrumb.path !== path }"
-                    />
-                </q-breadcrumbs>
+            <div>
+                <breadcrumb-navigation :path="path" @changePath="path = $event"/>
+            </div>
+            <div>
+                <q-icon class="cursor-pointer" name="refresh" size="24px" @click.native="refresh"/>
+            </div>
         </div>
 
         <!--Item List-->
@@ -26,6 +23,9 @@
                     <q-item-tile sublabel>{{format.humanStorageSize(folder.size)}} | {{folder.time}}</q-item-tile>
                 </q-item-main>
                 <q-item-side right icon="info"/>
+
+                <!--Context Menu-->
+                <context-menu :item="folder" @refresh="refresh"/>
             </q-item>
 
             <q-item-separator inset v-if="folders.length"/>
@@ -33,32 +33,20 @@
             <!--Files-->
             <q-list-header inset v-if="files.length">Files</q-list-header>
             <q-item v-for="file in files" :key="file.path">
+
+                <!--Icon & Name & Icon-->
                 <q-item-side icon="insert drive file" inverted color="grey-6"/>
                 <q-item-main>
                     <q-item-tile label>{{file.name}}</q-item-tile>
                     <q-item-tile sublabel>{{format.humanStorageSize(file.size)}} | {{file.time}}</q-item-tile>
                 </q-item-main>
                 <q-item-side right icon="info"/>
+
+                <!--Context Menu-->
+                <context-menu :item="file" @refresh="refresh"/>
             </q-item>
         </q-list>
 
-        <!--Context Menu-->
-        <q-context-menu>
-            <q-list link separator style="min-width: 150px; max-height: 300px;">
-                <q-item v-close-overlay>
-                    <q-item-side icon="fa-arrow-alt-circle-down" color="grey-6"/>
-                    <q-item-main label="Download"/>
-                </q-item>
-                <q-item v-close-overlay>
-                    <q-item-side icon="fa-pencil-alt" color="grey-6"/>
-                    <q-item-main label="Rename"/>
-                </q-item>
-                <q-item v-close-overlay>
-                    <q-item-side icon="fa-trash-alt" color="grey-6"/>
-                    <q-item-main label="Delete"/>
-                </q-item>
-            </q-list>
-        </q-context-menu>
 
         <!--Uploader-->
         <q-modal v-model="upload" :content-css="{minWidth: '80vw', minHeight: '80vh'}">
@@ -104,12 +92,16 @@
 
 <script>
   import InnerLoading from '../components/InnerLoading'
+  import BreadcrumbNavigation from '../components/Cloud/BreadcrumbNavigation'
+  import ContextMenu from '../components/Cloud/ContextMenu'
   import {format} from 'quasar'
 
   export default {
     name: 'Cloud',
     components: {
-      InnerLoading
+      BreadcrumbNavigation,
+      InnerLoading,
+      ContextMenu
     },
     data () {
       return {
@@ -138,25 +130,6 @@
         return this.items.filter((item) => {
           return item.is_file
         })
-      },
-      breadcrumbs () {
-
-        const breadcrumbs = []
-
-        let parts = this.path.split('/').filter((x, i, a) => a.indexOf(x) === i)
-
-        for (let i = 0; i < parts.length; i++) {
-          const label = parts[i] || 'Home'
-          const path = parts.slice(0, i + 1).join('/') || '/'
-          const icon = i === 0 ? 'home' : null
-          breadcrumbs.push({
-            label,
-            path,
-            icon
-          })
-        }
-
-        return breadcrumbs
       }
     },
     methods: {
@@ -208,34 +181,6 @@
             })
         })
       },
-      deleteFolder () {
-        this.$q.dialog({
-          title: 'Delete Folder',
-          ok: 'Delete',
-          cancel: 'Cancel',
-          color: 'error'
-        }).then(data => {
-          this.$axios.post('/api/cloud/create-directory', {path: data})
-            .then(() => {
-              this.$q.notify({
-                color: 'positive',
-                position: 'top',
-                message: `Folder "${data}" created.`,
-                icon: 'fa-check-circle',
-              })
-              this.refresh()
-            })
-            .catch(() => {
-              this.$q.notify({
-                color: 'negative',
-                position: 'top',
-                message: 'Whoops, something went wrong!',
-                icon: 'report_problem'
-              })
-            })
-        })
-
-      }
     }
   }
 </script>

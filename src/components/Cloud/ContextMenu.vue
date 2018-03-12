@@ -11,11 +11,11 @@
             </q-item>
             <q-item v-close-overlay>
                 <q-item-side icon="fa-copy" color="grey-5"/>
-                <q-item-main label="Copy" @click.native="moveItem(item)"/>
+                <q-item-main label="Copy" @click.native="copyDialog = true"/>
             </q-item>
             <q-item v-close-overlay>
                 <q-item-side icon="fa-arrow-right" color="grey-5"/>
-                <q-item-main label="Move" @click.native="copyItem(item)"/>
+                <q-item-main label="Move" @click.native="moveDialog = true"/>
             </q-item>
             <q-item v-close-overlay>
                 <q-item-side icon="fa-trash-alt" color="grey-5"/>
@@ -23,10 +23,10 @@
             </q-item>
         </q-list>
 
-        <q-dialog v-model="dialog">
-            <span slot="title">Move</span>
+        <q-dialog v-model="copyDialog">
+            <span slot="title">Copy</span>
 
-            <span slot="message">Please select a folder:</span>
+            <span slot="message">Please select a target folder:</span>
 
             <div slot="body">
                 <q-select
@@ -38,8 +38,28 @@
             </div>
 
             <template slot="buttons" slot-scope="props">
-                <q-btn flat label="Cancel"/>
-                <q-btn color="primary" label="Move"/>
+                <q-btn flat label="Cancel" @click.native="copyDialog=false"/>
+                <q-btn color="primary" label="Copy" @click.native="copyItem(item)"/>
+            </template>
+        </q-dialog>
+
+        <q-dialog v-model="moveDialog">
+            <span slot="title">Move</span>
+
+            <span slot="message">Please select a target folder:</span>
+
+            <div slot="body">
+                <q-select
+                        filter
+                        v-model="selectedFolder"
+                        separator
+                        :options="folders"
+                />
+            </div>
+
+            <template slot="buttons" slot-scope="props">
+                <q-btn flat label="Cancel" @click.native="copyDialog=false"/>
+                <q-btn color="primary" label="Move" @click.native="moveItem(item)"/>
             </template>
         </q-dialog>
     </q-context-menu>
@@ -51,31 +71,71 @@
     props: ['item'],
     data () {
       return {
-        dialog: false,
+        copyDialog: false,
+        moveDialog: false,
         selectedFolder: null
       }
     },
     computed: {
       folders () {
-        return this.$store.getters['cloud/allFolders'].map((folder) => {
-          return {
-            value: folder,
-            label: folder
-          }
-        })
+        return this.$store.getters['cloud/allFolders']
+          .filter((folder) => this.item.path !== folder)
+          .map((folder) => {
+            return {
+              value: folder,
+              label: folder
+            }
+          })
       }
     },
     methods: {
       downloadItem (item) {
-        this.$axios.post('api/cloud/download', {item: item}).then(response => {
-          window.location = response.data.url
-        })
+        this.$axios.post('api/cloud/download', {item: item})
+          .then(response => {
+            window.location = response.data.url
+          })
       },
       moveItem (item) {
-        this.dialog = true
+        this.$axios.post('api/cloud/move', {item: item, path: this.selectedFolder})
+          .then(() => {
+            this.$store.dispatch('cloud/refresh')
+            this.moveDialog = false
+            this.$q.notify({
+              color: 'positive',
+              position: 'top',
+              message: 'Item moved',
+              icon: 'fa-check-circle'
+            })
+          }).catch(() => {
+          this.moveDialog = false
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Something went wrong',
+            icon: 'fa-exclamation-triangle'
+          })
+        })
       },
       copyItem (item) {
-        this.dialog = true
+        this.$axios.post('api/cloud/copy', {item: item, path: this.selectedFolder})
+          .then(() => {
+            this.$store.dispatch('cloud/refresh')
+            this.copyDialog = false
+            this.$q.notify({
+              color: 'positive',
+              position: 'top',
+              message: 'Item copied',
+              icon: 'fa-check-circle'
+            })
+          }).catch(() => {
+          this.copyDialog = false
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'Something went wrong',
+            icon: 'fa-exclamation-triangle'
+          })
+        })
       },
       renameItem (item) {
         this.$q.dialog({

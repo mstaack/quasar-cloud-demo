@@ -7,7 +7,7 @@
                 <breadcrumb-navigation :path="path" @changePath="path = $event"/>
             </div>
             <div>
-                <q-icon class="cursor-pointer" name="refresh" size="24px" @click.native="refresh"/>
+                <q-icon class="cursor-pointer" :class="{ 'animate-spin': this.loading }" name="refresh" size="24px" @click.native="refresh"/>
             </div>
         </div>
 
@@ -22,7 +22,7 @@
                     <q-item-tile label>{{folder.name}}</q-item-tile>
                     <q-item-tile sublabel>{{format.humanStorageSize(folder.size)}} | {{folder.time}}</q-item-tile>
                 </q-item-main>
-                <q-item-side right icon="info"/>
+                <q-item-side class="cursor-pointer" right icon="info" @click.native="showInfo(item)"/>
 
                 <!--Context Menu-->
                 <context-menu :item="folder" @refresh="refresh"/>
@@ -149,6 +149,9 @@
             })
             this.loading = false
           })
+      },
+      showInfo (item) {
+
       },
       createFolder () {
         this.$q.dialog({

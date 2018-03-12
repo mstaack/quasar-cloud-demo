@@ -56,7 +56,8 @@
                 icon: 'report_problem'
               })
             })
-        }).catch()
+        }).catch(() => {
+        })
 
       },
       deleteItem (item) {
@@ -71,7 +72,7 @@
               this.$q.notify({
                 color: 'positive',
                 position: 'top',
-                message: item.name + ' deleted.',
+                message: item.name + ' deleted!',
                 icon: 'fa-check-circle',
               })
               this.$emit('refresh')
@@ -85,7 +86,8 @@
                 icon: 'report_problem'
               })
             })
-        }).catch()
+        }).catch(() => {
+        })
       }
     }
   }

@@ -5,7 +5,7 @@
                           :label="breadcrumb.label"
                           :icon="breadcrumb.icon"
                           @click.native="changePath(breadcrumb.path)"
-                          v-bind:class="{ 'cursor-pointer': breadcrumb.path !== path }"
+                          :class="{ 'cursor-pointer': breadcrumb.path !== path }"
         />
     </q-breadcrumbs>
 </template>

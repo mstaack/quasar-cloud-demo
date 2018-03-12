@@ -6,3 +6,9 @@ export const LOGIN = (state, user) => {
   LocalStorage.set('user', user)
   setAxiosHeaders(state)
 }
+
+export const LOGOUT = (state, user) => {
+  state.user = null
+  LocalStorage.clear();
+  setAxiosHeaders(state)
+}

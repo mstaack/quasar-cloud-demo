@@ -36,12 +36,12 @@ export function validate ({commit, state}) {
       return user
     }).catch(error => {
       if (error.response.status === 401) {
-        commit('LOGIN', null)
+        commit('LOGOUT')
       }
       return null
     })
 }
 
 export function logout ({commit}) {
-  commit('LOGIN', null)
+  commit('LOGOUT')
 }

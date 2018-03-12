@@ -113,7 +113,7 @@
     },
     data () {
       return {
-        upload: false,
+        upload: false
       }
     },
     computed: {
@@ -123,6 +123,9 @@
         'folders',
         'loading'
       ])
+    },
+    created () {
+      this.$store.dispatch('cloud/refresh')
     },
     methods: {
       ...mapActions('cloud', [

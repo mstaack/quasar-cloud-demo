@@ -1,15 +1,11 @@
 import axios from 'axios'
 
-export function init ({dispatch}) {
-  dispatch('refresh')
-}
-
 export function refresh ({commit, state}) {
   state.loading = true
   axios.all([
     axios.get('/api/cloud/list', {params: {path: state.path}}),
     axios.get('api/cloud/list-folders')
-  ]).then(axios.spread(function (listResponse, allFoldersResponse) {
+  ]).then(axios.spread((listResponse, allFoldersResponse) => {
     state.loading = false
     commit('SET_ITEMS', listResponse.data.data)
     commit('SET_ALL_FOLDERS', allFoldersResponse.data.data)

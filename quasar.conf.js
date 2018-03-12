@@ -54,7 +54,7 @@ module.exports = function (ctx) {
       open: true, // opens browser window automatically
       proxy: {
         '/api': {
-          target: 'http://localhost:8000',
+          target: 'https://api.maxmatteostaack.com',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''

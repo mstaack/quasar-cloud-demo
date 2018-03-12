@@ -1,25 +1,25 @@
 <template>
     <q-context-menu>
         <q-list link separator style="min-width: 130px; max-height: 300px;">
-            <q-item v-close-overlay>
+            <q-item v-close-overlay @click.native="downloadItem(item)">
                 <q-item-side icon="fa-arrow-alt-circle-down" color="grey-5"/>
-                <q-item-main label="Download" @click.native="downloadItem(item)"/>
+                <q-item-main label="Download"/>
             </q-item>
-            <q-item v-close-overlay>
+            <q-item v-close-overlay @click.native="renameItem(item)">
                 <q-item-side icon="fa-pencil-alt" color="grey-5"/>
-                <q-item-main label="Rename" @click.native="renameItem(item)"/>
+                <q-item-main label="Rename"/>
             </q-item>
-            <q-item v-close-overlay>
+            <q-item v-close-overlay @click.native="copyDialog = true">
                 <q-item-side icon="fa-copy" color="grey-5"/>
-                <q-item-main label="Copy" @click.native="copyDialog = true"/>
+                <q-item-main label="Copy"/>
             </q-item>
-            <q-item v-close-overlay>
+            <q-item v-close-overlay @click.native="moveDialog = true">
                 <q-item-side icon="fa-arrow-right" color="grey-5"/>
-                <q-item-main label="Move" @click.native="moveDialog = true"/>
+                <q-item-main label="Move"/>
             </q-item>
-            <q-item v-close-overlay>
+            <q-item v-close-overlay @click.native="deleteItem(item)">
                 <q-item-side icon="fa-trash-alt" color="grey-5"/>
-                <q-item-main label="Delete" @click.native="deleteItem(item)"/>
+                <q-item-main label="Delete"/>
             </q-item>
         </q-list>
 
@@ -96,7 +96,11 @@
           })
       },
       moveItem (item) {
-        this.$axios.post('api/cloud/move', {item: item, path: this.selectedFolder})
+        this.$axios.post('api/cloud/move', {
+          item: item,
+          current: this.$store.getters['cloud/path'],
+          target: this.selectedFolder
+        })
           .then(() => {
             this.$store.dispatch('cloud/refresh')
             this.moveDialog = false
@@ -106,15 +110,16 @@
               message: 'Item moved',
               icon: 'fa-check-circle'
             })
-          }).catch(() => {
-          this.moveDialog = false
-          this.$q.notify({
-            color: 'negative',
-            position: 'top',
-            message: 'Something went wrong',
-            icon: 'fa-exclamation-triangle'
           })
-        })
+          .catch((error) => {
+            this.moveDialog = false
+            this.$q.notify({
+              color: 'negative',
+              position: 'top',
+              message: error.response.data.message || 'Something went wrong',
+              icon: 'fa-exclamation-triangle'
+            })
+          })
       },
       copyItem (item) {
         this.$axios.post('api/cloud/copy', {item: item, path: this.selectedFolder})
@@ -127,15 +132,16 @@
               message: 'Item copied',
               icon: 'fa-check-circle'
             })
-          }).catch(() => {
-          this.copyDialog = false
-          this.$q.notify({
-            color: 'negative',
-            position: 'top',
-            message: 'Something went wrong',
-            icon: 'fa-exclamation-triangle'
           })
-        })
+          .catch((error) => {
+            this.copyDialog = false
+            this.$q.notify({
+              color: 'negative',
+              position: 'top',
+              message: error.response.data.message || 'Something went wrong',
+              icon: 'fa-exclamation-triangle'
+            })
+          })
       },
       renameItem (item) {
         this.$q.dialog({

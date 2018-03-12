@@ -25,7 +25,11 @@
         <q-page-container>
             <q-page>
                 <!--message actions-->
-                <q-btn class="q-ml-lg q-mb-lg" outline dense icon="delete" label="Delete" color="negative"/>
+                <div class="row q-ml-lg q-mb-lg">
+                    <div>
+                        <q-btn outline dense icon="delete" label="Delete" color="negative"/>
+                    </div>
+                </div>
 
                 <!--message-list-->
                 <q-list highlight no-border class="message-list">

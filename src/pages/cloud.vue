@@ -64,20 +64,23 @@
                     </q-toolbar-title>
                 </q-toolbar>
 
-                <q-toolbar slot="footer">
-                    <q-toolbar-title>
-                        Footer
-                    </q-toolbar-title>
-                </q-toolbar>
-
                 <div class="layout-padding">
                     <q-uploader
+                            ref="uploader"
+                            auto-expand
+                            multiple
+                            :clearable="true"
                             url="api/cloud/upload"
                             name="file"
                             :headers="{Authorization:$store.state.session.user.token}"
+                            :additional-fields="[{name:'path',value:path}]"
+                            @finish="refresh"
                     ></q-uploader>
                 </div>
-
+                <q-toolbar slot="footer" align="justify-between">
+                    <q-btn flat label="Close" @click.native="$refs.uploader.reset();upload=false"/>
+                    <q-btn flat label="Upload" @click.native="$refs.uploader.upload()"/>
+                </q-toolbar>
             </q-modal-layout>
         </q-modal>
 

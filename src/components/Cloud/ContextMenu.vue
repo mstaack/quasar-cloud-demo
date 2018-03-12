@@ -1,6 +1,6 @@
 <template>
     <q-context-menu>
-        <q-list link separator style="min-width: 150px; max-height: 300px;">
+        <q-list link separator style="min-width: 130px; max-height: 300px;">
             <q-item v-close-overlay>
                 <q-item-side icon="fa-arrow-alt-circle-down" color="grey-5"/>
                 <q-item-main label="Download" @click.native="downloadItem(item)"/>
@@ -10,22 +10,72 @@
                 <q-item-main label="Rename" @click.native="renameItem(item)"/>
             </q-item>
             <q-item v-close-overlay>
+                <q-item-side icon="fa-copy" color="grey-5"/>
+                <q-item-main label="Copy" @click.native="moveItem(item)"/>
+            </q-item>
+            <q-item v-close-overlay>
+                <q-item-side icon="fa-arrow-right" color="grey-5"/>
+                <q-item-main label="Move" @click.native="copyItem(item)"/>
+            </q-item>
+            <q-item v-close-overlay>
                 <q-item-side icon="fa-trash-alt" color="grey-5"/>
                 <q-item-main label="Delete" @click.native="deleteItem(item)"/>
             </q-item>
         </q-list>
+
+        <q-dialog v-model="dialog">
+            <span slot="title">Move</span>
+
+            <div slot="body">
+                <q-select
+                        v-model="selectedItem"
+                        float-label="Select Folder"
+                        radio
+                        :options="folders"
+                />
+            </div>
+
+            <template slot="buttons" slot-scope="props">
+                <q-btn flat label="Cancel"/>
+                <q-btn color="primary" label="Move"/>
+            </template>
+        </q-dialog>
     </q-context-menu>
 </template>
 
 <script>
   export default {
-    props: ['item'],
+    props: ['item', 'path'],
     data () {
-      return {}
+      return {
+        dialog: false,
+        selectedItem: null
+      }
+    },
+    computed: {
+      folders () {
+        return this.path.split('/')
+          .filter((x, i, a) => a.indexOf(x) === i)
+          .map((folder) => {
+            return {
+              label: folder,
+              value: folder
+            }
+          })
+      }
     },
     methods: {
       downloadItem (item) {
-        window.location = '/api/cloud/download?path=' + item.path
+        this.axios.post('api/cloud/download', {item: item}).then(response => {
+          window.location = response.data.url
+        })
+      },
+      moveItem (item) {
+        console.log(this.path)
+        this.dialog = true
+      },
+      copyItem (item) {
+        this.dialog = true
       },
       renameItem (item) {
         this.$q.dialog({

@@ -3,10 +3,22 @@
         <q-layout-header>
             <q-toolbar color="primary">
                 <q-toolbar-title>
-                    Quasar Advanced Starter
+                    Quasar Demo Application
                     <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
                 </q-toolbar-title>
-                <q-btn flat round dense icon="more_vert">
+                <q-btn
+                        flat
+                        round
+                        dense
+                        icon="open with"
+                        @click.native="$q.fullscreen.toggle()"
+                        v-if="$q.fullscreen.isCapable"
+                        class="q-mr-sm"/>
+                <q-btn
+                        flat
+                        round
+                        dense
+                        icon="more_vert">
                     <q-popover>
                         <q-list link>
                             <q-item dense v-close-overlay @click.native="$router.push({name:'profile'})">
@@ -40,9 +52,7 @@
   export default {
     name: 'MainLayout',
     data () {
-      return {
-        leftDrawerOpen: false
-      }
+      return {}
     },
     methods: {
       logout () {

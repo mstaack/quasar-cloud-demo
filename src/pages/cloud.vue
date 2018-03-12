@@ -4,10 +4,16 @@
         <!--Item Path & Actions-->
         <div class="row justify-between q-mb-md">
             <div>
-                <breadcrumb-navigation :path="path" @changePath="path = $event"/>
+                <breadcrumb-navigation :path="path" @changePath="setPath($event)"/>
             </div>
             <div>
-                <q-icon class="cursor-pointer" :class="{ 'animate-spin': this.loading }" name="refresh" size="24px" @click.native="refresh"/>
+                <q-icon
+                        class="cursor-pointer"
+                        :class="{ 'animate-spin': this.loading }"
+                        name="refresh"
+                        size="24px"
+                        @click.native="refresh"
+                />
             </div>
         </div>
 
@@ -16,16 +22,16 @@
 
             <!--Folders-->
             <q-list-header inset v-if="folders.length">Folders</q-list-header>
-            <q-item v-for="folder in folders" :key="folder.path" @click.native="path = folder.path">
+            <q-item v-for="folder in folders" :key="folder.path" @click.native="setPath(folder.path)">
                 <q-item-side icon="folder" inverted color="primary"/>
                 <q-item-main>
                     <q-item-tile label>{{folder.name}}</q-item-tile>
-                    <q-item-tile sublabel>{{format.humanStorageSize(folder.size)}} | {{folder.time}}</q-item-tile>
+                    <q-item-tile sublabel>{{humanStorageSize(folder.size)}} | {{folder.time}}</q-item-tile>
                 </q-item-main>
                 <q-item-side class="cursor-pointer" right icon="info" @click.native="showInfo(item)"/>
 
                 <!--Context Menu-->
-                <context-menu :item="folder" @refresh="refresh"/>
+                <context-menu :item="folder" :path="path" @refresh="refresh"/>
             </q-item>
 
             <q-item-separator inset v-if="folders.length"/>
@@ -38,12 +44,12 @@
                 <q-item-side icon="insert drive file" inverted color="grey-6"/>
                 <q-item-main>
                     <q-item-tile label>{{file.name}}</q-item-tile>
-                    <q-item-tile sublabel>{{format.humanStorageSize(file.size)}} | {{file.time}}</q-item-tile>
+                    <q-item-tile sublabel>{{humanStorageSize(file.size)}} | {{file.time}}</q-item-tile>
                 </q-item-main>
                 <q-item-side right icon="info"/>
 
                 <!--Context Menu-->
-                <context-menu :item="file" @refresh="refresh"/>
+                <context-menu :item="file" :path="path" @refresh="refresh"/>
             </q-item>
         </q-list>
 
@@ -94,6 +100,7 @@
   import InnerLoading from '../components/InnerLoading'
   import BreadcrumbNavigation from '../components/Cloud/BreadcrumbNavigation'
   import ContextMenu from '../components/Cloud/ContextMenu'
+  import {mapActions, mapGetters} from 'vuex'
   import {format} from 'quasar'
 
   export default {
@@ -105,53 +112,43 @@
     },
     data () {
       return {
-        path: '/',
         upload: false,
-        loading: false,
-        items: []
-      }
-    },
-    beforeCreate () {
-      this.format = format
-    },
-    watch: {
-      path: {
-        handler: 'refresh',
-        immediate: true
       }
     },
     computed: {
-      folders () {
-        return this.items.filter((item) => {
-          return !item.is_file
-        })
-      },
-      files () {
-        return this.items.filter((item) => {
-          return item.is_file
-        })
-      }
+      ...mapGetters('cloud', [
+        'files',
+        'path',
+        'folders',
+        'loading'
+      ])
     },
     methods: {
-      refresh () {
-        this.loading = true
-        this.$axios.get('/api/cloud/list', {params: {path: this.path}})
-          .then((response) => {
-            this.items = response.data.data
-            this.loading = false
-          })
-          .catch(() => {
-            this.$q.notify({
-              color: 'negative',
-              position: 'top',
-              message: 'Loading failed',
-              icon: 'report_problem'
-            })
-            this.loading = false
-          })
-      },
+      ...mapActions('cloud', [
+        'refresh',
+        'setPath',
+      ]),
+      // refresh () {
+      //   this.loading = true
+      //   this.$axios.get('/api/cloud/list', {params: {path: this.path}})
+      //     .then((response) => {
+      //       this.$store.commit('cloud/setItems', response.data.data)
+      //       this.loading = false
+      //     })
+      //     .catch(() => {
+      //       this.$q.notify({
+      //         color: 'negative',
+      //         position: 'top',
+      //         message: 'Loading failed',
+      //         icon: 'report_problem'
+      //       })
+      //       this.loading = false
+      //     })
+      // },
       showInfo (item) {
-
+      },
+      humanStorageSize (size) {
+        return format.humanStorageSize(size)
       },
       createFolder () {
         this.$q.dialog({

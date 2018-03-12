@@ -10,6 +10,10 @@ export const folders = (state) => {
   })
 }
 
+export const allFolders = (state) => {
+  return state.allFolders
+}
+
 export const path = (state) => {
   return state.path
 }

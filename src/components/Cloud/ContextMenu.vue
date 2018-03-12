@@ -26,11 +26,13 @@
         <q-dialog v-model="dialog">
             <span slot="title">Move</span>
 
+            <span slot="message">Please select a folder:</span>
+
             <div slot="body">
                 <q-select
-                        v-model="selectedItem"
-                        float-label="Select Folder"
-                        radio
+                        filter
+                        v-model="selectedFolder"
+                        separator
                         :options="folders"
                 />
             </div>
@@ -44,34 +46,32 @@
 </template>
 
 <script>
+
   export default {
-    props: ['item', 'path'],
+    props: ['item'],
     data () {
       return {
         dialog: false,
-        selectedItem: null
+        selectedFolder: null
       }
     },
     computed: {
       folders () {
-        return this.path.split('/')
-          .filter((x, i, a) => a.indexOf(x) === i)
-          .map((folder) => {
-            return {
-              label: folder,
-              value: folder
-            }
-          })
+        return this.$store.getters['cloud/allFolders'].map((folder) => {
+          return {
+            value: folder,
+            label: folder
+          }
+        })
       }
     },
     methods: {
       downloadItem (item) {
-        this.axios.post('api/cloud/download', {item: item}).then(response => {
+        this.$axios.post('api/cloud/download', {item: item}).then(response => {
           window.location = response.data.url
         })
       },
       moveItem (item) {
-        console.log(this.path)
         this.dialog = true
       },
       copyItem (item) {

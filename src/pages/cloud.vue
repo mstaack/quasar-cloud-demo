@@ -9,6 +9,7 @@
             <div>
                 <q-icon
                         class="cursor-pointer"
+                        color="grey-7"
                         :class="{ 'animate-spin': this.loading }"
                         name="refresh"
                         size="24px"

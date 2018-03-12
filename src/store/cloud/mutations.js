@@ -1,7 +1,7 @@
-export const setItems = (state, items) => {
+export const SET_ITEMS = (state, items) => {
   state.items = items
 }
 
-export const changePath = (state, path) => {
+export const SET_PATH = (state, path) => {
   state.path = path
 }

@@ -9,13 +9,13 @@ export function refresh ({commit, state}) {
   return axios.get('/api/cloud/list', {params: {path: state.path}})
     .then(response => {
       state.loading = false
-      commit('setItems', response.data.data)
+      commit('SET_ITEMS', response.data.data)
     }).catch(() => {
       state.loading = false
     })
 }
 
 export function setPath ({commit, dispatch}, path) {
-  commit('changePath', path)
+  commit('SET_PATH', path)
   dispatch('refresh')
 }

@@ -40,7 +40,7 @@
     },
     methods: {
       changePath (path) {
-        this.$emit('changePath', path)
+        this.$store.dispatch('cloud/setPath', path)
       }
     }
   }

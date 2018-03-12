@@ -128,23 +128,6 @@
         'refresh',
         'setPath',
       ]),
-      // refresh () {
-      //   this.loading = true
-      //   this.$axios.get('/api/cloud/list', {params: {path: this.path}})
-      //     .then((response) => {
-      //       this.$store.commit('cloud/setItems', response.data.data)
-      //       this.loading = false
-      //     })
-      //     .catch(() => {
-      //       this.$q.notify({
-      //         color: 'negative',
-      //         position: 'top',
-      //         message: 'Loading failed',
-      //         icon: 'report_problem'
-      //       })
-      //       this.loading = false
-      //     })
-      // },
       showInfo (item) {
       },
       humanStorageSize (size) {

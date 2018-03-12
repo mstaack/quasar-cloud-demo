@@ -74,7 +74,7 @@
                     <q-uploader
                             url="api/cloud/upload"
                             name="file"
-                            :headers="{Authorization:$store.state.session.token}"
+                            :headers="{Authorization:$store.state.session.user.token}"
                     ></q-uploader>
                 </div>
 

@@ -9,7 +9,7 @@
                 :key="article.url"
         >
             <q-card-media>
-                <q-parallax :src="article.urlToImage" :height="250">
+                <q-parallax :src="article.urlToImage" :height="250" :speed="0.3">
                     <div slot="loading">Loading...</div>
                 </q-parallax>
             </q-card-media>

@@ -11,8 +11,6 @@
                         round
                         dense
                         icon="open with"
-                        @click.native="$q.fullscreen.toggle()"
-                        v-if="$q.fullscreen.isCapable"
                         class="q-mr-sm"/>
                 <q-btn
                         flat

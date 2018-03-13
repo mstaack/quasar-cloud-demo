@@ -23,7 +23,11 @@
 
             <!--Folders-->
             <q-list-header inset v-if="folders.length">Folders</q-list-header>
-            <q-item v-for="folder in folders" :key="folder.path" @click.native="setPath(folder.path)">
+            <q-item
+                    v-for="folder in folders"
+                    :key="folder.path"
+                    @click.native="setPath(folder.path)"
+            >
                 <q-item-side icon="folder" inverted color="primary"/>
                 <q-item-main>
                     <q-item-tile label>{{folder.name}}</q-item-tile>

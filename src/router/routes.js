@@ -1,6 +1,7 @@
 export default [
   {
     path: '/',
+    redirect: '/news',
     component: () => import('layouts/main'),
     meta: {auth: true},
     children: [

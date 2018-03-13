@@ -1,6 +1,13 @@
 <template>
     <q-page class="flex flex-center column q-mt-md">
-        <q-card inline style="width:800px;" class="q-ma-sm" v-for="article in articles" :key="article.url">
+        <q-card
+                inline
+                style="width:800px;"
+                class="q-ma-sm"
+                :class="{ 'fit': $q.platform.is.mobile }"
+                v-for="article in articles"
+                :key="article.url"
+        >
             <q-card-media>
                 <q-parallax :src="article.urlToImage" :height="250">
                     <div slot="loading">Loading...</div>

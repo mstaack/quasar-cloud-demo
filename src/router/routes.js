@@ -5,12 +5,6 @@ export default [
     meta: {auth: true},
     children: [
       {
-        path: '/',
-        name: 'home',
-        component: () => import('pages/home'),
-        meta: {title: 'Home'}
-      },
-      {
         path: 'news',
         name: 'news',
         component: () => import('pages/news'),

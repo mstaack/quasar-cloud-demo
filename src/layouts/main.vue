@@ -10,12 +10,6 @@
                         flat
                         round
                         dense
-                        icon="open with"
-                        class="q-mr-sm"/>
-                <q-btn
-                        flat
-                        round
-                        dense
                         icon="more_vert">
                     <q-popover>
                         <q-list link>

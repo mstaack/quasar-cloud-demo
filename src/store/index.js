@@ -2,14 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import session from './session'
-import mail from './mail'
 import cloud from './cloud'
 
 Vue.use(Vuex)
 
 const modules = {
   session,
-  mail,
   cloud
 }
 

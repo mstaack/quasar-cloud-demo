@@ -17,12 +17,6 @@ export default [
         meta: {title: 'News'}
       },
       {
-        path: 'mail',
-        name: 'mail',
-        component: () => import('pages/mail'),
-        meta: {title: 'Mail'}
-      },
-      {
         path: 'cloud',
         name: 'cloud',
         component: () => import('pages/cloud'),

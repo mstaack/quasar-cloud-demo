@@ -54,7 +54,7 @@ module.exports = function (ctx) {
       open: true, // opens browser window automatically
       proxy: {
         '/api': {
-          target: 'https://api.maxmatteostaack.com',
+          target: 'http://localhost:8000',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''
@@ -98,6 +98,7 @@ module.exports = function (ctx) {
         'QPageContainer',
         'QPageSticky',
         'QPopover',
+        'QParallax',
         'QProgress',
         'QRouteTab',
         'QSpinnerGears',

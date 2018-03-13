@@ -98,7 +98,6 @@
       moveItem (item) {
         this.$axios.post('api/cloud/move', {
           item: item,
-          current: this.$store.getters['cloud/path'],
           target: this.selectedFolder
         })
           .then(() => {

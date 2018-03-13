@@ -151,7 +151,7 @@
           },
           color: 'secondary'
         }).then(data => {
-          this.$axios.post('/api/cloud/create-directory', {path: this.path, name: data})
+          this.$axios.post('/api/cloud/create-directory', {target: this.path, name: data})
             .then(() => {
               this.$q.notify({
                 color: 'positive',

@@ -7,7 +7,7 @@
         </div>
 
         <template slot="buttons" slot-scope="props">
-            <q-btn flat label="Cancel" @click="closeDialog('rename')"/>
+            <q-btn flat label="Cancel" @click="showDialog=false"/>
             <q-btn
                     color="primary"
                     label="Rename"
@@ -24,27 +24,31 @@
 
   export default {
     name: 'RenameDialog',
-    props: ['item'],
+    props: ['item', 'show'],
     data () {
       return {
         newName: this.item.name
       }
     },
     computed: {
-      showDialog () {
-        return this.$store.getters['cloud/dialogs'].rename
+      showDialog: {
+        get () {
+          return this.show
+        },
+        set (value) {
+          this.$emit('update:show', value)
+        }
       },
     },
     methods: {
       ...mapActions('cloud', [
-        'refresh',
-        'closeDialog',
+        'refresh'
       ]),
       renameItem () {
         this.$axios.post('/api/cloud/rename', {item: this.item, name: this.newName})
           .then(() => {
             this.refresh()
-            this.closeDialog('delete')
+            this.showDialog = false
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -54,7 +58,7 @@
           })
           .catch((error) => {
             this.refresh()
-            this.closeDialog('delete')
+            this.showDialog = false
             this.$q.notify({
               color: 'negative',
               position: 'top',

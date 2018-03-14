@@ -5,29 +5,29 @@
                 <q-item-side icon="fa-arrow-alt-circle-down" color="grey-5"/>
                 <q-item-main label="Download"/>
             </q-item>
-            <q-item v-close-overlay @click.native="openDialog('rename')">
+            <q-item v-close-overlay @click.native="showRenameDialog=true">
                 <q-item-side icon="fa-pencil-alt" color="grey-5"/>
                 <q-item-main label="Rename"/>
             </q-item>
-            <q-item v-close-overlay @click.native="openDialog('copy')">
+            <q-item v-close-overlay @click.native="showCopyDialog=true">
                 <q-item-side icon="fa-copy" color="grey-5"/>
                 <q-item-main label="Copy"/>
             </q-item>
-            <q-item v-close-overlay @click.native="openDialog('move')">
+            <q-item v-close-overlay @click.native="showMoveDialog=true">
                 <q-item-side icon="fa-arrow-right" color="grey-5"/>
                 <q-item-main label="Move"/>
             </q-item>
-            <q-item v-close-overlay @click.native="openDialog('delete')">
+            <q-item v-close-overlay @click.native="showDeleteDialog=true">
                 <q-item-side icon="fa-trash-alt" color="grey-5"/>
                 <q-item-main label="Delete"/>
             </q-item>
         </q-list>
 
         <!--Action Dialogs-->
-        <delete-dialog :item="item"/>
-        <rename-dialog :item="item"/>
-        <move-dialog :item="item"/>
-        <copy-dialog :item="item"/>
+        <delete-dialog :item="item" :show.sync="showDeleteDialog"/>
+        <rename-dialog :item="item" :show.sync="showRenameDialog"/>
+        <move-dialog :item="item" :show.sync="showMoveDialog"/>
+        <copy-dialog :item="item" :show.sync="showCopyDialog"/>
 
     </q-context-menu>
 </template>
@@ -37,7 +37,6 @@
   import RenameDialog from '../../components/Cloud/Dialogs/RenameDialog'
   import MoveDialog from '../../components/Cloud/Dialogs/MoveDialog'
   import CopyDialog from '../../components/Cloud/Dialogs/CopyDialog'
-  import {mapActions} from 'vuex'
 
   export default {
     props: ['item'],
@@ -48,13 +47,14 @@
       CopyDialog
     },
     data () {
-      return {}
+      return {
+        showDeleteDialog: false,
+        showRenameDialog: false,
+        showMoveDialog: false,
+        showCopyDialog: false,
+      }
     },
     methods: {
-      ...mapActions('cloud', [
-        'openDialog',
-        'closeDialog',
-      ]),
       downloadItem () {
         // TODO
       }

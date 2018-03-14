@@ -18,11 +18,3 @@ export function setPath ({commit, dispatch}, path) {
   commit('SET_PATH', path)
   dispatch('refresh')
 }
-
-export function openDialog ({commit}, dialog) {
-  commit('OPEN_DIALOG', dialog)
-}
-
-export function closeDialog ({commit}, dialog) {
-  commit('CLOSE_DIALOG', dialog)
-}

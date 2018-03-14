@@ -14,7 +14,7 @@
         </div>
 
         <template slot="buttons" slot-scope="props">
-            <q-btn flat label="Cancel" @click="closeDialog('move')"/>
+            <q-btn flat label="Cancel" @click="showDialog=false"/>
             <q-btn
                     color="primary"
                     label="Move"
@@ -30,7 +30,7 @@
 
   export default {
     name: 'MoveDialog',
-    props: ['item'],
+    props: ['item', 'show'],
     data () {
       return {
         targetFolder: null
@@ -40,14 +40,18 @@
       ...mapGetters('cloud', [
         'allFolders',
       ]),
-      showDialog () {
-        return this.$store.getters['cloud/dialogs'].move
+      showDialog: {
+        get () {
+          return this.show
+        },
+        set (value) {
+          this.$emit('update:show', value)
+        }
       },
     },
     methods: {
       ...mapActions('cloud', [
-        'refresh',
-        'closeDialog',
+        'refresh'
       ]),
       moveItem () {
         this.$axios.post('api/cloud/move', {
@@ -55,7 +59,7 @@
           target: this.targetFolder
         }).then(() => {
           this.refresh()
-          this.closeDialog('move')
+          this.showDialog = false
           this.$q.notify({
             color: 'positive',
             position: 'top',
@@ -64,7 +68,7 @@
           })
         }).catch((error) => {
           this.refresh()
-          this.closeDialog('move')
+          this.showDialog = false
           this.$q.notify({
             color: 'negative',
             position: 'top',

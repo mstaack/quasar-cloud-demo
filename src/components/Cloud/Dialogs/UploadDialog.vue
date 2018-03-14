@@ -34,6 +34,7 @@
 
   export default {
     name: 'UploadDialog',
+    props: ['show'],
     data () {
       return {}
     },
@@ -41,18 +42,22 @@
       ...mapGetters('cloud', [
         'path',
       ]),
-      showDialog () {
-        return this.$store.getters['cloud/dialogs'].upload
+      showDialog: {
+        get () {
+          return this.show
+        },
+        set (value) {
+          this.$emit('update:show', value)
+        }
       },
     },
     methods: {
       ...mapActions('cloud', [
-        'refresh',
-        'closeDialog',
+        'refresh'
       ]),
       closeUploader () {
         this.refresh()
-        this.closeDialog('upload')
+        this.showDialog = false
         this.$refs.uploader.reset()
       }
     }

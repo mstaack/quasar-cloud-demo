@@ -14,7 +14,7 @@
         </div>
 
         <template slot="buttons" slot-scope="props">
-            <q-btn flat label="Cancel" @click="closeDialog('copy')"/>
+            <q-btn flat label="Cancel" @click="showDialog=false"/>
             <q-btn
                     color="primary"
                     label="Copy"
@@ -30,7 +30,7 @@
 
   export default {
     name: 'CopyDialog',
-    props: ['item'],
+    props: ['item', 'show'],
     data () {
       return {
         targetFolder: null
@@ -40,20 +40,24 @@
       ...mapGetters('cloud', [
         'allFolders',
       ]),
-      showDialog () {
-        return this.$store.getters['cloud/dialogs'].copy
-      },
+      showDialog: {
+        get () {
+          return this.show
+        },
+        set (value) {
+          this.$emit('update:show', value)
+        }
+      }
     },
     methods: {
       ...mapActions('cloud', [
         'refresh',
-        'closeDialog',
       ]),
       copyItem () {
         this.$axios.post('api/cloud/copy', {item: this.item, path: this.targetFolder})
           .then(() => {
             this.refresh()
-            this.closeDialog('copy')
+            this.showDialog = false
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -63,7 +67,7 @@
           })
           .catch((error) => {
             this.refresh()
-            this.closeDialog('copy')
+            this.showDialog = false
             this.$q.notify({
               color: 'negative',
               position: 'top',

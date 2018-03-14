@@ -7,7 +7,7 @@
         </span>
 
         <template slot="buttons" slot-scope="props">
-            <q-btn flat label="Cancel" @click="closeDialog('delete')"/>
+            <q-btn flat label="Cancel" @click="showDialog=false"/>
             <q-btn
                     color="negative"
                     label="Delete"
@@ -22,25 +22,29 @@
 
   export default {
     name: 'DeleteDialog',
-    props: ['item'],
+    props: ['item', 'show'],
     data () {
       return {}
     },
     computed: {
-      showDialog () {
-        return this.$store.getters['cloud/dialogs'].delete
-      },
+      showDialog: {
+        get () {
+          return this.show
+        },
+        set (value) {
+          this.$emit('update:show', value)
+        }
+      }
     },
     methods: {
       ...mapActions('cloud', [
-        'refresh',
-        'closeDialog',
+        'refresh'
       ]),
       deleteItem () {
         this.$axios.post('/api/cloud/delete', {item: this.item})
           .then(() => {
             this.refresh()
-            this.closeDialog('delete')
+            this.showDialog = false
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -50,7 +54,7 @@
           })
           .catch((error) => {
             this.refresh()
-            this.closeDialog('delete')
+            this.showDialog = false
             this.$q.notify({
               color: 'negative',
               position: 'top',

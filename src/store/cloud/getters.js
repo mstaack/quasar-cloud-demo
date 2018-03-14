@@ -28,8 +28,3 @@ export const path = (state) => {
 export const loading = (state) => {
   return state.loading
 }
-
-export const dialogs = (state) => {
-  return state.dialogs
-}
-

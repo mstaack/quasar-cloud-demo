@@ -7,7 +7,7 @@
         </div>
 
         <template slot="buttons" slot-scope="props">
-            <q-btn flat label="Cancel" @click="closeDialog('create')"/>
+            <q-btn flat label="Cancel" @click="showDialog=false"/>
             <q-btn
                     color="primary"
                     label="Create"
@@ -23,6 +23,7 @@
 
   export default {
     name: 'CreateFolderDialog',
+    props: ['show'],
     data () {
       return {
         folderName: ''
@@ -34,8 +35,13 @@
         'files',
         'folders'
       ]),
-      showDialog () {
-        return this.$store.getters['cloud/dialogs'].create
+      showDialog: {
+        get () {
+          return this.show
+        },
+        set (value) {
+          this.$emit('update:show', value)
+        }
       },
       isInvalidFolderName () {
         if (this.folderName.length === 0) {
@@ -47,8 +53,7 @@
     },
     methods: {
       ...mapActions('cloud', [
-        'refresh',
-        'closeDialog',
+        'refresh'
       ]),
       createFolder () {
 
@@ -65,7 +70,7 @@
         this.$axios.post('/api/cloud/create-directory', {target: this.path, name: this.folderName})
           .then(() => {
             this.refresh()
-            this.closeDialog('create')
+            this.showDialog = false
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -75,7 +80,7 @@
           })
           .catch((error) => {
             this.refresh()
-            this.closeDialog('create')
+            this.showDialog = false
             this.$q.notify({
               color: 'negative',
               position: 'top',

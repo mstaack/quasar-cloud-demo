@@ -3,7 +3,7 @@
         <span slot="title">Create Folder</span>
 
         <div slot="body">
-            <q-input v-model="folderName"/>
+            <q-input v-model="folderName" @keyup.enter="createFolder"/>
         </div>
 
         <template slot="buttons" slot-scope="props">
@@ -51,6 +51,17 @@
         'closeDialog',
       ]),
       createFolder () {
+
+        if (this.isInvalidFolderName) {
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: 'This is not a valid name',
+            icon: 'report_problem'
+          })
+          return
+        }
+
         this.$axios.post('/api/cloud/create-directory', {target: this.path, name: this.folderName})
           .then(() => {
             this.refresh()

@@ -75,7 +75,7 @@
       }
     },
     created () {
-      this.$store.dispatch('cloud/refresh')
+      this.refresh()
     },
     methods: {
       ...mapActions('cloud', [

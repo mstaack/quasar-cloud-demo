@@ -73,6 +73,8 @@
       ...mapActions('cloud', [
         'refresh',
         'setPath',
+        'openDialog',
+        'closeDialog'
       ])
     }
   }

@@ -80,9 +80,7 @@
     methods: {
       ...mapActions('cloud', [
         'refresh',
-        'setPath',
-        'openDialog',
-        'closeDialog'
+        'setPath'
       ]),
       humanStorageSize (size) {
         return format.humanStorageSize(size)

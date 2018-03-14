@@ -31,9 +31,6 @@
     </q-page>
 </template>
 
-<style>
-</style>
-
 <script>
   import InnerLoading from '../components/InnerLoading'
   import {openURL} from 'quasar'
@@ -65,3 +62,6 @@
   }
 
 </script>
+
+<style lang="stylus" scoped>
+</style>

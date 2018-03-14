@@ -19,7 +19,16 @@
         </div>
 
         <!--Item List-->
-        <q-list link dense>
+        <q-list link dense style="min-height: 500px">
+
+            <!--Empty Notice-->
+            <q-list-header
+                    align="center"
+                    v-if="folders.length + files.length === 0"
+                    class="q-mt-xl"
+            >
+                Nothing in here...
+            </q-list-header>
 
             <!--Folders-->
             <q-list-header inset v-if="folders.length">Folders</q-list-header>

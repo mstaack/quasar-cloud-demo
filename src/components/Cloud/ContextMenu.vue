@@ -180,7 +180,6 @@
           title: 'Delete Item',
           ok: 'Delete',
           cancel: 'Cancel',
-          color: 'error'
         }).then(() => {
           this.$axios.post('/api/cloud/delete', {item: item})
             .then(() => {
@@ -208,5 +207,5 @@
   }
 </script>
 
-<style>
+<style lang="stylus" scoped>
 </style>

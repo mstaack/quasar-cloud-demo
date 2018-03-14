@@ -4,11 +4,11 @@
     </q-page>
 </template>
 
-<style>
-</style>
-
 <script>
   export default {
     name: 'Home'
   }
 </script>
+
+<style lang="stylus" scoped>
+</style>

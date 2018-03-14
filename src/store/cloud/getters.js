@@ -11,22 +11,14 @@ export const folders = (state) => {
 }
 
 export const allFolders = (state) => {
-
-  const folders = [{
-    value: '/',
-    label: '/'
-  }]
-
-  folder.push(state.allFolders
+  return state.allFolders
     .filter((folder) => state.path !== folder)
     .map((folder) => {
       return {
         value: folder,
         label: folder
       }
-    }))
-
-  return folders
+    })
 }
 
 export const path = (state) => {

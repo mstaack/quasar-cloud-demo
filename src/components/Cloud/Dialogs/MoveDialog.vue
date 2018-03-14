@@ -18,7 +18,6 @@
             <q-btn color="primary" label="Move" autofocus @click="moveItem"/>
         </template>
     </q-dialog>
-
 </template>
 
 

@@ -45,7 +45,7 @@
                 <q-item-side class="cursor-pointer" right icon="info" @click.native="showInfo(item)"/>
 
                 <!--Context Menu-->
-                <context-menu :item="folder" :path="path" @refresh="refresh"/>
+                <context-menu :item="folder" @refresh="refresh"/>
             </q-item>
 
             <q-item-separator inset v-if="folders.length"/>

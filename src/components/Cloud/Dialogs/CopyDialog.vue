@@ -24,7 +24,7 @@
   import {mapActions, mapGetters} from 'vuex'
 
   export default {
-    name: 'MoveDialog',
+    name: 'CopyDialog',
     props: ['item'],
     data () {
       return {

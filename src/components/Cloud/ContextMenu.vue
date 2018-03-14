@@ -1,10 +1,10 @@
 <template>
     <q-context-menu>
         <q-list link separator style="min-width: 130px; max-height: 300px;">
-            <!--<q-item v-close-overlay @click.native="downloadItem(item)">-->
-            <!--<q-item-side icon="fa-arrow-alt-circle-down" color="grey-5"/>-->
-            <!--<q-item-main label="Download"/>-->
-            <!--</q-item>-->
+            <q-item v-close-overlay @click.native="downloadItem(item)" disabled="true">
+                <q-item-side icon="fa-arrow-alt-circle-down" color="grey-5"/>
+                <q-item-main label="Download"/>
+            </q-item>
             <q-item v-close-overlay @click.native="openDialog('rename')">
                 <q-item-side icon="fa-pencil-alt" color="grey-5"/>
                 <q-item-main label="Rename"/>
@@ -26,8 +26,8 @@
         <!--Action Dialogs-->
         <delete-dialog :item="item"/>
         <rename-dialog :item="item"/>
-        <copy-dialog :item="item"/>
         <move-dialog :item="item"/>
+        <copy-dialog :item="item"/>
 
     </q-context-menu>
 </template>
@@ -55,11 +55,8 @@
         'openDialog',
         'closeDialog',
       ]),
-      downloadItem (item) {
-        this.$axios.post('api/cloud/download', {item: item})
-          .then(response => {
-            window.location = response.data.url
-          })
+      downloadItem () {
+        // TODO
       }
     }
   }

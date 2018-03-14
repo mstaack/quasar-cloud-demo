@@ -9,7 +9,7 @@
                     filter
                     v-model="targetFolder"
                     separator
-                    :options="allFolders"
+                    :options="folders"
             />
         </div>
 
@@ -40,6 +40,9 @@
       ...mapGetters('cloud', [
         'allFolders',
       ]),
+      folders () {
+        return this.allFolders.filter((folder) => folder.value !== this.item.path)
+      },
       showDialog: {
         get () {
           return this.show

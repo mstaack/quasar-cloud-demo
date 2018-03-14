@@ -71,6 +71,7 @@
           .then(() => {
             this.refresh()
             this.showDialog = false
+            this.folderName = ''
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -81,6 +82,7 @@
           .catch((error) => {
             this.refresh()
             this.showDialog = false
+            this.folderName = ''
             this.$q.notify({
               color: 'negative',
               position: 'top',

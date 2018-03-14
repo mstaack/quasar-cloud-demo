@@ -9,7 +9,7 @@
                     filter
                     v-model="targetFolder"
                     separator
-                    :options="allFolders"
+                    :options="folders"
             />
         </div>
 
@@ -47,6 +47,9 @@
         set (value) {
           this.$emit('update:show', value)
         }
+      },
+      folders () {
+        return this.allFolders.filter((folder) => folder.value !== this.item.path)
       }
     },
     methods: {

@@ -43,6 +43,8 @@
       renameItem () {
         this.$axios.post('/api/cloud/rename', {item: this.item, name: this.newName})
           .then(() => {
+            this.refresh()
+            this.closeDialog('delete')
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -51,6 +53,8 @@
             })
           })
           .catch((error) => {
+            this.refresh()
+            this.closeDialog('delete')
             this.$q.notify({
               color: 'negative',
               position: 'top',
@@ -58,9 +62,6 @@
               icon: 'report_problem'
             })
           })
-
-        this.closeDialog('delete')
-        this.refresh()
       }
     }
   }

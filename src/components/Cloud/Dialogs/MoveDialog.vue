@@ -50,26 +50,25 @@
         this.$axios.post('api/cloud/move', {
           item: this.item,
           target: this.targetFolder
+        }).then(() => {
+          this.refresh()
+          this.closeDialog('move')
+          this.$q.notify({
+            color: 'positive',
+            position: 'top',
+            message: 'Item moved',
+            icon: 'fa-check-circle'
+          })
+        }).catch((error) => {
+          this.refresh()
+          this.closeDialog('move')
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: error.response.data.message || 'Something went wrong',
+            icon: 'fa-exclamation-triangle'
+          })
         })
-          .then(() => {
-            this.$q.notify({
-              color: 'positive',
-              position: 'top',
-              message: 'Item moved',
-              icon: 'fa-check-circle'
-            })
-          })
-          .catch((error) => {
-            this.$q.notify({
-              color: 'negative',
-              position: 'top',
-              message: error.response.data.message || 'Something went wrong',
-              icon: 'fa-exclamation-triangle'
-            })
-          })
-
-        this.closeDialog('move')
-        this.$store.dispatch('cloud/refresh')
       }
     }
   }

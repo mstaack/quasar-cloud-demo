@@ -47,8 +47,8 @@
         'closeDialog',
       ]),
       closeUploader () {
+        this.refresh()
         this.closeDialog('upload')
-        this.$store.dispatch('cloud/refresh')
         this.$refs.uploader.reset()
       }
     }

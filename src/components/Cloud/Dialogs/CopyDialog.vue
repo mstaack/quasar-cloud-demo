@@ -47,6 +47,8 @@
       copyItem () {
         this.$axios.post('api/cloud/copy', {item: this.item, path: this.targetFolder})
           .then(() => {
+            this.refresh()
+            this.closeDialog('copy')
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -55,6 +57,8 @@
             })
           })
           .catch((error) => {
+            this.refresh()
+            this.closeDialog('copy')
             this.$q.notify({
               color: 'negative',
               position: 'top',
@@ -62,9 +66,6 @@
               icon: 'fa-exclamation-triangle'
             })
           })
-
-        this.closeDialog('copy')
-        this.$store.dispatch('cloud/refresh')
       }
     }
   }

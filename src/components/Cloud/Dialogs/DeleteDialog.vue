@@ -35,6 +35,8 @@
       deleteItem () {
         this.$axios.post('/api/cloud/delete', {item: this.item})
           .then(() => {
+            this.refresh()
+            this.closeDialog('delete')
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -43,6 +45,8 @@
             })
           })
           .catch((error) => {
+            this.refresh()
+            this.closeDialog('delete')
             this.$q.notify({
               color: 'negative',
               position: 'top',
@@ -50,9 +54,6 @@
               icon: 'report_problem'
             })
           })
-
-        this.closeDialog('delete')
-        this.refresh()
       }
     }
   }

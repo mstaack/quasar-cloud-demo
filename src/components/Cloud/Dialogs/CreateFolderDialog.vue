@@ -44,6 +44,8 @@
       createFolder () {
         this.$axios.post('/api/cloud/create-directory', {target: this.path, name: this.folderName})
           .then(() => {
+            this.refresh()
+            this.closeDialog('create')
             this.$q.notify({
               color: 'positive',
               position: 'top',
@@ -52,6 +54,8 @@
             })
           })
           .catch((error) => {
+            this.refresh()
+            this.closeDialog('create')
             this.$q.notify({
               color: 'negative',
               position: 'top',
@@ -59,9 +63,6 @@
               icon: 'report_problem'
             })
           })
-
-        this.closeDialog('create')
-        this.$store.dispatch('cloud/refresh')
       }
     }
   }

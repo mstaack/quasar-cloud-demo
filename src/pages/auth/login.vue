@@ -94,7 +94,7 @@
           this.$q.notify({
             color: 'negative',
             position: 'top',
-            message: 'Your credentials are wrong',
+            message: error.response.data.message || 'Your credentials are wrong',
             icon: 'fa-exclamation-triangle'
           })
         })

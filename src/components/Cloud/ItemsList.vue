@@ -35,7 +35,7 @@
         <q-item v-for="file in files" :key="file.path">
 
             <!--Icon & Name & Icon-->
-            <q-item-side icon="insert drive file" inverted color="grey-6"/>
+            <q-item-side :icon="file.icon" inverted color="grey-6"/>
             <q-item-main>
                 <q-item-tile label>{{file.name}}</q-item-tile>
                 <q-item-tile sublabel>

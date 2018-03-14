@@ -82,7 +82,7 @@
       return {
         showUploadDialog: false,
         showCreateFolderDialog: false,
-        viewMode: 'grid'
+        viewMode: 'list'
       }
     },
     computed: {

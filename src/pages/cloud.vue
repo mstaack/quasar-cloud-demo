@@ -10,7 +10,7 @@
                 <q-icon
                         class="cursor-pointer"
                         color="grey-7"
-                        :class="{ 'animate-spin': this.loading }"
+                        :class="{ 'animate-spin': loading }"
                         name="refresh"
                         size="24px"
                         @click.native="refresh"
@@ -24,7 +24,7 @@
             <!--Empty Notice-->
             <q-list-header
                     align="center"
-                    v-if="folders.length + files.length === 0"
+                    v-if="noContent"
                     class="q-mt-xl"
             >
                 Nothing in here...
@@ -67,43 +67,19 @@
             </q-item>
         </q-list>
 
-
-        <!--Uploader-->
-        <q-modal v-model="upload" :content-css="{minWidth: '80vw', minHeight: '80vh'}">
-            <q-modal-layout>
-                <q-toolbar slot="header">
-                    <q-toolbar-title>
-                        Uploader
-                    </q-toolbar-title>
-                </q-toolbar>
-
-                <div class="layout-padding">
-                    <q-uploader
-                            ref="uploader"
-                            auto-expand
-                            multiple
-                            :clearable="true"
-                            url="api/cloud/upload"
-                            name="file"
-                            :headers="{Authorization:$store.state.session.user.token}"
-                            :additional-fields="[{name:'path',value:path}]"
-                            @finish="refresh"
-                    ></q-uploader>
-                </div>
-                <q-toolbar slot="footer" align="justify-between">
-                    <q-btn flat label="Close" @click.native="$refs.uploader.reset();upload=false"/>
-                    <q-btn flat label="Upload" @click.native="$refs.uploader.upload()"/>
-                </q-toolbar>
-            </q-modal-layout>
-        </q-modal>
-
         <!--Fab Action Button-->
         <q-page-sticky position="bottom-right" :offset="[18, 18]">
             <q-fab icon="add" direction="up" color="primary">
-                <q-fab-action color="blue" class="white" icon="folder" @click.native="createFolder"/>
-                <q-fab-action color="blue" class="white" icon="cloud upload" @click.native="upload=true"/>
+                <q-fab-action color="blue" class="white" icon="folder" @click.native="openDialog('create')"/>
+                <q-fab-action color="blue" class="white" icon="cloud upload" @click.native="openDialog('upload')"/>
             </q-fab>
         </q-page-sticky>
+
+        <!--Create Folder Dialog-->
+        <create-folder-dialog/>
+
+        <!--Upload Dialog-->
+        <upload-dialog/>
 
         <!--Loading Animation-->
         <inner-loading :loading="loading"/>
@@ -117,6 +93,9 @@
   import InnerLoading from '../components/InnerLoading'
   import BreadcrumbNavigation from '../components/Cloud/BreadcrumbNavigation'
   import ContextMenu from '../components/Cloud/ContextMenu'
+  import CreateFolderDialog from '../components/Cloud/Dialogs/CreateFolderDialog'
+  import UploadDialog from '../components/Cloud/Dialogs/UploadDialog'
+
   import {mapActions, mapGetters} from 'vuex'
   import {format} from 'quasar'
 
@@ -125,12 +104,12 @@
     components: {
       BreadcrumbNavigation,
       InnerLoading,
-      ContextMenu
+      ContextMenu,
+      CreateFolderDialog,
+      UploadDialog
     },
     data () {
-      return {
-        upload: false
-      }
+      return {}
     },
     computed: {
       ...mapGetters('cloud', [
@@ -138,7 +117,10 @@
         'path',
         'folders',
         'loading'
-      ])
+      ]),
+      noContent () {
+        return (this.folders.length + this.files.length) === 0
+      }
     },
     created () {
       this.$store.dispatch('cloud/refresh')
@@ -147,43 +129,12 @@
       ...mapActions('cloud', [
         'refresh',
         'setPath',
+        'openDialog',
+        'closeDialog'
       ]),
-      showInfo (item) {
-      },
       humanStorageSize (size) {
         return format.humanStorageSize(size)
-      },
-      createFolder () {
-        this.$q.dialog({
-          title: 'Create Folder',
-          ok: 'Create',
-          cancel: 'Cancel',
-          prompt: {
-            model: '',
-            type: 'text'
-          },
-          color: 'secondary'
-        }).then(data => {
-          this.$axios.post('/api/cloud/create-directory', {target: this.path, name: data})
-            .then(() => {
-              this.$q.notify({
-                color: 'positive',
-                position: 'top',
-                message: `Folder "${data}" created.`,
-                icon: 'fa-check-circle',
-              })
-              this.refresh()
-            })
-            .catch(() => {
-              this.$q.notify({
-                color: 'negative',
-                position: 'top',
-                message: 'Whoops, something went wrong!',
-                icon: 'report_problem'
-              })
-            })
-        })
-      },
+      }
     }
   }
 </script>

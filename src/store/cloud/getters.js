@@ -11,7 +11,18 @@ export const folders = (state) => {
 }
 
 export const allFolders = (state) => {
-  return state.allFolders
+  const folders = state.allFolders
+    .filter((folder) => state.path !== folder)
+    .map((folder) => {
+      return {
+        value: folder,
+        label: folder
+      }
+    })
+
+  folders
+
+  return folders
 }
 
 export const path = (state) => {
@@ -22,5 +33,7 @@ export const loading = (state) => {
   return state.loading
 }
 
-
+export const dialogs = (state) => {
+  return state.dialogs
+}
 

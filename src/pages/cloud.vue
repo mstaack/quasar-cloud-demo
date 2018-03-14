@@ -4,7 +4,7 @@
         <!--Item Path & Actions-->
         <div class="row justify-between q-mb-md">
             <div>
-                <breadcrumb-navigation :path="path" @changePath="setPath($event)"/>
+                <breadcrumb-navigation @changePath="setPath($event)"/>
             </div>
             <div>
                 <q-icon
@@ -58,12 +58,14 @@
                 <q-item-side icon="insert drive file" inverted color="grey-6"/>
                 <q-item-main>
                     <q-item-tile label>{{file.name}}</q-item-tile>
-                    <q-item-tile sublabel>{{humanStorageSize(file.size)}} | {{file.time}}</q-item-tile>
+                    <q-item-tile sublabel>
+                        {{humanStorageSize(file.size)}} | {{file.time}}
+                    </q-item-tile>
                 </q-item-main>
                 <q-item-side right icon="info"/>
 
                 <!--Context Menu-->
-                <context-menu :item="file" :path="path" @refresh="refresh"/>
+                <context-menu :item="file" @refresh="refresh"/>
             </q-item>
         </q-list>
 
@@ -114,7 +116,6 @@
     computed: {
       ...mapGetters('cloud', [
         'files',
-        'path',
         'folders',
         'loading'
       ]),

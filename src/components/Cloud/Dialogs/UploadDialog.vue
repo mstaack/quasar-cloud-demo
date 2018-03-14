@@ -24,7 +24,6 @@
                     color="primary"
                     label="Upload"
                     @click="$refs.uploader.upload()"
-                    @keyup.enter="$refs.uploader.upload()"
             />
         </template>
     </q-dialog>

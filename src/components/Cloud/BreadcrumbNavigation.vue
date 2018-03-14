@@ -11,12 +11,16 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
+
   export default {
-    props: ['path'],
     data () {
       return {}
     },
     computed: {
+      ...mapGetters('cloud', [
+        'path',
+      ]),
       breadcrumbs () {
 
         const breadcrumbs = []

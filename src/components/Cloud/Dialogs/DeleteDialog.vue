@@ -12,7 +12,6 @@
                     color="negative"
                     label="Delete"
                     @click="deleteItem"
-                    @keyup.enter="deleteItem"
             />
         </template>
     </q-dialog>

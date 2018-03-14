@@ -19,7 +19,6 @@
                     color="primary"
                     label="Move"
                     @click="moveItem"
-                    @keyup.enter="moveItem"
             />
         </template>
     </q-dialog>

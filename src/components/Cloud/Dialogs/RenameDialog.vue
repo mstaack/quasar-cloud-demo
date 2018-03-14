@@ -12,7 +12,6 @@
                     color="primary"
                     label="Rename"
                     @click="renameItem"
-                    @keyup.enter="renameItem"
                     :disable="newName === item.name"
             />
         </template>

@@ -3,7 +3,7 @@
         <span slot="title">Create Folder</span>
 
         <div slot="body">
-            <q-input v-model="folderName"/>
+            <q-input v-model="folderName" @keyup.enter="createFolder"/>
         </div>
 
         <template slot="buttons" slot-scope="props">
@@ -12,7 +12,6 @@
                     color="primary"
                     label="Create"
                     @click="createFolder"
-                    @keyup.enter="createFolder"
                     :disable="folderName.length === 0"
             />
         </template>

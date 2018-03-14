@@ -7,19 +7,34 @@
                 <breadcrumb-navigation @changePath="setPath($event)"/>
             </div>
             <div>
+                <q-btn
+                        size="sm"
+                        outline
+                        icon="fa-bars"
+                        :color="viewMode==='list' ? 'grey-6' :'grey-3'"
+                        @click="viewMode='list'"
+                />
+                <q-btn
+                        size="sm"
+                        outline
+                        icon="fa-th"
+                        :color="viewMode==='grid' ? 'grey-6' :'grey-3'"
+                        @click="viewMode='grid'"
+                />
                 <q-icon
-                        class="cursor-pointer"
-                        color="grey-7"
-                        :class="{ 'animate-spin': loading }"
+                        class="cursor-pointer q-ml-sm"
                         name="refresh"
                         size="24px"
+                        :class="{ 'animate-spin': loading }"
                         @click.native="refresh"
+                        color="grey-7"
                 />
             </div>
         </div>
 
         <!--Item List-->
-        <items-list/>
+        <items-list v-if="viewMode==='list'"/>
+        <items-grid v-if="viewMode==='grid'"/>
 
         <!--Fab Action Button-->
         <q-page-sticky position="bottom-right" :offset="[18, 18]">
@@ -45,6 +60,7 @@
 
 <script>
   import ItemsList from '../components/Cloud/ItemsList'
+  import ItemsGrid from '../components/Cloud/ItemsGrid'
   import InnerLoading from '../components/InnerLoading'
   import BreadcrumbNavigation from '../components/Cloud/BreadcrumbNavigation'
   import CreateFolderDialog from '../components/Cloud/Dialogs/CreateFolderDialog'
@@ -57,6 +73,7 @@
     components: {
       BreadcrumbNavigation,
       ItemsList,
+      ItemsGrid,
       InnerLoading,
       CreateFolderDialog,
       UploadDialog
@@ -65,6 +82,7 @@
       return {
         showUploadDialog: false,
         showCreateFolderDialog: false,
+        viewMode: 'grid'
       }
     },
     computed: {

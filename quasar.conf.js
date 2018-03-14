@@ -66,6 +66,7 @@ module.exports = function (ctx) {
     framework: {
       components: [
         'QBtn',
+        'QBtnGroup',
         'QCard',
         'QCardActions',
         'QCardMain',

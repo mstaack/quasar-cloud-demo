@@ -20,7 +20,7 @@
             <q-item-side icon="folder" inverted color="primary"/>
             <q-item-main>
                 <q-item-tile label>{{folder.name}}</q-item-tile>
-                <q-item-tile sublabel>{{humanStorageSize(folder.size)}} | {{folder.time}}</q-item-tile>
+                <q-item-tile sublabel>{{folder.time}}</q-item-tile>
             </q-item-main>
             <q-item-side class="cursor-pointer" right icon="info" @click.native="showInfo(item)"/>
 

@@ -8,7 +8,12 @@
 
         <template slot="buttons" slot-scope="props">
             <q-btn flat label="Cancel" @click="closeDialog('delete')"/>
-            <q-btn color="negative" label="Delete" autofocus @click="deleteItem"/>
+            <q-btn
+                    color="negative"
+                    label="Delete"
+                    @click="deleteItem"
+                    @keyup.enter="deleteItem"
+            />
         </template>
     </q-dialog>
 </template>

@@ -3,7 +3,7 @@
         <span slot="title">Rename</span>
 
         <div slot="body">
-            <q-input v-model="newName"/>
+            <q-input v-model.trim="newName"/>
         </div>
 
         <template slot="buttons" slot-scope="props">
@@ -12,6 +12,7 @@
                     color="primary"
                     label="Rename"
                     @click="renameItem"
+                    @keyup.enter="renameItem"
                     :disable="newName === item.name"
             />
         </template>

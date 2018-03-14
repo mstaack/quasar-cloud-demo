@@ -15,7 +15,12 @@
 
         <template slot="buttons" slot-scope="props">
             <q-btn flat label="Cancel" @click="closeDialog('move')"/>
-            <q-btn color="primary" label="Move" autofocus @click="moveItem"/>
+            <q-btn
+                    color="primary"
+                    label="Move"
+                    @click="moveItem"
+                    @keyup.enter="moveItem"
+            />
         </template>
     </q-dialog>
 </template>

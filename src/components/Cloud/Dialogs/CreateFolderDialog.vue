@@ -12,6 +12,7 @@
                     color="primary"
                     label="Create"
                     @click="createFolder"
+                    @keyup.enter="createFolder"
                     :disable="folderName.length === 0"
             />
         </template>

@@ -20,7 +20,12 @@
 
         <template slot="buttons" slot-scope="props">
             <q-btn flat label="Close" @click="closeUploader"/>
-            <q-btn color="primary" label="Upload" @click="$refs.uploader.upload()"/>
+            <q-btn
+                    color="primary"
+                    label="Upload"
+                    @click="$refs.uploader.upload()"
+                    @keyup.enter="$refs.uploader.upload()"
+            />
         </template>
     </q-dialog>
 </template>

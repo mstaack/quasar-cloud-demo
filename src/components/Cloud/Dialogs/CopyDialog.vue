@@ -15,7 +15,12 @@
 
         <template slot="buttons" slot-scope="props">
             <q-btn flat label="Cancel" @click="closeDialog('copy')"/>
-            <q-btn color="primary" label="Copy" autofocus @click="copyItem"/>
+            <q-btn
+                    color="primary"
+                    label="Copy"
+                    @click="copyItem"
+                    @keyup.enter="copyItem"
+            />
         </template>
     </q-dialog>
 </template>

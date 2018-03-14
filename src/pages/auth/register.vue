@@ -11,7 +11,7 @@
                         :error="$v.form.name.$error"
                         error-label="We need a name"
                 >
-                    <q-input v-model="form.name" :autofocus="true"/>
+                    <q-input v-model.trim="form.name" :autofocus="true" @blur="$v.form.name.$touch()"/>
                 </q-field>
                 <q-field
                         helper="E-Mail"
@@ -19,23 +19,24 @@
                         :error="$v.form.email.$error"
                         error-label="We need a valid e-mail"
                 >
-                    <q-input v-model="form.email" type="email"/>
+                    <q-input v-model.trim="form.email" type="email" @blur="$v.form.email.$touch()"/>
                 </q-field>
                 <q-field
                         helper="Password"
                         class="q-mt-md"
                         :error="$v.form.password.$error"
-                        error-label="We need a password"
+                        error-label="Passwords needs to be 8 chars at minimum"
                 >
                     <q-input
-                            v-model="form.password"
+                            v-model.trim="form.password"
                             type="password"
                             @keyup.enter="register"
+                            @blur="$v.form.password.$touch()"
                     />
                 </q-field>
             </q-card-main>
             <q-card-separator class="q-mt-md"/>
-            <q-card-actions align="between">
+            <q-card-actions align="end">
                 <q-btn
                         label="Login"
                         flat

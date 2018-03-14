@@ -33,8 +33,8 @@
         </div>
 
         <!--Item List-->
-        <items-list v-if="viewMode==='list'"/>
-        <items-grid v-if="viewMode==='grid'"/>
+        <items-list v-show="viewMode==='list'"/>
+        <items-grid v-show="viewMode==='grid'"/>
 
         <!--Fab Action Button-->
         <q-page-sticky position="bottom-right" :offset="[18, 18]">

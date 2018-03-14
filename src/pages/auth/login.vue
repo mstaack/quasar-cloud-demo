@@ -14,8 +14,6 @@
                             v-model.trim="form.email"
                             type="email"
                             ref="email"
-                            autofocus
-                            @blur="$v.form.email.$touch()"
                     />
                 </q-field>
                 <q-field
@@ -29,7 +27,6 @@
                             type="password"
                             ref="email"
                             @keyup.enter="login"
-                            @blur="$v.form.password.$touch()"
                     />
                 </q-field>
             </q-card-main>

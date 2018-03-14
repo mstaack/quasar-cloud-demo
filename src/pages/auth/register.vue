@@ -11,7 +11,10 @@
                         :error="$v.form.name.$error"
                         error-label="We need a name"
                 >
-                    <q-input v-model.trim="form.name" :autofocus="true" @blur="$v.form.name.$touch()"/>
+                    <q-input
+                            v-model.trim="form.name"
+                            :autofocus="true"
+                            @input="$v.form.name.$touch()"/>
                 </q-field>
                 <q-field
                         helper="E-Mail"
@@ -19,7 +22,11 @@
                         :error="$v.form.email.$error"
                         error-label="We need a valid e-mail"
                 >
-                    <q-input v-model.trim="form.email" type="email" @blur="$v.form.email.$touch()"/>
+                    <q-input
+                            v-model.trim="form.email"
+                            type="email"
+                            @input="$v.form.email.$touch()"
+                    />
                 </q-field>
                 <q-field
                         helper="Password"
@@ -31,7 +38,7 @@
                             v-model.trim="form.password"
                             type="password"
                             @keyup.enter="register"
-                            @blur="$v.form.password.$touch()"
+                            @input="$v.form.password.$touch()"
                     />
                 </q-field>
             </q-card-main>

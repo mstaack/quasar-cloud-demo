@@ -3,7 +3,7 @@
         <span slot="title">Create Folder</span>
 
         <div slot="body">
-            <q-input v-model="folderName" @keyup.enter="createFolder"/>
+            <q-input v-model="folderName"/>
         </div>
 
         <template slot="buttons" slot-scope="props">
@@ -12,7 +12,7 @@
                     color="primary"
                     label="Create"
                     @click="createFolder"
-                    :disable="folderName.length === 0"
+                    :disable="isInvalidFolderName"
             />
         </template>
     </q-dialog>
@@ -31,10 +31,19 @@
     computed: {
       ...mapGetters('cloud', [
         'path',
+        'files',
+        'folders'
       ]),
       showDialog () {
         return this.$store.getters['cloud/dialogs'].create
       },
+      isInvalidFolderName () {
+        if (this.folderName.length === 0) {
+          return true
+        }
+
+        return this.folders.map((folder) => folder.name).includes(this.folderName)
+      }
     },
     methods: {
       ...mapActions('cloud', [

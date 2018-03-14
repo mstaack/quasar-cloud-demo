@@ -22,7 +22,7 @@
                 <q-item-tile label>{{folder.name}}</q-item-tile>
                 <q-item-tile sublabel>{{folder.time}}</q-item-tile>
             </q-item-main>
-            <q-item-side class="cursor-pointer" right icon="info" @click.native="showInfo(item)"/>
+            <q-item-side class="cursor-pointer" right icon="info"/>
 
             <!--Context Menu-->
             <context-menu :item="folder" @refresh="refresh"/>

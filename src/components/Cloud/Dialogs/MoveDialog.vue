@@ -6,7 +6,7 @@
 
         <div slot="body">
             <q-select
-                    :filter="folder.length > 4"
+                    :filter="folders.length > 4"
                     v-model="targetFolder"
                     separator
                     :options="folders"

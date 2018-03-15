@@ -22,7 +22,6 @@
                 <q-item-tile label>{{folder.name}}</q-item-tile>
                 <q-item-tile sublabel>{{folder.time}}</q-item-tile>
             </q-item-main>
-            <q-item-side class="cursor-pointer" right icon="info"/>
 
             <!--Context Menu-->
             <context-menu :item="folder" @refresh="refresh"/>
@@ -34,15 +33,17 @@
         <q-list-header inset v-if="files.length">Files</q-list-header>
         <q-item v-for="file in files" :key="file.path">
 
-            <!--Icon & Name & Icon-->
-            <q-item-side :icon="file.icon" inverted color="grey-6"/>
+            <!--Icon & Thumbnail & Name-->
+            <q-item-side :icon="file.icon" inverted color="grey-6" v-if="!file.has_thumbnail"/>
+            <q-item-side v-if="file.has_thumbnail">
+                <img :src="file.thumbnail" alt="">
+            </q-item-side>
             <q-item-main>
                 <q-item-tile label>{{file.name}}</q-item-tile>
                 <q-item-tile sublabel>
                     {{humanStorageSize(file.size)}} | {{file.time}}
                 </q-item-tile>
             </q-item-main>
-            <q-item-side right icon="info"/>
 
             <!--Context Menu-->
             <context-menu :item="file" @refresh="refresh"/>

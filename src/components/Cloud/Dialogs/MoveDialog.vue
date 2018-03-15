@@ -47,7 +47,7 @@
       },
     },
     created () {
-      this.$root.$on('openMoveDialog', (item) => {
+      this.$parent.$on('openMoveDialog', (item) => {
         this.item = item
         this.showDialog = true
       })

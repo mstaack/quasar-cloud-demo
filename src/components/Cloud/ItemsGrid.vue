@@ -37,16 +37,12 @@
 </template>
 
 <script>
-  import ContextMenu from './ContextMenu'
-
   import {mapActions, mapGetters} from 'vuex'
   import {format} from 'quasar'
 
   export default {
     name: 'ItemsGrid',
-    components: {
-      ContextMenu
-    },
+    components: {},
     data () {
       return {}
     },

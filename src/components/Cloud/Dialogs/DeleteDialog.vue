@@ -29,14 +29,14 @@
       }
     },
     created () {
-      this.$root.$on('openDeleteDialog', (item) => {
+      this.$parent.$on('openDeleteDialog', (item) => {
         this.item = item
         this.showDialog = true
       })
     },
     methods: {
       ...mapActions('cloud', [
-        'refresh'
+        'refresh',
       ]),
       deleteItem () {
         this.$axios.post('/api/cloud/delete', {item: this.item})

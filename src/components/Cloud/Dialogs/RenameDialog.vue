@@ -32,7 +32,7 @@
       }
     },
     created () {
-      this.$root.$on('openRenameDialog', (item) => {
+      this.$parent.$on('openRenameDialog', (item) => {
         this.item = item
         this.newName = item.name
         this.showDialog = true

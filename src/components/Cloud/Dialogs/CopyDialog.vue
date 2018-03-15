@@ -39,7 +39,7 @@
       }
     },
     created () {
-      this.$root.$on('openCopyDialog', (item) => {
+      this.$parent.$on('openCopyDialog', (item) => {
         this.item = item
         this.showDialog = true
       })

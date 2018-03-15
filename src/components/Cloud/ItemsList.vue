@@ -20,8 +20,10 @@
             <q-item-side icon="folder" inverted color="primary"/>
             <q-item-main>
                 <q-item-tile label>{{folder.name}}</q-item-tile>
-                <q-item-tile sublabel>{{folder.time}}</q-item-tile>
             </q-item-main>
+            <q-item-side right>
+                <q-item-tile sublabel>{{folder.time}}</q-item-tile>
+            </q-item-side>
 
             <!--Context Menu-->
             <context-menu :item="folder" @refresh="refresh"/>
@@ -41,9 +43,12 @@
             <q-item-main>
                 <q-item-tile label>{{file.name}}</q-item-tile>
                 <q-item-tile sublabel>
-                    {{humanStorageSize(file.size)}} | {{file.time}}
+                    <small>{{humanStorageSize(file.size)}}</small>
                 </q-item-tile>
             </q-item-main>
+            <q-item-side right>
+                <q-item-tile sublabel>{{file.time}}</q-item-tile>
+            </q-item-side>
 
             <!--Context Menu-->
             <context-menu :item="file" @refresh="refresh"/>

@@ -1,7 +1,7 @@
 <template>
     <q-context-menu>
         <q-list link separator style="min-width: 130px; max-height: 300px;">
-            <q-item v-close-overlay @click.native="downloadItem(item)" disabled="true">
+            <q-item v-close-overlay @click.native="downloadItem(item)">
                 <q-item-side icon="fa-arrow-alt-circle-down" color="grey-5"/>
                 <q-item-main label="Download"/>
             </q-item>
@@ -56,7 +56,7 @@
     },
     methods: {
       downloadItem () {
-        // TODO
+        window.location = this.item.download
       }
     }
   }

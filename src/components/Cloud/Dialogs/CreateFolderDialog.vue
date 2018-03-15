@@ -71,13 +71,13 @@
           .then(() => {
             this.refresh()
             this.showDialog = false
-            this.folderName = ''
             this.$q.notify({
               color: 'positive',
               position: 'top',
               message: this.folderName + ' created.',
               icon: 'fa-check-circle',
             })
+            this.folderName = ''
           })
           .catch((error) => {
             this.refresh()

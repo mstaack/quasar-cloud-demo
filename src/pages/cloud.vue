@@ -37,7 +37,7 @@
         <items-grid v-show="viewMode==='grid'"/>
 
         <!--Fab Action Button-->
-        <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        <q-page-sticky position="bottom-right" :offset="[20, 20]">
             <q-fab icon="add" direction="up" color="primary">
                 <q-fab-action
                         color="blue"
@@ -69,12 +69,12 @@
 </style>
 
 <script>
+  import BreadcrumbNavigation from '../components/Cloud/BreadcrumbNavigation'
   import ItemsList from '../components/Cloud/ItemsList'
   import ItemsGrid from '../components/Cloud/ItemsGrid'
-  import InnerLoading from '../components/InnerLoading'
-  import BreadcrumbNavigation from '../components/Cloud/BreadcrumbNavigation'
   import CreateFolderDialog from '../components/Cloud/Dialogs/CreateFolderDialog'
   import UploadDialog from '../components/Cloud/Dialogs/UploadDialog'
+  import InnerLoading from '../components/InnerLoading'
 
   import {mapActions, mapGetters} from 'vuex'
 
@@ -84,9 +84,9 @@
       BreadcrumbNavigation,
       ItemsList,
       ItemsGrid,
-      InnerLoading,
       CreateFolderDialog,
-      UploadDialog
+      UploadDialog,
+      InnerLoading
     },
     data () {
       return {

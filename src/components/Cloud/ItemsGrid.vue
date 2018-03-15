@@ -15,8 +15,6 @@
                     <p>
                         {{folder.name}}
                     </p>
-                    <!--Context Menu-->
-                    <!--<context-menu :item="folder" @refresh="refresh"/>-->
                 </div>
             </div>
         </div>
@@ -32,8 +30,6 @@
                     <p>
                         <span class="text-truncate">{{file.name}}</span>
                     </p>
-                    <!--Context Menu-->
-                    <!--<context-menu :item="file" @refresh="refresh"/>-->
                 </div>
             </div>
         </div>

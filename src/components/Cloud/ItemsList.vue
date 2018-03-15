@@ -2,11 +2,7 @@
     <q-list link dense style="min-height: 500px">
 
         <!--Empty Notice-->
-        <q-list-header
-                align="center"
-                v-if="noContent"
-                class="q-mt-xl"
-        >
+        <q-list-header align="center" v-if="noContent" class="q-mt-xl">
             Nothing in here...
         </q-list-header>
 

@@ -19,6 +19,7 @@
                     color="primary"
                     label="Move"
                     @click="moveItem"
+                    :disable="targetFolder===null"
             />
         </template>
     </q-dialog>
@@ -30,9 +31,10 @@
 
   export default {
     name: 'MoveDialog',
-    props: ['item', 'show'],
     data () {
       return {
+        showDialog: false,
+        item: {},
         targetFolder: null
       }
     },
@@ -43,14 +45,12 @@
       folders () {
         return this.allFolders.filter((folder) => folder.value !== this.item.path)
       },
-      showDialog: {
-        get () {
-          return this.show
-        },
-        set (value) {
-          this.$emit('update:show', value)
-        }
-      },
+    },
+    created () {
+      this.$root.$on('openMoveDialog', (item) => {
+        this.item = item
+        this.showDialog = true
+      })
     },
     methods: {
       ...mapActions('cloud', [

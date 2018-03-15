@@ -16,7 +16,7 @@
                         {{folder.name}}
                     </p>
                     <!--Context Menu-->
-                    <context-menu :item="folder" @refresh="refresh"/>
+                    <!--<context-menu :item="folder" @refresh="refresh"/>-->
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                         <span class="text-truncate">{{file.name}}</span>
                     </p>
                     <!--Context Menu-->
-                    <context-menu :item="file" @refresh="refresh"/>
+                    <!--<context-menu :item="file" @refresh="refresh"/>-->
                 </div>
             </div>
         </div>
@@ -63,9 +63,6 @@
       noContent () {
         return (this.folders.length + this.files.length) === 0
       }
-    },
-    created () {
-      this.refresh()
     },
     methods: {
       ...mapActions('cloud', [

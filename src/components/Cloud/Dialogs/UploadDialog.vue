@@ -34,22 +34,20 @@
 
   export default {
     name: 'UploadDialog',
-    props: ['show'],
     data () {
-      return {}
+      return {
+        showDialog: false
+      }
     },
     computed: {
       ...mapGetters('cloud', [
         'path',
       ]),
-      showDialog: {
-        get () {
-          return this.show
-        },
-        set (value) {
-          this.$emit('update:show', value)
-        }
-      },
+    },
+    created () {
+      this.$root.$on('openUploadDialog', () => {
+        this.showDialog = true
+      })
     },
     methods: {
       ...mapActions('cloud', [

@@ -20,6 +20,7 @@
                     label="Copy"
                     @click="copyItem"
                     @keyup.enter="copyItem"
+                    :disable="targetFolder===null"
             />
         </template>
     </q-dialog>
@@ -30,24 +31,23 @@
 
   export default {
     name: 'CopyDialog',
-    props: ['item', 'show'],
     data () {
       return {
-        targetFolder: null
+        targetFolder: null,
+        showDialog: false,
+        item: {}
       }
+    },
+    created () {
+      this.$root.$on('openCopyDialog', (item) => {
+        this.item = item
+        this.showDialog = true
+      })
     },
     computed: {
       ...mapGetters('cloud', [
         'allFolders',
       ]),
-      showDialog: {
-        get () {
-          return this.show
-        },
-        set (value) {
-          this.$emit('update:show', value)
-        }
-      },
       folders () {
         return this.allFolders.filter((folder) => folder.value !== this.item.path)
       }

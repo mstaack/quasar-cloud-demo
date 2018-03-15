@@ -39,16 +39,26 @@
         <!--Fab Action Button-->
         <q-page-sticky position="bottom-right" :offset="[18, 18]">
             <q-fab icon="add" direction="up" color="primary">
-                <q-fab-action color="blue" class="white" icon="folder" @click.native="showCreateFolderDialog=true"/>
-                <q-fab-action color="blue" class="white" icon="cloud upload" @click.native="showUploadDialog=true"/>
+                <q-fab-action
+                        color="blue"
+                        class="white"
+                        icon="folder"
+                        @click.native="$root.$emit('openCreateFolderDialog')"
+                />
+                <q-fab-action
+                        color="blue"
+                        class="white"
+                        icon="cloud upload"
+                        @click.native="$root.$emit('openUploadDialog')"
+                />
             </q-fab>
         </q-page-sticky>
 
         <!--Create Folder Dialog-->
-        <create-folder-dialog :show.sync="showCreateFolderDialog"/>
+        <create-folder-dialog/>
 
         <!--Upload Dialog-->
-        <upload-dialog :show.sync="showUploadDialog"/>
+        <upload-dialog/>
 
         <!--Loading Animation-->
         <inner-loading :loading="loading"/>
@@ -80,10 +90,11 @@
     },
     data () {
       return {
-        showUploadDialog: false,
-        showCreateFolderDialog: false,
         viewMode: 'list'
       }
+    },
+    mounted () {
+      this.refresh()
     },
     computed: {
       ...mapGetters('cloud', [

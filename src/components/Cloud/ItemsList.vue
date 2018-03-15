@@ -11,53 +11,40 @@
         </q-list-header>
 
         <!--Folders-->
-        <q-list-header inset v-if="folders.length">Folders</q-list-header>
-        <q-item
-                v-for="folder in folders"
-                :key="folder.path"
-                @click.native="setPath(folder.path)"
-        >
-            <q-item-side icon="folder" inverted color="primary"/>
-            <q-item-main>
-                <q-item-tile label>{{folder.name}}</q-item-tile>
-            </q-item-main>
-            <q-item-side right>
-                <q-item-tile sublabel>{{folder.time}}</q-item-tile>
-            </q-item-side>
+        <q-list-header inset v-if="folders.length">
+            Folders
+        </q-list-header>
+        <item-list-row v-for="folder in folders"
+                       :item="folder"
+                       :key="folder.path"
+                       v-on:dblclick.native="setPath(folder.path)"
+        />
 
-            <!--Context Menu-->
-            <context-menu :item="folder" @refresh="refresh"/>
-        </q-item>
-
+        <!--Separator-->
         <q-item-separator inset v-if="folders.length"/>
 
         <!--Files-->
-        <q-list-header inset v-if="files.length">Files</q-list-header>
-        <q-item v-for="file in files" :key="file.path">
+        <q-list-header inset v-if="files.length">
+            Files
+        </q-list-header>
+        <item-list-row v-for="file in files"
+                       :item="file"
+                       :key="file.path"
+        />
 
-            <!--Icon & Thumbnail & Name-->
-            <q-item-side :icon="file.icon" inverted color="grey-6" v-if="!file.has_thumbnail"/>
-            <q-item-side v-if="file.has_thumbnail">
-                <img :src="file.thumbnail" alt="">
-            </q-item-side>
-            <q-item-main>
-                <q-item-tile label>{{file.name}}</q-item-tile>
-                <q-item-tile sublabel>
-                    <small>{{humanStorageSize(file.size)}}</small>
-                </q-item-tile>
-            </q-item-main>
-            <q-item-side right>
-                <q-item-tile sublabel>{{file.time}}</q-item-tile>
-            </q-item-side>
-
-            <!--Context Menu-->
-            <context-menu :item="file" @refresh="refresh"/>
-        </q-item>
+        <delete-dialog/>
+        <move-dialog/>
+        <copy-dialog/>
+        <rename-dialog/>
     </q-list>
 </template>
 
 <script>
-  import ContextMenu from './ContextMenu'
+  import ItemListRow from './ItemListRow'
+  import DeleteDialog from './Dialogs/DeleteDialog'
+  import MoveDialog from './Dialogs/MoveDialog'
+  import CopyDialog from './Dialogs/CopyDialog'
+  import RenameDialog from './Dialogs/RenameDialog'
 
   import {mapActions, mapGetters} from 'vuex'
   import {format} from 'quasar'
@@ -65,10 +52,11 @@
   export default {
     name: 'ItemsList',
     components: {
-      ContextMenu
-    },
-    data () {
-      return {}
+      ItemListRow,
+      DeleteDialog,
+      MoveDialog,
+      CopyDialog,
+      RenameDialog
     },
     computed: {
       ...mapGetters('cloud', [
@@ -79,9 +67,6 @@
       noContent () {
         return (this.folders.length + this.files.length) === 0
       }
-    },
-    created () {
-      this.refresh()
     },
     methods: {
       ...mapActions('cloud', [

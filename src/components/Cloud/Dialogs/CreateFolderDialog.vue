@@ -23,9 +23,9 @@
 
   export default {
     name: 'CreateFolderDialog',
-    props: ['show'],
     data () {
       return {
+        showDialog: false,
         folderName: ''
       }
     },
@@ -35,14 +35,6 @@
         'files',
         'folders'
       ]),
-      showDialog: {
-        get () {
-          return this.show
-        },
-        set (value) {
-          this.$emit('update:show', value)
-        }
-      },
       isInvalidFolderName () {
         if (this.folderName.length === 0) {
           return true
@@ -50,6 +42,11 @@
 
         return this.folders.map((folder) => folder.name).includes(this.folderName)
       }
+    },
+    created () {
+      this.$root.$on('openCreateFolderDialog', () => {
+        this.showDialog = true
+      })
     },
     methods: {
       ...mapActions('cloud', [

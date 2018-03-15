@@ -22,19 +22,17 @@
 
   export default {
     name: 'DeleteDialog',
-    props: ['item', 'show'],
     data () {
-      return {}
-    },
-    computed: {
-      showDialog: {
-        get () {
-          return this.show
-        },
-        set (value) {
-          this.$emit('update:show', value)
-        }
+      return {
+        showDialog: false,
+        item: {}
       }
+    },
+    created () {
+      this.$root.$on('openDeleteDialog', (item) => {
+        this.item = item
+        this.showDialog = true
+      })
     },
     methods: {
       ...mapActions('cloud', [

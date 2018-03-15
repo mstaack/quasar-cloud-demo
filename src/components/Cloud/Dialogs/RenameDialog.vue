@@ -24,21 +24,19 @@
 
   export default {
     name: 'RenameDialog',
-    props: ['item', 'show'],
     data () {
       return {
-        newName: this.item.name
+        newName: '',
+        showDialog: false,
+        item: {}
       }
     },
-    computed: {
-      showDialog: {
-        get () {
-          return this.show
-        },
-        set (value) {
-          this.$emit('update:show', value)
-        }
-      },
+    created () {
+      this.$root.$on('openRenameDialog', (item) => {
+        this.item = item
+        this.newName = item.name
+        this.showDialog = true
+      })
     },
     methods: {
       ...mapActions('cloud', [

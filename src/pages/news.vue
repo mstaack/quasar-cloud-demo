@@ -6,7 +6,7 @@
                 class="q-ma-sm"
                 :class="{ 'fit': $q.platform.is.mobile }"
                 v-for="article in articles"
-                :key="article.url"
+                :key="article.url" v-if="article.urlToImage"
         >
             <q-card-media>
                 <q-parallax :src="article.urlToImage" :height="250" :speed="0.3">

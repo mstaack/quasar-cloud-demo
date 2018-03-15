@@ -1,11 +1,11 @@
 <template>
     <q-breadcrumbs>
         <q-breadcrumbs-el v-for="breadcrumb in breadcrumbs"
+                          class="cursor-pointer"
                           :key="breadcrumb.path"
                           :label="breadcrumb.label"
                           :icon="breadcrumb.icon"
                           @click.native="changePath(breadcrumb.path)"
-                          :class="{ 'cursor-pointer': breadcrumb.path !== path }"
         />
     </q-breadcrumbs>
 </template>

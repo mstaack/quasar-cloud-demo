@@ -102,7 +102,7 @@ module.exports = function (ctx) {
         'QParallax',
         'QProgress',
         'QRouteTab',
-        'QSpinnerGears',
+        'QSpinnerIos',
         'QSearch',
         'QSelect',
         'QTab',

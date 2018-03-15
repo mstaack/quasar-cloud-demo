@@ -1,6 +1,6 @@
 <template>
     <q-inner-loading :visible="loading">
-        <q-spinner-gears size="80px" color="primary"></q-spinner-gears>
+        <q-spinner-ios size="75px" color="primary"></q-spinner-ios>
     </q-inner-loading>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
     <q-page class="q-ma-lg">
-
         <!--Item Path & Actions-->
         <div class="row justify-between q-mb-md">
             <div>

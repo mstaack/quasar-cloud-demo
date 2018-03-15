@@ -1,18 +1,20 @@
 <template>
-    <q-item>
+    <q-item @mouseover.native="showOptions = true" @mouseout.native="showOptions = false">
         <q-item-side :icon="item.icon" inverted color="grey-6" v-if="!item.has_thumbnail"/>
         <q-item-side v-if="item.has_thumbnail">
             <img :src="item.thumbnail" alt="Thumbnail">
         </q-item-side>
         <q-item-main>
             <q-item-tile label>{{item.name}}</q-item-tile>
-            <q-item-tile sublabel>
-                <small>{{humanStorageSize(item.size)}} | {{item.time}}</small>
+        </q-item-main>
+        <q-item-main>
+            <q-item-tile sublabel class="float-right">
+                {{item.time}}
             </q-item-tile>
         </q-item-main>
         <q-item-side right>
-            <q-icon name="more vert" size="24px">
-                <q-popover>
+            <q-icon name="more vert" size="24px" @click.native="showPopover=true" v-if="showOptions || showPopover">
+                <q-popover v-model="showPopover">
                     <q-list link separator style="min-width: 130px; max-height: 300px;">
                         <q-item v-close-overlay @click.native="downloadItem">
                             <q-item-side icon="fa-arrow-alt-circle-down" color="grey-5"/>
@@ -50,12 +52,15 @@
     props: ['item'],
     components: {},
     data () {
-      return {}
+      return {
+        showOptions: false,
+        showPopover: false
+      }
     },
     computed: {
       ...mapGetters('cloud', [
         'allFolders',
-      ])
+      ]),
     },
     methods: {
       downloadItem () {

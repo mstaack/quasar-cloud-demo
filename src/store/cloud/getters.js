@@ -1,3 +1,7 @@
+export const items = (state) => {
+  return state.items
+}
+
 export const files = (state) => {
   return state.items.filter((item) => {
     return item.is_file

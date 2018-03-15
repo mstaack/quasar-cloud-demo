@@ -1,35 +1,13 @@
 <template>
     <div class="items-grid" style="min-height: 500px">
         <div class="row">
-            <div v-for="folder in folders">
+            <div v-for="item in items">
                 <div
-                        class="q-ma-md item text-center cursor-pointer"
-                        @click="setPath(folder.path)"
+                        class="q-ma-sm q-pa-sm item text-center cursor-pointer"
+                        @click="setPath(item.path)"
                 >
-                    <q-icon
-                            :name="folder.icon"
-                            color="grey-5"
-                            size="50px"
-                            class="q-ma-lg"
-                    />
-                    <p>
-                        {{folder.name}}
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div v-for="file in files">
-                <div class="q-ma-md item text-center cursor-pointer">
-                    <q-icon
-                            :name="file.icon"
-                            color="grey-5"
-                            size="50px"
-                            class="q-ma-lg"
-                    />
-                    <p>
-                        <span class="text-truncate">{{file.name}}</span>
-                    </p>
+                    <q-icon :name="item.icon" color="grey-5" size="50px" class="q-ma-lg"/>
+                    <p>{{item.name}}</p>
                 </div>
             </div>
         </div>
@@ -48,12 +26,11 @@
     },
     computed: {
       ...mapGetters('cloud', [
-        'files',
-        'folders',
+        'items',
         'loading'
       ]),
       noContent () {
-        return (this.folders.length + this.files.length) === 0
+        return this.items.length === 0
       }
     },
     methods: {

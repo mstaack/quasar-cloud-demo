@@ -1,7 +1,7 @@
 <template>
     <q-modal v-model="show">
         <div>
-            <img :src="url" alt="Image">
+            <img :src="url" alt="Image" @click="show=false">
         </div>
     </q-modal>
 </template>

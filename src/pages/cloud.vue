@@ -87,7 +87,7 @@
                         color="blue"
                         class="white"
                         icon="cloud upload"
-                        @click.native="$root.$emit('openUploadDialog')"
+                        @click.native="$root.$emit('openUploader')"
                 />
             </q-fab>
         </q-page-sticky>
@@ -95,8 +95,8 @@
         <!--Create Folder Dialog-->
         <create-folder-dialog/>
 
-        <!--Upload Dialog-->
-        <upload-dialog/>
+        <!--Upload Modal-->
+        <uploader/>
 
         <!--Loading Animation-->
         <inner-loading :loading="loading"/>
@@ -111,7 +111,7 @@
   import ItemsList from '../components/Cloud/ItemsList'
   import ItemsGrid from '../components/Cloud/ItemsGrid'
   import CreateFolderDialog from '../components/Cloud/Dialogs/CreateFolderDialog'
-  import UploadDialog from '../components/Cloud/Dialogs/UploadDialog'
+  import Uploader from '../components/Cloud/Uploader'
   import InnerLoading from '../components/InnerLoading'
 
   import {mapActions, mapGetters} from 'vuex'
@@ -123,7 +123,7 @@
       ItemsList,
       ItemsGrid,
       CreateFolderDialog,
-      UploadDialog,
+      Uploader,
       InnerLoading
     },
     data () {

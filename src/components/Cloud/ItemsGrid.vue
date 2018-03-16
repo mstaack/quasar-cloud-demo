@@ -1,11 +1,11 @@
 <template>
-    <div class="items-grid" style="min-height: 500px">
+    <div class="items-grid animate-fade" style="min-height: 500px">
 
         <!--Empty Notice-->
         <q-list-header align="center" v-if="noContent && !loading" class="q-mt-xl">
             Nothing in here...
         </q-list-header>
-        
+
         <div class="row">
             <div v-for="item in items">
                 <div

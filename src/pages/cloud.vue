@@ -1,25 +1,65 @@
 <template>
     <q-page class="q-ma-lg">
         <!--Item Path & Actions-->
-        <div class="row justify-between q-mb-md">
+        <div class="row justify-between q-mb-md animate-fade">
             <div>
                 <breadcrumb-navigation @changePath="setPath($event)"/>
             </div>
             <div>
+                <span v-if="viewMode==='list'">
                 <q-btn
                         size="sm"
                         outline
-                        icon="fa-bars"
-                        :color="viewMode==='list' ? 'grey-6' :'grey-3'"
-                        @click="viewMode='list'"
+                        icon="fa-trash"
+                        label="Delete"
+                        v-if="selectMode"
+                        color="red-2"
+                        disabled
+                />
+                 <q-btn
+                         size="sm"
+                         outline
+                         icon="fa-copy"
+                         label="Copy"
+                         v-if="selectMode"
+                         color="grey-4"
+                         disabled
+                 />
+                <q-btn
+                        size="sm"
+                        outline
+                        icon="fa-arrow-right"
+                        label="Move"
+                        v-if="selectMode"
+                        color="grey-4"
+                        disabled
                 />
                 <q-btn
                         size="sm"
                         outline
-                        icon="fa-th"
-                        :color="viewMode==='grid' ? 'grey-6' :'grey-3'"
-                        @click="viewMode='grid'"
+                        icon="fa-check-square"
+                        :color="selectMode ? 'grey-8' :'grey-3'"
+                        @click="selectMode = !selectMode"
                 />
+                </span>
+
+
+                <q-btn-group outline class="q-mx-md">
+                    <q-btn
+                            size="sm"
+                            outline
+                            icon="fa-bars"
+                            :color="viewMode==='list' ? 'grey-6' :'grey-3'"
+                            @click="viewMode='list'"
+                    />
+                    <q-btn
+                            size="sm"
+                            outline
+                            icon="fa-th"
+                            :color="viewMode==='grid' ? 'grey-6' :'grey-3'"
+                            @click="viewMode='grid'"
+                    />
+                </q-btn-group>
                 <q-icon
                         class="cursor-pointer q-ml-sm"
                         name="refresh"
@@ -89,7 +129,8 @@
     },
     data () {
       return {
-        viewMode: 'list'
+        viewMode: 'list',
+        selectMode: false
       }
     },
     mounted () {

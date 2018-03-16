@@ -1,5 +1,5 @@
 <template>
-    <q-list link dense style="min-height: 500px">
+    <q-list link dense style="min-height: 500px" class="animate-fade">
 
         <!--Empty Notice-->
         <q-list-header align="center" v-if="noContent && !loading" class="q-mt-xl">

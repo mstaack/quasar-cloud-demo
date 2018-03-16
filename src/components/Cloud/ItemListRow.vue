@@ -1,9 +1,22 @@
 <template>
-    <q-item @mouseover.native="showOptions = true" @mouseout.native="showOptions = false">
-        <q-item-side :icon="item.icon" inverted color="grey-6" v-if="!item.has_thumbnail"/>
-        <q-item-side v-if="item.has_thumbnail">
-            <img :src="item.thumbnail" alt="Thumbnail">
+    <q-item class="item-row"
+            @mouseover.native="showOptions = true"
+            @mouseout.native="showOptions = false"
+            @click.native="selected = !selected"
+    >
+
+        <!--Left Part Icon & Thumbnail-->
+        <q-item-side v-if="!showOptions && !selected" class="text-center">
+            <q-icon :name="item.icon" v-if="!item.has_thumbnail" size="28px"></q-icon>
+            <img :src="item.thumbnail" alt="Thumbnail" v-if="item.has_thumbnail">
         </q-item-side>
+
+        <!--Left Part Checkbox-->
+        <q-item-side v-if="showOptions || selected" class="text-center">
+            <q-checkbox color="grey-6" v-model="selected"/>
+        </q-item-side>
+
+        <!--Main Part-->
         <q-item-main>
             <q-item-tile label>{{item.name}}</q-item-tile>
         </q-item-main>
@@ -12,6 +25,8 @@
                 {{item.time}}
             </q-item-tile>
         </q-item-main>
+
+        <!--Right Part-->
         <q-item-side right>
             <q-icon name="more vert" size="24px" @click.native="showPopover=true" v-if="showOptions || showPopover">
                 <q-popover v-model="showPopover">
@@ -54,7 +69,8 @@
     data () {
       return {
         showOptions: false,
-        showPopover: false
+        showPopover: false,
+        selected: false
       }
     },
     computed: {
@@ -74,4 +90,6 @@
 </script>
 
 <style lang="stylus" scoped>
+    .item-row
+        height: 43px
 </style>

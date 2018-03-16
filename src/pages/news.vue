@@ -1,5 +1,5 @@
 <template>
-    <q-page class="flex flex-center column q-mt-md">
+    <q-page class="flex flex-center column q-mt-md animate-fade">
         <q-card
                 inline
                 style="width:800px;"

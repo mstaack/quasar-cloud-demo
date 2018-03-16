@@ -33,3 +33,13 @@ export function deleteItem ({commit, state}, item) {
   })
 }
 
+export function toggleSelectMode ({commit}) {
+  commit('TOGGLE_SELECT_MODE')
+}
+
+export function changeViewMode ({commit}, view) {
+  commit('CHANGE_VIEW_MODE', view)
+}
+
+
+

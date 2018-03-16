@@ -32,3 +32,12 @@ export const path = (state) => {
 export const loading = (state) => {
   return state.loading
 }
+
+export const selectMode = (state) => {
+  return state.selectMode
+}
+
+export const viewMode = (state) => {
+  return state.viewMode
+}
+

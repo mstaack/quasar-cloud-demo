@@ -39,7 +39,7 @@
                         outline
                         icon="fa-check-square"
                         :color="selectMode ? 'grey-8' :'grey-3'"
-                        @click="selectMode = !selectMode"
+                        @click="toggleSelectMode"
                 />
                 </span>
 
@@ -50,14 +50,14 @@
                             outline
                             icon="fa-bars"
                             :color="viewMode==='list' ? 'grey-6' :'grey-3'"
-                            @click="viewMode='list'"
+                            @click="changeViewMode('list')"
                     />
                     <q-btn
                             size="sm"
                             outline
                             icon="fa-th"
                             :color="viewMode==='grid' ? 'grey-6' :'grey-3'"
-                            @click="viewMode='grid'"
+                            @click="changeViewMode('grid')"
                     />
                 </q-btn-group>
                 <q-icon
@@ -128,23 +128,24 @@
       InnerLoading
     },
     data () {
-      return {
-        viewMode: 'list',
-        selectMode: false
-      }
+      return {}
     },
     mounted () {
       this.refresh()
     },
     computed: {
       ...mapGetters('cloud', [
-        'loading'
+        'loading',
+        'viewMode',
+        'selectMode'
       ])
     },
     methods: {
       ...mapActions('cloud', [
         'refresh',
-        'setPath'
+        'setPath',
+        'toggleSelectMode',
+        'changeViewMode'
       ])
     }
   }

@@ -2,7 +2,6 @@
     <q-item class="item-row"
             @mouseover.native="showOptions = true"
             @mouseout.native="showOptions = false"
-            @click.native="rowClick(item)"
     >
 
         <!--Left Part Icon & Thumbnail-->
@@ -17,7 +16,7 @@
         </q-item-side>
 
         <!--Main Part-->
-        <q-item-main>
+        <q-item-main @click.native="openItem(item)">
             <q-item-tile label>{{item.name}}</q-item-tile>
         </q-item-main>
         <q-item-main>
@@ -28,7 +27,11 @@
 
         <!--Right Part-->
         <q-item-side right>
-            <q-icon name="more vert" size="24px" @click.native="showPopover=true" v-if="showOptions || showPopover">
+            <q-icon name="more vert"
+                    size="24px"
+                    @click.native="showPopover=true"
+                    v-if="(showOptions || showPopover) &&!showCheckbox"
+            >
                 <q-popover v-model="showPopover">
                     <q-list link separator style="min-width: 130px; max-height: 300px;">
                         <q-item v-close-overlay @click.native="downloadItem">
@@ -98,12 +101,14 @@
         'setPath',
         'toggleItemSelection'
       ]),
-      rowClick () {
+      openItem () {
         if (this.selectMode) {
           this.selected = !this.selected
+          return
         }
         if (!this.item.is_file) {
           this.setPath(this.item.path)
+          return
         }
         if (this.item.has_thumbnail) {
           this.$parent.$emit('openImageViewer', this.item)

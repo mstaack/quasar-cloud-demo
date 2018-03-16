@@ -36,30 +36,26 @@
     },
     methods: {
       ...mapActions('cloud', [
-        'refresh',
+        'refresh'
       ]),
       deleteItem () {
-        this.$axios.post('/cloud/delete', {item: this.item})
-          .then(() => {
-            this.refresh()
-            this.showDialog = false
-            this.$q.notify({
-              color: 'positive',
-              position: 'top',
-              message: this.item.name + ' deleted!',
-              icon: 'fa-check-circle',
-            })
+        this.$store.dispatch('cloud/deleteItem', this.item).then(() => {
+          this.showDialog = false
+          this.$q.notify({
+            color: 'positive',
+            position: 'top',
+            message: this.item.name + ' deleted!',
+            icon: 'fa-check-circle',
           })
-          .catch((error) => {
-            this.refresh()
-            this.showDialog = false
-            this.$q.notify({
-              color: 'negative',
-              position: 'top',
-              message: error.response.data.message || 'Whoops, something went wrong!',
-              icon: 'report_problem'
-            })
+        }).catch((error) => {
+          this.showDialog = false
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: error.response.data.message || 'Whoops, something went wrong!',
+            icon: 'report_problem'
           })
+        })
       }
     }
   }

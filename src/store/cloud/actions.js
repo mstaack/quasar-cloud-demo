@@ -20,17 +20,10 @@ export function refresh ({commit, state}) {
 }
 
 export function deleteItem ({commit, state}, item) {
-  state.loading = true
-  axios.all([
-    axios.get('cloud/list', {params: {path: state.path}}),
-    axios.get('cloud/folders')
-  ]).then(axios.spread((listResponse, allFoldersResponse) => {
-    state.loading = false
-    commit('SET_ITEMS', listResponse.data.data)
-    commit('SET_ALL_FOLDERS', allFoldersResponse.data.data)
-  })).catch(() => {
-    state.loading = false
-  })
+  return axios.post('/cloud/delete', {item})
+    .then(() => {
+      commit('DELETE_ITEM', item)
+    })
 }
 
 export function toggleSelectMode ({commit}) {

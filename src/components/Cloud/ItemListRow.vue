@@ -2,6 +2,7 @@
     <q-item class="item-row"
             @mouseover.native="showOptions = true"
             @mouseout.native="showOptions = false"
+            @click.native="clickItem(item)"
     >
 
         <!--Left Part Icon & Thumbnail-->
@@ -16,7 +17,7 @@
         </q-item-side>
 
         <!--Main Part-->
-        <q-item-main @click.native="openItem(item)">
+        <q-item-main>
             <q-item-tile label>{{item.name}}</q-item-tile>
         </q-item-main>
         <q-item-main>
@@ -101,15 +102,22 @@
         'setPath',
         'toggleItemSelection'
       ]),
-      openItem () {
+      clickItem () {
+        //prevent open on popover
+        if (this.showPopover) {
+          return
+        }
+        //allow row toggle during selectMode
         if (this.selectMode) {
           this.selected = !this.selected
           return
         }
+        //open folders
         if (!this.item.is_file) {
           this.setPath(this.item.path)
           return
         }
+        //open preview
         if (this.item.has_thumbnail) {
           this.$parent.$emit('openImageViewer', this.item)
         }

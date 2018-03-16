@@ -39,7 +39,7 @@
         'refresh',
       ]),
       deleteItem () {
-        this.$axios.post('/api/cloud/delete', {item: this.item})
+        this.$axios.post('/cloud/delete', {item: this.item})
           .then(() => {
             this.refresh()
             this.showDialog = false

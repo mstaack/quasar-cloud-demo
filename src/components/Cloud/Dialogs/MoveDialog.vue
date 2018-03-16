@@ -57,7 +57,7 @@
         'refresh'
       ]),
       moveItem () {
-        this.$axios.post('api/cloud/move', {
+        this.$axios.post('cloud/move', {
           item: this.item,
           target: this.targetFolder
         }).then(() => {

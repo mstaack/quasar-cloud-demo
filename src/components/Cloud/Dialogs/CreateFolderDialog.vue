@@ -64,7 +64,7 @@
           return
         }
 
-        this.$axios.post('/api/cloud/create-directory', {target: this.path, name: this.folderName})
+        this.$axios.post('/cloud/create-directory', {target: this.path, name: this.folderName})
           .then(() => {
             this.refresh()
             this.showDialog = false

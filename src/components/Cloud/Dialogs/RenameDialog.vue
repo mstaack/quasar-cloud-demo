@@ -43,7 +43,7 @@
         'refresh'
       ]),
       renameItem () {
-        this.$axios.post('/api/cloud/rename', {item: this.item, name: this.newName})
+        this.$axios.post('/cloud/rename', {item: this.item, name: this.newName})
           .then(() => {
             this.refresh()
             this.showDialog = false

@@ -57,7 +57,7 @@
         'refresh',
       ]),
       copyItem () {
-        this.$axios.post('api/cloud/copy', {item: this.item, path: this.targetFolder})
+        this.$axios.post('cloud/copy', {item: this.item, path: this.targetFolder})
           .then(() => {
             this.refresh()
             this.showDialog = false

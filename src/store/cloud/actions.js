@@ -8,7 +8,7 @@ export function setPath ({commit, dispatch}, path) {
 export function refresh ({commit, state}) {
   state.loading = true
   axios.all([
-    axios.get('/api/cloud/list', {params: {path: state.path}}),
+    axios.get('cloud/list', {params: {path: state.path}}),
     axios.get('api/cloud/folders')
   ]).then(axios.spread((listResponse, allFoldersResponse) => {
     state.loading = false
@@ -22,7 +22,7 @@ export function refresh ({commit, state}) {
 export function deleteItem ({commit, state}, item) {
   state.loading = true
   axios.all([
-    axios.get('/api/cloud/list', {params: {path: state.path}}),
+    axios.get('cloud/list', {params: {path: state.path}}),
     axios.get('api/cloud/folders')
   ]).then(axios.spread((listResponse, allFoldersResponse) => {
     state.loading = false

@@ -27,11 +27,12 @@ module.exports = function (ctx) {
       env: ctx.prod
         ? {
           // prod env vars here, for example:
-          //API: JSON.stringify('')
+          API_HOST: JSON.stringify('https://api.maxmatteostaack.com')
+
         }
         : {
           // dev env vars here, for example:
-          // API: JSON.stringify('')
+          API_HOST: JSON.stringify('http://localhost:8000')
         },
       scopeHoisting: true,
       vueRouterMode: 'history',
@@ -52,15 +53,6 @@ module.exports = function (ctx) {
       // https: true,
       // port: 8080,
       open: true, // opens browser window automatically
-      proxy: {
-        '/api': {
-          target: 'http://localhost:8000',
-          changeOrigin: true,
-          pathRewrite: {
-            '^/api': ''
-          }
-        }
-      }
     },
     // framework: 'all' --- includes everything; for dev only!
     framework: {

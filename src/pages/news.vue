@@ -52,7 +52,7 @@
     methods: {
       fetchNews () {
         this.loading = true
-        this.$axios.get('api/news').then((response) => {
+        this.$axios.get('news').then((response) => {
           this.loading = false
           this.articles = response.data.articles
         })

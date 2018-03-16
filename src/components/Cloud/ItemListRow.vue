@@ -2,17 +2,17 @@
     <q-item class="item-row"
             @mouseover.native="showOptions = true"
             @mouseout.native="showOptions = false"
-            @click.native="selected = !selected"
+            @click.native="rowClick(item)"
     >
 
         <!--Left Part Icon & Thumbnail-->
-        <q-item-side v-if="!showOptions && !selected" class="text-center">
+        <q-item-side v-if="showPreviewOrIcon" class="text-center">
             <q-icon :name="item.icon" v-if="!item.has_thumbnail" size="28px"></q-icon>
             <img :src="item.thumbnail" alt="Thumbnail" v-if="item.has_thumbnail">
         </q-item-side>
 
         <!--Left Part Checkbox-->
-        <q-item-side v-if="showOptions || selected" class="text-center">
+        <q-item-side v-if="showCheckbox" class="text-center">
             <q-checkbox color="grey-6" v-model="selected"/>
         </q-item-side>
 
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapActions, mapGetters} from 'vuex'
   import {format} from 'quasar'
 
   export default {
@@ -69,16 +69,42 @@
     data () {
       return {
         showOptions: false,
-        showPopover: false,
-        selected: false
+        showPopover: false
       }
     },
     computed: {
       ...mapGetters('cloud', [
         'allFolders',
+        'selectMode',
+        'selectedItems'
       ]),
+      selected: {
+        set () {
+          this.toggleItemSelection(this.item)
+        },
+        get () {
+          return this.selectedItems.findIndex((selectedItem) => selectedItem.path === this.item.path) !== -1
+        }
+      },
+      showCheckbox () {
+        return (this.showOptions || this.selected) && this.selectMode
+      },
+      showPreviewOrIcon () {
+        return !this.showCheckbox
+      }
     },
     methods: {
+      ...mapActions('cloud', [
+        'setPath',
+        'toggleItemSelection'
+      ]),
+      rowClick () {
+        if (this.selectMode) {
+          this.selected = !this.selected
+        } else {
+          this.setPath(this.item.path)
+        }
+      },
       downloadItem () {
         window.location = this.item.download
       },

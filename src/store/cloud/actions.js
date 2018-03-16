@@ -35,11 +35,17 @@ export function deleteItem ({commit, state}, item) {
 
 export function toggleSelectMode ({commit}) {
   commit('TOGGLE_SELECT_MODE')
+  commit('RESET_ITEM_SELECTION')
 }
 
 export function changeViewMode ({commit}, view) {
   commit('CHANGE_VIEW_MODE', view)
 }
+
+export function toggleItemSelection ({commit}, item) {
+  commit('TOGGLE_ITEM_SELECTION', item)
+}
+
 
 
 

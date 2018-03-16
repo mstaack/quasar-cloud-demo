@@ -13,7 +13,6 @@
         <item-list-row v-for="folder in folders"
                        :item="folder"
                        :key="folder.path"
-                       v-on:dblclick.native="setPath(folder.path)"
         />
 
         <!--Separator-->
@@ -66,8 +65,7 @@
     },
     methods: {
       ...mapActions('cloud', [
-        'refresh',
-        'setPath'
+        'refresh'
       ]),
       humanStorageSize (size) {
         return format.humanStorageSize(size)

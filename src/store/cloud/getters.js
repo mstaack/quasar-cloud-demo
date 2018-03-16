@@ -41,3 +41,7 @@ export const viewMode = (state) => {
   return state.viewMode
 }
 
+export const selectedItems = (state) => {
+  return state.selectedItems
+}
+

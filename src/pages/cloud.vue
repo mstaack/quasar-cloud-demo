@@ -6,34 +6,33 @@
                 <breadcrumb-navigation @changePath="setPath($event)"/>
             </div>
             <div>
-                <span v-if="viewMode==='list'">
+                <span v-if="showActionButtons">
                 <q-btn
                         size="sm"
                         outline
                         icon="fa-trash"
                         label="Delete"
-                        v-if="selectMode"
-                        color="red-2"
-                        disabled
+                        v-if="selectedItems.length"
+                        color="red"
                 />
                  <q-btn
                          size="sm"
                          outline
                          icon="fa-copy"
                          label="Copy"
-                         v-if="selectMode"
-                         color="grey-4"
-                         disabled
+                         v-if="selectedItems.length"
+                         color="grey-8"
                  />
                 <q-btn
                         size="sm"
                         outline
                         icon="fa-arrow-right"
                         label="Move"
-                        v-if="selectMode"
-                        color="grey-4"
-                        disabled
+                        v-if="selectedItems.length"
+                        color="grey-8"
                 />
+                </span>
+                <span v-if="viewMode === 'list'">
                 <q-btn
                         size="sm"
                         outline
@@ -137,8 +136,12 @@
       ...mapGetters('cloud', [
         'loading',
         'viewMode',
-        'selectMode'
-      ])
+        'selectMode',
+        'selectedItems'
+      ]),
+      showActionButtons () {
+        return this.viewMode === 'list' && this.selectedItems.length
+      }
     },
     methods: {
       ...mapActions('cloud', [

@@ -102,7 +102,6 @@
         if (this.selectMode) {
           this.selected = !this.selected
         }
-
         if (!this.item.is_file) {
           this.setPath(this.item.path)
         }

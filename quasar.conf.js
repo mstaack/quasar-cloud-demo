@@ -32,7 +32,7 @@ module.exports = function (ctx) {
         }
         : {
           // dev env vars here, for example:
-          API_HOST: JSON.stringify('http://localhost:8000')
+          API_HOST: JSON.stringify(process.env.API_HOST || 'http://localhost:8000')
         },
       scopeHoisting: true,
       vueRouterMode: 'history',

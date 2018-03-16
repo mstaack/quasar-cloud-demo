@@ -10,7 +10,7 @@
                     auto-expand
                     multiple
                     :clearable="true"
-                    url="api/cloud/upload"
+                    url="cloud/upload"
                     name="file"
                     :headers="{Authorization:$store.state.session.user.token}"
                     :additional-fields="[{name:'path',value:path}]"

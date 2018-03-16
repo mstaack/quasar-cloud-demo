@@ -101,8 +101,13 @@
       rowClick () {
         if (this.selectMode) {
           this.selected = !this.selected
-        } else {
+        }
+
+        if (!this.item.is_file) {
           this.setPath(this.item.path)
+        }
+        if (this.item.has_thumbnail) {
+          this.$parent.$emit('openImageViewer', this.item)
         }
       },
       downloadItem () {

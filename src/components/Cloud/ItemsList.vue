@@ -31,6 +31,7 @@
         <move-dialog/>
         <copy-dialog/>
         <rename-dialog/>
+        <image-viewer/>
     </q-list>
 </template>
 
@@ -40,6 +41,7 @@
   import MoveDialog from './Dialogs/MoveDialog'
   import CopyDialog from './Dialogs/CopyDialog'
   import RenameDialog from './Dialogs/RenameDialog'
+  import ImageViewer from './ImageViewer'
 
   import {mapActions, mapGetters} from 'vuex'
   import {format} from 'quasar'
@@ -51,7 +53,8 @@
       DeleteDialog,
       MoveDialog,
       CopyDialog,
-      RenameDialog
+      RenameDialog,
+      ImageViewer
     },
     computed: {
       ...mapGetters('cloud', [

@@ -6,13 +6,26 @@
             Nothing in here...
         </q-list-header>
 
-        <div class="row">
-            <div v-for="item in items">
+        <div class="row wrap justify-around">
+            <div v-for="(item, index) in items" :key="index">
                 <div
-                        class="q-ma-sm q-pa-sm item text-center cursor-pointer"
+                        class="item text-center cursor-pointer ellipsis"
                         @click="setPath(item.path)"
                 >
-                    <q-icon :name="item.icon" color="grey-5" size="50px" class="q-ma-lg"/>
+                    <q-icon
+                      v-if="item.icon"
+                      :name="item.icon"
+                      color="grey-5"
+                      size="50px"
+                      class="q-ma-lg"
+                    />
+
+                    <img
+                      v-if="item.thumbnail"
+                      :src="item.thumbnail"
+                      height="46px"
+                      class="q-ma-lg"
+                    />
                     <p>{{item.name}}</p>
                 </div>
             </div>
@@ -57,5 +70,7 @@
         padding: 8px 0;
 
     .item
-        border: 1px solid #f2f2f2;
+        width 140px
+        min-height 135px
+        // border: 1px solid #f2f2f2;
 </style>

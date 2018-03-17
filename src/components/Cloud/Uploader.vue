@@ -1,5 +1,5 @@
 <template>
-    <q-modal v-model="show">
+    <q-modal v-model="show" content-css="max-height: 720px;padding:5px">
         <div class="flex column q-ma-md" style="width:400px">
             <div>
                 <big>Uploader</big>

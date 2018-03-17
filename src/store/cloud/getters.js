@@ -10,7 +10,7 @@ export const files = (state) => {
 
 export const folders = (state) => {
   return state.items.filter((item) => {
-    return !item.is_file
+    return item.is_dir
   })
 }
 

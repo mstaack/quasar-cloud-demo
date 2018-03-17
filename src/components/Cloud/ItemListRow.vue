@@ -7,8 +7,8 @@
 
         <!--Left Part Icon & Thumbnail-->
         <q-item-side v-if="showPreviewOrIcon" class="text-center">
-            <q-icon :name="item.icon" v-if="!item.has_thumbnail" size="28px"></q-icon>
-            <img :src="item.thumbnail" alt="Thumbnail" v-if="item.has_thumbnail">
+            <q-icon :name="item.icon" v-if="!item.has_preview" size="28px"></q-icon>
+            <img :src="item.thumbnail" alt="Thumbnail" v-if="item.has_preview">
         </q-item-side>
 
         <!--Left Part Checkbox-->
@@ -113,12 +113,12 @@
           return
         }
         //open folders
-        if (!this.item.is_file) {
+        if (this.item.is_dir) {
           this.setPath(this.item.path)
           return
         }
         //open preview
-        if (this.item.has_thumbnail) {
+        if (this.item.has_preview) {
           this.$parent.$emit('openImageViewer', this.item)
         }
       },

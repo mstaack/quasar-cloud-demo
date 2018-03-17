@@ -1,5 +1,5 @@
 <template>
-    <q-modal v-model="show" content-css="max-height: 720px;padding:5px">
+    <q-modal v-model="show" content-css="width:450px;max-height:720px;padding:5px">
         <div class="flex column q-ma-md" style="width:400px">
             <div>
                 <big>Uploader</big>
@@ -38,7 +38,7 @@
     data () {
       return {
         show: false,
-        uploadUrl: process.env.API_HOST
+        uploadUrl: process.env.API_HOST + '/cloud/upload'
       }
     },
     computed: {

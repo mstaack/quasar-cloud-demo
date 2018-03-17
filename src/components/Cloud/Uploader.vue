@@ -10,7 +10,7 @@
                         auto-expand
                         multiple
                         :clearable="true"
-                        :url="process.env.API_HOST + '/cloud/upload'"
+                        :url="uploadUrl"
                         name="file"
                         :headers="{Authorization:$store.state.session.user.token}"
                         :additional-fields="[{name:'path',value:path}]"
@@ -37,7 +37,8 @@
     name: 'Uploader',
     data () {
       return {
-        show: false
+        show: false,
+        uploadUrl: process.env.API_HOST
       }
     },
     computed: {

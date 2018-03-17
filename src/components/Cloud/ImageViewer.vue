@@ -1,8 +1,6 @@
 <template>
     <q-modal v-model="show">
-        <div>
-            <img :src="url" alt="Image" @click="show=false">
-        </div>
+        <img :src="url" alt="Image" @click="show=false">
     </q-modal>
 </template>
 
@@ -24,7 +22,7 @@
     },
     computed: {
       url () {
-        return this.item.thumbnail + '&size=650'
+        return this.item.show + '&size=medium'
       }
     },
     methods: {}

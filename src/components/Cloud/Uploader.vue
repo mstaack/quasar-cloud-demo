@@ -1,5 +1,5 @@
 <template>
-    <q-modal v-model="show">
+    <q-modal v-model="show" content-css="width:450px;max-height:720px;padding:5px">
         <div class="flex column q-ma-md" style="width:400px">
             <div>
                 <big>Uploader</big>
@@ -10,7 +10,7 @@
                         auto-expand
                         multiple
                         :clearable="true"
-                        url="cloud/upload"
+                        :url="uploadUrl"
                         name="file"
                         :headers="{Authorization:$store.state.session.user.token}"
                         :additional-fields="[{name:'path',value:path}]"
@@ -37,7 +37,8 @@
     name: 'Uploader',
     data () {
       return {
-        show: false
+        show: false,
+        uploadUrl: process.env.API_HOST + '/cloud/upload'
       }
     },
     computed: {

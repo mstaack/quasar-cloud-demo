@@ -16,7 +16,6 @@
                         :auto-expand="false"
                         :headers="{Authorization:$store.state.session.user.token}"
                         :additional-fields="[{name:'path',value:path}]"
-                        @finish="refresh"
                 />
             </div>
             <div class="flex justify-end q-mt-lg">

@@ -15,6 +15,7 @@
                     icon="keyboard arrow left"
                     @click.native="prev"
                     label="Prev"
+                    v-if="hasPrev"
             />
             <q-btn
                     outline
@@ -23,6 +24,7 @@
                     icon-right="keyboard arrow right"
                     @click.native="next"
                     label="Next"
+                    v-if="hasNext"
             />
         </div>
     </q-modal>
@@ -57,16 +59,22 @@
       },
       url () {
         return this.images[this.index].show + '&size=medium'
+      },
+      hasNext () {
+        return this.index < this.images.length - 1
+      },
+      hasPrev () {
+        return this.index !== 0
       }
     },
     methods: {
       next () {
-        if (this.index < this.images.length - 1) {
+        if (this.hasNext) {
           this.index++
         }
       },
       prev () {
-        if (this.index !== 0) {
+        if (this.hasPrev) {
           this.index--
         }
       },

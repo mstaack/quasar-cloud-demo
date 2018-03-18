@@ -4,7 +4,10 @@
              content-classes="['no-scroll']"
     >
         <img :src="url" alt="Image" @click="show=false" v-if="show">
-        <div class="row justify-between q-mt-xs">
+        <div
+                class="row justify-between q-mt-xs"
+                v-if="images.length>1"
+        >
             <q-btn
                     outline
                     flat

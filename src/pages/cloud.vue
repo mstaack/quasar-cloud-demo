@@ -43,6 +43,7 @@
                                 label="All"
                                 :color="selectMode ? 'grey-8' :'grey-3'"
                                 @click="selectAll"
+                                v-if="selectMode"
                         />
                         <q-btn
                                 size="sm"
@@ -50,6 +51,7 @@
                                 label="None"
                                 :color="selectMode ? 'grey-8' :'grey-3'"
                                 @click="selectNone"
+                                v-if="selectMode"
                         />
                         <q-btn
                                 size="sm"

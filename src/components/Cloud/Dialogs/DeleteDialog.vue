@@ -3,7 +3,7 @@
         <span slot="title">Delete</span>
 
         <span slot="message">
-            Are you sure to delete <span class="text-weight-bold">{{item.name}}</span> ?
+            Are you sure to delete <span class="text-weight-bold">{{confirmMessage}}</span> ?
         </span>
 
         <template slot="buttons" slot-scope="props">
@@ -25,26 +25,38 @@
     data () {
       return {
         showDialog: false,
-        item: {}
+        items: []
       }
     },
     created () {
-      this.$parent.$on('openDeleteDialog', (item) => {
-        this.item = item
+      this.$root.$on('openDeleteDialog', (items) => {
+        this.items = items
         this.showDialog = true
       })
+    },
+    computed: {
+      successMessage () {
+        return this.items.length === 1 ?
+          this.items[0].name + ' deleted!' :
+          this.items.length + ' Items deleted!'
+      },
+      confirmMessage () {
+        return this.items.length === 1 ?
+          this.items[0].name :
+          this.items.length + ' Items'
+      }
     },
     methods: {
       ...mapActions('cloud', [
         'refresh'
       ]),
       deleteItem () {
-        this.$store.dispatch('cloud/deleteItem', this.item).then(() => {
+        this.$store.dispatch('cloud/deleteItems', this.items).then(() => {
           this.showDialog = false
           this.$q.notify({
             color: 'positive',
             position: 'top',
-            message: this.item.name + ' deleted!',
+            message: this.successMessage,
             icon: 'fa-check-circle',
           })
         }).catch((error) => {

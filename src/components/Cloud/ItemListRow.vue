@@ -51,7 +51,7 @@
                             <q-item-side icon="fa-arrow-right" color="grey-5"/>
                             <q-item-main label="Move" @click.native="$parent.$emit('openMoveDialog',item)"/>
                         </q-item>
-                        <q-item v-close-overlay @click.native="$parent.$emit('openDeleteDialog',item)">
+                        <q-item v-close-overlay @click.native="$parent.$emit('openDeleteDialog',[item])">
                             <q-item-side icon="fa-trash-alt" color="grey-5"/>
                             <q-item-main label="Delete"/>
                         </q-item>

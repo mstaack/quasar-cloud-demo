@@ -14,6 +14,7 @@
                         label="Delete"
                         v-if="selectedItems.length"
                         color="red"
+                        @click="$root.$emit('openDeleteDialog', selectedItems)"
                 />
                  <q-btn
                          size="sm"

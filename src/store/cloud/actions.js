@@ -19,10 +19,11 @@ export function refresh ({commit, state}) {
   })
 }
 
-export function deleteItem ({commit, state}, item) {
-  return axios.post('/cloud/delete', {item})
+export function deleteItems ({dispatch, commit, state}, items) {
+  return axios.post('/cloud/delete', {items: items})
     .then(() => {
-      commit('DELETE_ITEM', item)
+      dispatch('refresh')
+      commit('RESET_ITEM_SELECTION')
     })
 }
 

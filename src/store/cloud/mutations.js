@@ -10,11 +10,6 @@ export const SET_PATH = (state, path) => {
   state.path = path
 }
 
-export const DELETE_ITEM = (state, selectedItem) => {
-  const itemIndex = state.items.findIndex((item) => item.path === selectedItem.path)
-  state.items.splice(itemIndex, 1)
-}
-
 export const CHANGE_VIEW_MODE = (state, view) => {
   state.viewMode = view
 }

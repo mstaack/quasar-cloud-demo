@@ -15,7 +15,7 @@
                     icon="keyboard arrow left"
                     @click.native="prev"
                     label="Prev"
-                    v-show="hasPrev"
+                    :disabled="!hasPrev"
             />
             <q-btn
                     outline
@@ -24,7 +24,7 @@
                     icon-right="keyboard arrow right"
                     @click.native="next"
                     label="Next"
-                    v-show="hasNext"
+                    :disabled="!hasNext"
             />
         </div>
     </q-modal>

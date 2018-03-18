@@ -13,7 +13,6 @@
                         :url="uploadUrl"
                         name="file"
                         :hide-upload-button="true"
-                        :auto-expand="false"
                         :headers="{Authorization:$store.state.session.user.token}"
                         :additional-fields="[{name:'path',value:path}]"
                 />

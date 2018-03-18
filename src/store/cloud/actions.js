@@ -24,6 +24,7 @@ export function deleteItems ({dispatch, commit}, items) {
   return axios.post('/cloud/delete', {items: items})
     .then(() => {
       dispatch('refresh')
+      dispatch('toggleSelectMode')
     })
 }
 
@@ -57,6 +58,14 @@ export function createFolder ({dispatch, state}, name) {
 
 export function toggleSelectMode ({commit}) {
   commit('TOGGLE_SELECT_MODE')
+  commit('RESET_ITEM_SELECTION')
+}
+
+export function selectAll ({commit}) {
+  commit('SELECT_ALL')
+}
+
+export function selectNone ({commit}) {
   commit('RESET_ITEM_SELECTION')
 }
 

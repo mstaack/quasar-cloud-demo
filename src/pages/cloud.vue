@@ -36,13 +36,29 @@
                 />
                 </span>
                 <span v-if="viewMode === 'list' && items.length>0" class="q-ml-md">
-                <q-btn
-                        size="sm"
-                        outline
-                        icon="fa-check-square"
-                        :color="selectMode ? 'grey-8' :'grey-3'"
-                        @click="toggleSelectMode"
-                />
+                    <q-btn-group outline class="q-mx-md">
+                        <q-btn
+                                size="sm"
+                                outline
+                                label="All"
+                                :color="selectMode ? 'grey-8' :'grey-3'"
+                                @click="selectAll"
+                        />
+                        <q-btn
+                                size="sm"
+                                outline
+                                label="None"
+                                :color="selectMode ? 'grey-8' :'grey-3'"
+                                @click="selectNone"
+                        />
+                        <q-btn
+                                size="sm"
+                                outline
+                                icon="fa-check-square"
+                                :color="selectMode ? 'grey-8' :'grey-3'"
+                                @click="toggleSelectMode"
+                        />
+                    </q-btn-group>
                 </span>
 
 
@@ -153,8 +169,10 @@
         'refresh',
         'setPath',
         'toggleSelectMode',
-        'changeViewMode'
-      ])
+        'changeViewMode',
+        'selectAll',
+        'selectNone'
+      ]),
     }
   }
 </script>

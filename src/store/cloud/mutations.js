@@ -27,3 +27,7 @@ export const TOGGLE_ITEM_SELECTION = (state, item) => {
     state.selectedItems.push(item) :
     state.selectedItems.splice(selectedItemIndex, 1)
 }
+
+export const SELECT_ALL = (state) => {
+  state.selectedItems = state.items
+}

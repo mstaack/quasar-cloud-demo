@@ -18,10 +18,7 @@
     </q-dialog>
 </template>
 
-
 <script>
-  import {mapActions} from 'vuex'
-
   export default {
     name: 'RenameDialog',
     data () {
@@ -32,20 +29,16 @@
       }
     },
     created () {
-      this.$parent.$on('openRenameDialog', (item) => {
+      this.$root.$on('openRenameDialog', (item) => {
         this.item = item
         this.newName = item.name
         this.showDialog = true
       })
     },
     methods: {
-      ...mapActions('cloud', [
-        'refresh'
-      ]),
       renameItem () {
-        this.$axios.post('/cloud/rename', {item: this.item, name: this.newName})
+        this.$store.dispatch('cloud/renameItem', {item: this.item, name: this.newName})
           .then(() => {
-            this.refresh()
             this.showDialog = false
             this.$q.notify({
               color: 'positive',
@@ -55,7 +48,6 @@
             })
           })
           .catch((error) => {
-            this.refresh()
             this.showDialog = false
             this.$q.notify({
               color: 'negative',

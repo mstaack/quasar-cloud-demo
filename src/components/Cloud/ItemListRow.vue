@@ -41,17 +41,17 @@
                         </q-item>
                         <q-item v-close-overlay>
                             <q-item-side icon="fa-pencil-alt" color="grey-5"/>
-                            <q-item-main label="Rename" @click.native="$parent.$emit('openRenameDialog',item)"/>
+                            <q-item-main label="Rename" @click.native="$root.$emit('openRenameDialog',item)"/>
                         </q-item>
                         <q-item v-close-overlay v-if="allFolders.length >1">
                             <q-item-side icon="fa-copy" color="grey-5"/>
-                            <q-item-main label="Copy" @click.native="$parent.$emit('openCopyDialog',item)"/>
+                            <q-item-main label="Copy" @click.native="$root.$emit('openCopyDialog',[item])"/>
                         </q-item>
                         <q-item v-close-overlay v-if="allFolders.length >1">
                             <q-item-side icon="fa-arrow-right" color="grey-5"/>
-                            <q-item-main label="Move" @click.native="$parent.$emit('openMoveDialog',item)"/>
+                            <q-item-main label="Move" @click.native="$root.$emit('openMoveDialog',[item])"/>
                         </q-item>
-                        <q-item v-close-overlay @click.native="$parent.$emit('openDeleteDialog',[item])">
+                        <q-item v-close-overlay @click.native="$root.$emit('openDeleteDialog',[item])">
                             <q-item-side icon="fa-trash-alt" color="grey-5"/>
                             <q-item-main label="Delete"/>
                         </q-item>

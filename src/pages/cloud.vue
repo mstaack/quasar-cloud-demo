@@ -21,7 +21,8 @@
                          outline
                          icon="fa-copy"
                          label="Copy"
-                         v-if="selectedItems.length"
+                         v-if="selectedItems.length && allFolders.length"
+                         @click="$root.$emit('openCopyDialog', selectedItems)"
                          color="grey-8"
                  />
                 <q-btn
@@ -29,11 +30,12 @@
                         outline
                         icon="fa-arrow-right"
                         label="Move"
-                        v-if="selectedItems.length"
+                        v-if="selectedItems.length && allFolders.length"
+                        @click="$root.$emit('openMoveDialog', selectedItems)"
                         color="grey-8"
                 />
                 </span>
-                <span v-if="viewMode === 'list'">
+                <span v-if="viewMode === 'list' && items.length>0" class="q-ml-md">
                 <q-btn
                         size="sm"
                         outline
@@ -138,7 +140,9 @@
         'loading',
         'viewMode',
         'selectMode',
-        'selectedItems'
+        'selectedItems',
+        'allFolders',
+        'items'
       ]),
       showActionButtons () {
         return this.viewMode === 'list' && this.selectedItems.length

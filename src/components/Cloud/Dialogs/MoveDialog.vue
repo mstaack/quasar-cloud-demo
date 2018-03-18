@@ -18,23 +18,22 @@
             <q-btn
                     color="primary"
                     label="Move"
-                    @click="moveItem"
+                    @click="moveItems"
                     :disable="targetFolder===null"
             />
         </template>
     </q-dialog>
 </template>
 
-
 <script>
-  import {mapActions, mapGetters} from 'vuex'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'MoveDialog',
     data () {
       return {
         showDialog: false,
-        item: {},
+        items: [],
         targetFolder: null
       }
     },
@@ -43,34 +42,33 @@
         'allFolders',
       ]),
       folders () {
-        return this.allFolders.filter((folder) => folder.value !== this.item.path)
+        return this.allFolders
+        // return this.allFolders.filter((folder) => folder.value !== this.item.path)
+      },
+      successMessage () {
+        return this.items.length === 1 ?
+          this.items[0].name + ' moved' :
+          this.items.length + ' Items moved'
       },
     },
     created () {
-      this.$parent.$on('openMoveDialog', (item) => {
-        this.item = item
+      this.$root.$on('openMoveDialog', (items) => {
+        this.items = items
         this.showDialog = true
       })
     },
     methods: {
-      ...mapActions('cloud', [
-        'refresh'
-      ]),
-      moveItem () {
-        this.$axios.post('cloud/move', {
-          item: this.item,
-          target: this.targetFolder
-        }).then(() => {
-          this.refresh()
-          this.showDialog = false
-          this.$q.notify({
-            color: 'positive',
-            position: 'top',
-            message: 'Item moved',
-            icon: 'fa-check-circle'
-          })
-        }).catch((error) => {
-          this.refresh()
+      moveItems () {
+        this.$store.dispatch('cloud/moveItems', {items: this.items, target: this.targetFolder})
+          .then(() => {
+            this.showDialog = false
+            this.$q.notify({
+              color: 'positive',
+              position: 'top',
+              message: this.successMessage,
+              icon: 'fa-check-circle'
+            })
+          }).catch((error) => {
           this.showDialog = false
           this.$q.notify({
             color: 'negative',

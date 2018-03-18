@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {mapActions, mapGetters} from 'vuex'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'CreateFolderDialog',
@@ -49,9 +49,6 @@
       })
     },
     methods: {
-      ...mapActions('cloud', [
-        'refresh'
-      ]),
       createFolder () {
 
         if (this.isInvalidFolderName) {
@@ -64,14 +61,13 @@
           return
         }
 
-        this.$axios.post('/cloud/create-directory', {target: this.path, name: this.folderName})
+        this.$store.dispatch('cloud/createFolder', this.folderName)
           .then(() => {
-            this.refresh()
             this.showDialog = false
             this.$q.notify({
               color: 'positive',
               position: 'top',
-              message: this.folderName + ' created.',
+              message: this.folderName + ' created',
               icon: 'fa-check-circle',
             })
             this.folderName = ''

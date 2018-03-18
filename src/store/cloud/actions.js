@@ -14,16 +14,44 @@ export function refresh ({commit, state}) {
     state.loading = false
     commit('SET_ITEMS', listResponse.data.data)
     commit('SET_ALL_FOLDERS', allFoldersResponse.data.data)
+    commit('RESET_ITEM_SELECTION')
   })).catch(() => {
     state.loading = false
   })
 }
 
-export function deleteItems ({dispatch, commit, state}, items) {
+export function deleteItems ({dispatch, commit}, items) {
   return axios.post('/cloud/delete', {items: items})
     .then(() => {
       dispatch('refresh')
-      commit('RESET_ITEM_SELECTION')
+    })
+}
+
+export function copyItems ({dispatch}, {items, target}) {
+  return axios.post('/cloud/copy', {items: items, target: target})
+    .then(() => {
+      dispatch('refresh')
+    })
+}
+
+export function moveItems ({dispatch}, {items, target}) {
+  return axios.post('/cloud/move', {items: items, target: target})
+    .then(() => {
+      dispatch('refresh')
+    })
+}
+
+export function renameItem ({dispatch}, {item, name}) {
+  return axios.post('/cloud/rename', {item: item, name: name})
+    .then(() => {
+      dispatch('refresh')
+    })
+}
+
+export function createFolder ({dispatch, state}, name) {
+  return axios.post('/cloud/create-directory', {name: name, target: state.path})
+    .then(() => {
+      dispatch('refresh')
     })
 }
 

@@ -18,8 +18,7 @@
             <q-btn
                     color="primary"
                     label="Copy"
-                    @click="copyItem"
-                    @keyup.enter="copyItem"
+                    @click="copyItems"
                     :disable="targetFolder===null"
             />
         </template>
@@ -27,20 +26,20 @@
 </template>
 
 <script>
-  import {mapActions, mapGetters} from 'vuex'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'CopyDialog',
     data () {
       return {
-        targetFolder: null,
         showDialog: false,
-        item: {}
+        items: [],
+        targetFolder: null
       }
     },
     created () {
-      this.$parent.$on('openCopyDialog', (item) => {
-        this.item = item
+      this.$root.$on('openCopyDialog', (items) => {
+        this.items = items
         this.showDialog = true
       })
     },
@@ -49,35 +48,35 @@
         'allFolders',
       ]),
       folders () {
-        return this.allFolders.filter((folder) => folder.value !== this.item.path)
-      }
+        return this.allFolders
+        // return this.allFolders.filter((folder) => folder.value !== this.item.path)
+      },
+      successMessage () {
+        return this.items.length === 1 ?
+          this.items[0].name + ' copied' :
+          this.items.length + ' Items copied'
+      },
     },
     methods: {
-      ...mapActions('cloud', [
-        'refresh',
-      ]),
-      copyItem () {
-        this.$axios.post('cloud/copy', {item: this.item, path: this.targetFolder})
+      copyItems () {
+        this.$store.dispatch('cloud/copyItems', {items: this.items, target: this.targetFolder})
           .then(() => {
-            this.refresh()
             this.showDialog = false
             this.$q.notify({
               color: 'positive',
               position: 'top',
-              message: 'Item copied',
+              message: this.successMessage,
               icon: 'fa-check-circle'
             })
+          }).catch((error) => {
+          this.showDialog = false
+          this.$q.notify({
+            color: 'negative',
+            position: 'top',
+            message: error.response.data.message || 'Something went wrong',
+            icon: 'fa-exclamation-triangle'
           })
-          .catch((error) => {
-            this.refresh()
-            this.showDialog = false
-            this.$q.notify({
-              color: 'negative',
-              position: 'top',
-              message: error.response.data.message || 'Something went wrong',
-              icon: 'fa-exclamation-triangle'
-            })
-          })
+        })
       }
     }
   }

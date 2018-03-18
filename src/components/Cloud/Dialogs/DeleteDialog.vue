@@ -18,7 +18,6 @@
 </template>
 
 <script>
-  import {mapActions} from 'vuex'
 
   export default {
     name: 'DeleteDialog',
@@ -37,8 +36,8 @@
     computed: {
       successMessage () {
         return this.items.length === 1 ?
-          this.items[0].name + ' deleted!' :
-          this.items.length + ' Items deleted!'
+          this.items[0].name + ' deleted' :
+          this.items.length + ' Items deleted'
       },
       confirmMessage () {
         return this.items.length === 1 ?
@@ -47,9 +46,6 @@
       }
     },
     methods: {
-      ...mapActions('cloud', [
-        'refresh'
-      ]),
       deleteItem () {
         this.$store.dispatch('cloud/deleteItems', this.items).then(() => {
           this.showDialog = false
@@ -64,7 +60,7 @@
           this.$q.notify({
             color: 'negative',
             position: 'top',
-            message: error.response.data.message || 'Whoops, something went wrong!',
+            message: error.response.data.message || 'Something went wrong',
             icon: 'report_problem'
           })
         })

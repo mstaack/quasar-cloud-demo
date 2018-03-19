@@ -6,7 +6,8 @@ module.exports = function (ctx) {
       'axios',
       'vuelidate',
       'title',
-      'auth'
+      'auth',
+      'gallery',
     ],
     css: [
       'app.styl'

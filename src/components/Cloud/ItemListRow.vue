@@ -7,8 +7,17 @@
 
         <!--Left Part Icon & Thumbnail-->
         <q-item-side v-if="showPreviewOrIcon" class="text-center">
-            <q-icon :name="item.icon" v-if="!item.has_preview" size="28px"></q-icon>
-            <img :src="item.thumbnail" alt="Thumbnail" v-if="item.has_preview">
+            <q-icon
+                    v-if="!item.has_preview"
+                    :name="item.icon"
+                    size="28px"
+            />
+            <img
+                    v-else
+                    :src="item.thumbnail"
+                    alt="Thumbnail"
+                    class="vertical-middle"
+            />
         </q-item-side>
 
         <!--Left Part Checkbox-->
@@ -134,5 +143,5 @@
 
 <style lang="stylus" scoped>
     .item-row
-        height: 43px
+        height: 45px
 </style>

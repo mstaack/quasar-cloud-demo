@@ -7,7 +7,6 @@ module.exports = function (ctx) {
       'vuelidate',
       'title',
       'auth',
-      'gallery',
     ],
     css: [
       'app.styl'

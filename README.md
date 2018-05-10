@@ -1,12 +1,13 @@
-# Quasar Advanced Starter App
+# Quasar Cloud Demo Application
 
 This is an app that you can use to learn more about the "Quasar Method". There may be other ways to do things, but this stuff "Works for us"®.
+This is basically a Dropbox-Like FileManager & News Application.
 
 ## How to use
 ```
 $ npm install -g quasar-cli
-$ git clone https://github.com/mstaack/quasar-advanced-starter.git
-$ cd quasar-advanced-starter
+$ git clone https://github.com/mstaack/quasar-cloud-demo.git
+$ cd quasar-cloud-demo
 $ npm install
 $ quasar dev
 ```

@@ -35,7 +35,7 @@
                         error-label="Passwords needs to be 8 chars at minimum"
                 >
                     <q-input
-                            v-model.trim="form.password"
+                            v-model="form.password"
                             type="password"
                             @keyup.enter="register"
                             @input="$v.form.password.$touch()"

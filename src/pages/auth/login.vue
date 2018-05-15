@@ -23,9 +23,9 @@
                         error-label="Passwords needs to be 8 chars at minimum"
                 >
                     <q-input
-                            v-model.trim="form.password"
+                            v-model="form.password"
                             type="password"
-                            ref="email"
+                            ref="password"
                             @keyup.enter="login"
                     />
                 </q-field>

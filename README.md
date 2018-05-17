@@ -1,6 +1,8 @@
 # Quasar Cloud Demo Application
 
-This is an app that you can use to learn more about the "Quasar Method". There may be other ways to do things, but this stuff "Works for us"®.
+This is an app that you can use to learn more about the "Quasar Method".   
+There may be other ways to do things, but this stuff "Works for us"®.
+
 This is basically a Dropbox-Like FileManager & News Application.
 
 ## How to use
@@ -32,4 +34,4 @@ $ quasar dev
 - Discord Chat: https://discord.gg/5TDhbDg
 
 ## License
-MIT?
+MIT
